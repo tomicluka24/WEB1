@@ -17,7 +17,7 @@ namespace PR141_2017_WebProjekat.Models
         //public Dictionary<string, Karta> SveKarteBezObziraNaStatus { get; set; } //ako je korisnik kupac
         //public List<Manifestacija> Manifestacije { get; set; } //ako je korisnik prodavac
         public double BrojSakupljenihBodova { get; set; } //ako je korisnik prodavac
-        public string TipKorisnika { get; set; } // koja je razlika izmedju uloge i tipa?
+        public TipKorisnika TipKorisnika { get; set; } 
 
     }
 }
