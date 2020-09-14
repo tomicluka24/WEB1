@@ -12,7 +12,7 @@ namespace PR141_2017_WebProjekat.Models
         public DateTime DatumIVremeManifestacije { get; set; }
         public double Cena { get; set; }
         public string Kupac { get; set; }
-        public bool isRezervisana { get; set; }
+        public bool IsRezervisana { get; set; }
         public string Tip { get; set; }
 
     }
