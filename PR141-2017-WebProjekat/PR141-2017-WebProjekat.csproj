@@ -126,6 +126,7 @@
     </Compile>
     <Compile Include="Models\Korisnik.cs" />
     <Compile Include="Models\Lokacija.cs" />
+    <Compile Include="Models\Manifestacija.cs" />
     <Compile Include="Models\MestoOdrzavanja.cs" />
     <Compile Include="Models\TipKorisnika.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
