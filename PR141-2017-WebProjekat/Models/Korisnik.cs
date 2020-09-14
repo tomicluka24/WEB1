@@ -48,5 +48,20 @@ namespace PR141_2017_WebProjekat.Models
             BrojSakupljenihBodova = brojSakupljenihBodova;
             TipKorisnika = tipKorisnika;
         }
+
+        public Korisnik(string korisnickoIme, string lozinka, string ime, string prezime, string pol, DateTime datumRodjenja, string uloga)
+        {
+            KorisnickoIme = korisnickoIme;
+            Lozinka = lozinka;
+            Ime = ime;
+            Prezime = prezime;
+            Pol = pol;
+            DatumRodjenja = datumRodjenja;
+            Uloga = uloga;
+            SveKarteBezObziraNaStatus = new Dictionary<string, Karta>();
+            Manifestacije = new List<Manifestacija>();
+            BrojSakupljenihBodova = 0;
+            TipKorisnika = new TipKorisnika();
+        }
     }
 }
