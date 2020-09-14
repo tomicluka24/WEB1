@@ -11,5 +11,18 @@ namespace PR141_2017_WebProjekat.Models
         public double GeografskaSirina { get; set; }
         public MestoOdrzavanja MestoOdrzavanja { get; set; }
 
+        public Lokacija()
+        {
+            GeografskaDuzina = 0;
+            GeografskaSirina = 0;
+            MestoOdrzavanja = new MestoOdrzavanja();
+        }
+
+        public Lokacija(double geografskaDuzina, double geografskaSirina, MestoOdrzavanja mestoOdrzavanja)
+        {
+            GeografskaDuzina = geografskaDuzina;
+            GeografskaSirina = geografskaSirina;
+            MestoOdrzavanja = mestoOdrzavanja;
+        }
     }
 }
