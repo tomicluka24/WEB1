@@ -20,7 +20,7 @@ namespace PR141_2017_WebProjekat.Models
             while ((red = sr.ReadLine()) != null)
             {
                 string[] tokeni = red.Split(';');
-                Korisnik k = new Korisnik(tokeni[0], tokeni[1], tokeni[2], tokeni[3], tokeni[4], DateTime.Parse(tokeni[5]), tokeni[6]); 
+                Korisnik k = new Korisnik(tokeni[0], tokeni[1], tokeni[2], tokeni[3], tokeni[4], Convert.ToDateTime(tokeni[5]), tokeni[6]); 
                 korisnici.Add(k);
             }
 
