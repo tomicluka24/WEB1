@@ -4,3 +4,7 @@ vojo98;vukicevic24;vojislav;vukicevic;muski;22/07/1998;administrator
 stefan98;stefan81;stefan;nikolic;muski;15/05/1998;kupac
 rade98;rade60;rade;kerkez;muski;25/10/1998;prodavac
 vito64;vitoni;vito;tomic;muski;12/12/1964;administrator
+darkoni;darkoni123;darko;darkovic;zenski;11/11/1992;prodavac
+sibo98;sibo123;milos;sibalic;muski;12/12/1912;kupac
+acke;acobanmunja;aco;vukicevic;muski;11/11/1965;admini
+janja;janja;janja;janja;muski;12/12/1212;prodavac
