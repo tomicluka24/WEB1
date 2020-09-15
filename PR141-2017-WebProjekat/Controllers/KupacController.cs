@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PR141_2017_WebProjekat.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -9,9 +10,9 @@ namespace PR141_2017_WebProjekat.Controllers
     public class KupacController : Controller
     {
         // GET: Kupac
-        public ActionResult Index()
+        public ActionResult Index(Korisnik k)
         {
-            return View();
+            return View(k);
         }
     }
 }

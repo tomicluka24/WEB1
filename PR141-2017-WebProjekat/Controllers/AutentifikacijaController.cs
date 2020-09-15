@@ -11,6 +11,7 @@ namespace PR141_2017_WebProjekat.Controllers
     {
         //GET: Autentifikacija
        // [HttpPost]
+       // [Route("Autentifikacija/Prijavljivanje/")]
         public ActionResult Prijavljivanje(string korisnickoIme, string lozinka)
         {
             List<Korisnik> korisnici = (List<Korisnik>)HttpContext.Application["korisnici"];
@@ -23,13 +24,14 @@ namespace PR141_2017_WebProjekat.Controllers
 
             Session["korisnik"] = korisnik;
 
-            if (korisnik.Uloga == "administrator")
-                return RedirectToAction("Index", "Administrator");
-            else if (korisnik.Uloga == "prodavac")
-                return RedirectToAction("Index", "Prodavac");
-            else 
-                return RedirectToAction("Index", "Kupac");
+            //if (korisnik.Uloga == "administrator")
+            //    return RedirectToAction("Index", "Administrator", korisnik);
+            //else if (korisnik.Uloga == "prodavac")
+            //    return RedirectToAction("Index", "Prodavac", korisnik);
+            //else 
+            //    return RedirectToAction("Index", "Kupac", korisnik);
 
+            return RedirectToAction("Index", "Home"); //pocetna stranica sajta 
         }
 
         public ActionResult Registracija()
@@ -47,7 +49,7 @@ namespace PR141_2017_WebProjekat.Controllers
             Podaci.UpisiKorisnika(korisnik);
             Session["korisnik"] = korisnik;
 
-            return RedirectToAction("Prijavljivanje", "Autentifikacija"); //return to login when registration is completed
+            return RedirectToAction("Prijavljivanje", "Autentifikacija");
         }
 
     }

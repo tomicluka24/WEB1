@@ -7,12 +7,18 @@ using System.Web.Mvc;
 
 namespace PR141_2017_WebProjekat.Controllers
 {
-    public class HomeController : Controller
+    public class KorisnikController : Controller
     {
+        // GET: Korisnik
         public ActionResult Index()
         {
             return View();
         }
 
+        public ActionResult PrikaziKorisnika(Korisnik k)
+        {
+           k = (Korisnik)Session["korisnik"];
+           return View(k);
+        }
     }
 }

@@ -6,5 +6,6 @@ rade98;rade60;rade;kerkez;muski;25/10/1998;prodavac
 vito64;vitoni;vito;tomic;muski;12/12/1964;administrator
 darkoni;darkoni123;darko;darkovic;zenski;11/11/1992;prodavac
 sibo98;sibo123;milos;sibalic;muski;12/12/1912;kupac
-acke;acobanmunja;aco;vukicevic;muski;11/11/1965;admini
+acke;acobanmunja;aco;vukicevic;muski;11/11/1965;administrator	
 janja;janja;janja;janja;muski;12/12/1212;prodavac
+Janko91;Janko91;Janko;Jankovic;muski;12/12/1213;kupac

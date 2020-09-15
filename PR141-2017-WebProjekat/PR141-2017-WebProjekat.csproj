@@ -123,6 +123,7 @@
     <Compile Include="Controllers\AdministratorController.cs" />
     <Compile Include="Controllers\AutentifikacijaController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\KorisnikController.cs" />
     <Compile Include="Controllers\KupacController.cs" />
     <Compile Include="Controllers\ProdavacController.cs" />
     <Compile Include="Global.asax.cs">
@@ -175,12 +176,12 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Autentifikacija\Registracija.cshtml" />
     <Content Include="Views\Autentifikacija\Prijavljivanje.cshtml" />
+    <Content Include="Views\Kupac\Index.cshtml" />
+    <Content Include="Views\Prodavac\Index.cshtml" />
+    <Content Include="Views\Administrator\Index.cshtml" />
+    <Content Include="Views\Korisnik\PrikaziKorisnika.cshtml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Views\Administrator\" />
-    <Folder Include="Views\Kupac\" />
-    <Folder Include="Views\Prodavac\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

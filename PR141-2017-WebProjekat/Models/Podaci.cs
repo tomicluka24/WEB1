@@ -35,7 +35,7 @@ namespace PR141_2017_WebProjekat.Models
 
             string objectToWrite = korisnik.KorisnickoIme + ";" + korisnik.Lozinka + ";" + korisnik.Ime + ";" + korisnik.Prezime + ";"
             + korisnik.Pol + ";" + korisnik.DatumRodjenja.Day.ToString() + "/" + korisnik.DatumRodjenja.Month.ToString() + "/" + korisnik.DatumRodjenja.Year.ToString() + ";" 
-            + korisnik.Uloga.ToString();
+            + "kupac";
             sw.WriteLine(objectToWrite);
 
             sw.Close();
