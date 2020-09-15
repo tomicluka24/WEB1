@@ -24,14 +24,14 @@ namespace PR141_2017_WebProjekat.Controllers
 
             Session["korisnik"] = korisnik;
 
-            //if (korisnik.Uloga == "administrator")
-            //    return RedirectToAction("Index", "Administrator", korisnik);
-            //else if (korisnik.Uloga == "prodavac")
-            //    return RedirectToAction("Index", "Prodavac", korisnik);
-            //else 
-            //    return RedirectToAction("Index", "Kupac", korisnik);
+            if (korisnik.Uloga == "administrator")
+                return RedirectToAction("Index", "Administrator");
+            else if (korisnik.Uloga == "prodavac")
+                return RedirectToAction("Index", "Prodavac");
+            else
+                return RedirectToAction("Index", "Kupac");
 
-            return RedirectToAction("Index", "Home"); //pocetna stranica sajta 
+            //return RedirectToAction("Index", "Home"); //pocetna stranica sajta 
         }
 
         public ActionResult Registracija()

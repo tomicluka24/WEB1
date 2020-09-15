@@ -1,16 +1,10 @@
-﻿@model PR141_2017_WebProjekat.Models.Korisnik
+﻿
 @{
-    ViewBag.Title = "Korisnik";
+    ViewBag.Title = "Pocetna stranica administratora";
 }
 
-<h2>Korisnik</h2>
+<h2>Prikazi profil administratora</h2>
 
-<ul>
-    <li>Uloga: @Model.Uloga</li>
-    <li>Ime: @Model.Ime</li>
-    <li>Prezime: @Model.Prezime</li>
-    <li>Korisnicko ime: @Model.KorisnickoIme</li>
-    <li>Lozinka: @Model.Lozinka</li>
-    <li>Pol: @Model.Pol</li>
-    <li>Datum rodjenja: @Model.DatumRodjenja.Day @Model.DatumRodjenja.Month @Model.DatumRodjenja.Year</li>
-</ul>
+<form method="post" action="~/Administrator/PrikaziProfilAdministratora">
+    <input type="submit" value="Pogledaj svoje podatke">
+</form>

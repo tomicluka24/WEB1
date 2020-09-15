@@ -10,8 +10,14 @@ namespace PR141_2017_WebProjekat.Controllers
     public class AdministratorController : Controller
     {
         // GET: Administrator
-        public ActionResult Index(Korisnik k)
+        public ActionResult Index()
         {
+            return View();
+        }
+
+        public ActionResult PrikaziProfilAdministratora(Korisnik k)
+        {
+            k = (Korisnik)Session["korisnik"];
             return View(k);
         }
     }

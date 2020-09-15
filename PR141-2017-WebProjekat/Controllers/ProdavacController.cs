@@ -10,8 +10,14 @@ namespace PR141_2017_WebProjekat.Controllers
     public class ProdavacController : Controller
     {
         // GET: Prodavac
-        public ActionResult Index(Korisnik k)
+        public ActionResult Index()
         {
+            return View();
+        }
+
+        public ActionResult PrikaziProfilProdavca(Korisnik k)
+        {
+            k = (Korisnik)Session["korisnik"];
             return View(k);
         }
     }
