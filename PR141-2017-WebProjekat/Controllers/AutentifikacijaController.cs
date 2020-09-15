@@ -9,21 +9,28 @@ namespace PR141_2017_WebProjekat.Controllers
 {
     public class AutentifikacijaController : Controller
     {
-        // GET: Autentifikacija
-        public ActionResult Index()
+        //GET: Autentifikacija
+        //public actionresult index()
+        //{
+        //    return view();
+        //}
+
+        public ActionResult Registracija()
         {
-            return View();
+            Korisnik korisnik = new Korisnik();
+            Session["korisnik"] = korisnik;
+            return View(korisnik);
         }
 
         [HttpPost]
         public ActionResult Registracija(Korisnik korisnik)
         {
-            List<Korisnik> korisnici = (List<Korisnik>)HttpContext.Application["korisnici"];
-            korisnici.Add(korisnik);
-           //    Podaci.SaveUser(korisnik);
+            Dictionary<string, Korisnik> korisnici = (Dictionary<string, Korisnik>)HttpContext.Application["korisnici"];
+            korisnici.Add(korisnik.KorisnickoIme, korisnik);
+            Podaci.UpisiKorisnika(korisnik);
             Session["korisnik"] = korisnik;
 
-            return RedirectToAction("Logovanje", "Autentifikacija"); //return to login when registration is completed
+            return RedirectToAction("Prijavljivanje", "Autentifikacija"); //return to login when registration is completed
         }
 
         [HttpPost]

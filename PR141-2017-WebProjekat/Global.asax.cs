@@ -20,7 +20,7 @@ namespace PR141_2017_WebProjekat
 
             //kolekcija korisnika
             List<Korisnik> korisnici = Podaci.IscitajKorisnike("~/App_Data/korisnici.txt");
-            HttpContext.Current.Application["users"] = korisnici;
+            HttpContext.Current.Application["korisnici"] = korisnici;
         }
     }
 }
