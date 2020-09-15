@@ -3,3 +3,4 @@ marko98;corovic8;marko;corovic;muski;21/07/1998;administrator
 vojo98;vukicevic24;vojislav;vukicevic;muski;22/07/1998;administrator
 stefan98;stefan81;stefan;nikolic;muski;15/05/1998;kupac
 rade98;rade60;rade;kerkez;muski;25/10/1998;prodavac
+vito64;vitoni;vito;tomic;muski;12/12/1964;administrator

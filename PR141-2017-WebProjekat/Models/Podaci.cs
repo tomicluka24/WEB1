@@ -33,7 +33,9 @@ namespace PR141_2017_WebProjekat.Models
             FileStream stream = new FileStream(path, FileMode.Append);
             StreamWriter sw = new StreamWriter(stream);
 
-            string objectToWrite = korisnik.KorisnickoIme + ";" + korisnik.Lozinka + ";" + korisnik.Ime + ";" + korisnik.Prezime + ";" + korisnik.Pol + ";" + korisnik.DatumRodjenja.ToString() + ";" + korisnik.Uloga.ToString();
+            string objectToWrite = korisnik.KorisnickoIme + ";" + korisnik.Lozinka + ";" + korisnik.Ime + ";" + korisnik.Prezime + ";"
+            + korisnik.Pol + ";" + korisnik.DatumRodjenja.Day.ToString() + "/" + korisnik.DatumRodjenja.Month.ToString() + "/" + korisnik.DatumRodjenja.Year.ToString() + ";" 
+            + korisnik.Uloga.ToString();
             sw.WriteLine(objectToWrite);
 
             sw.Close();

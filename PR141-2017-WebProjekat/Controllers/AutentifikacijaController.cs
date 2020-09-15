@@ -10,10 +10,10 @@ namespace PR141_2017_WebProjekat.Controllers
     public class AutentifikacijaController : Controller
     {
         //GET: Autentifikacija
-        //public actionresult index()
-        //{
-        //    return view();
-        //}
+        public ActionResult Index()
+        {
+            return View();
+        }
 
         public ActionResult Registracija()
         {
@@ -25,8 +25,8 @@ namespace PR141_2017_WebProjekat.Controllers
         [HttpPost]
         public ActionResult Registracija(Korisnik korisnik)
         {
-            Dictionary<string, Korisnik> korisnici = (Dictionary<string, Korisnik>)HttpContext.Application["korisnici"];
-            korisnici.Add(korisnik.KorisnickoIme, korisnik);
+            List<Korisnik> korisnici = (List<Korisnik>)HttpContext.Application["korisnici"];
+            korisnici.Add(korisnik);
             Podaci.UpisiKorisnika(korisnik);
             Session["korisnik"] = korisnik;
 
@@ -53,8 +53,6 @@ namespace PR141_2017_WebProjekat.Controllers
                 return RedirectToAction("Index", "Prodavac");
             else
                 return RedirectToAction("Index", "Kupac");
-
-
         }
     }
 }
