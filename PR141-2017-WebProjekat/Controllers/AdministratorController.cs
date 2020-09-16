@@ -38,7 +38,13 @@ namespace PR141_2017_WebProjekat.Controllers
             Podaci.UpisiKorisnika(korisnik);
 
             return RedirectToAction("Index", "Administrator");
-            //return View();
+        }
+
+        public ActionResult IzlistajSveKorisnike(Korisnik korisnik)
+        {
+            List<Korisnik> korisnici = (List<Korisnik>)HttpContext.Application["korisnici"];
+
+            return View(korisnici);
         }
     }
 }

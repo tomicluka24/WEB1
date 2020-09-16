@@ -1,0 +1,63 @@
+﻿@model List<PR141_2017_WebProjekat.Models.Korisnik>
+@{
+    ViewBag.Title = "IzlistajSveKorisnike";
+}
+
+<h2>Izlistaj Sve Korisnike</h2>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>
+                Ime
+            </th>
+            <th>
+                Prezime
+            </th>
+            <th>
+                Korisnicko ime
+            </th>
+            <th>
+                Lozinka
+            </th>
+            <th>
+                Pol
+            </th>
+            <th>
+                Datum rodjenja
+            </th>
+            <th>
+                Uloga
+            </th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var korisnik in Model)
+        {
+            <tr>
+                <td>
+                    @korisnik.Ime
+                </td>
+                <td>
+                    @korisnik.Prezime
+                </td>
+                <td>
+                    @korisnik.KorisnickoIme
+                </td>
+                <td>
+                    @korisnik.Lozinka
+                </td>
+                <td>
+                    @korisnik.Pol
+                </td>
+                <td>
+                    @korisnik.DatumRodjenja.Date.ToShortDateString()
+                </td>
+                <td>
+                    @korisnik.Uloga
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
