@@ -1,15 +1,15 @@
 ﻿@model PR141_2017_WebProjekat.Models.Korisnik
 @{
-    ViewBag.Title = "Registracija";
+    ViewBag.Title = "Kreiraj prodavca";
 }
 
-<h2>Registracija</h2>
+<h2>Kreiraj prodavca</h2>
 
 <div>
     @ViewBag.Message
 </div>
 
-<form action="~/Autentifikacija/Registracija" method="post">
+<form action="~/Administrator/KreirajProdavca" method="post">
     <table>
         <tr>
             <td>Ime:</td>
@@ -37,9 +37,8 @@
         </tr>
         <tr>
             <td colspan="2">
-                <input type="submit" value="Registruj se" />
+                <input type="submit" value="Kreiraj prodavca" />
             </td>
         </tr>
     </table>
 </form>
-

@@ -20,5 +20,25 @@ namespace PR141_2017_WebProjekat.Controllers
             k = (Korisnik)Session["korisnik"];
             return View(k);
         }
+
+
+        public ActionResult KreirajProdavca()
+        {
+            Korisnik korisnik = new Korisnik();
+            Session["korisnik"] = korisnik;
+            return View(korisnik);
+        }
+
+        [HttpPost]
+        public ActionResult KreirajProdavca(Korisnik korisnik)
+        {
+            korisnik.Uloga = "prodavac";
+            List<Korisnik> korisnici = (List<Korisnik>)HttpContext.Application["korisnici"];
+            korisnici.Add(korisnik);
+            Podaci.UpisiKorisnika(korisnik);
+
+            return RedirectToAction("Index", "Administrator");
+            //return View();
+        }
     }
 }

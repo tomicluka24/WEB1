@@ -30,8 +30,6 @@ namespace PR141_2017_WebProjekat.Controllers
                 return RedirectToAction("Index", "Prodavac");
             else
                 return RedirectToAction("Index", "Kupac");
-
-            //return RedirectToAction("Index", "Home"); //pocetna stranica sajta 
         }
 
         public ActionResult Registracija()
@@ -44,6 +42,7 @@ namespace PR141_2017_WebProjekat.Controllers
         [HttpPost]
         public ActionResult Registracija(Korisnik korisnik)
         {
+            korisnik.Uloga = "kupac";
             List<Korisnik> korisnici = (List<Korisnik>)HttpContext.Application["korisnici"];
             korisnici.Add(korisnik);
             Podaci.UpisiKorisnika(korisnik);

@@ -182,6 +182,7 @@
     <Content Include="Views\Administrator\PrikaziProfilAdministratora.cshtml" />
     <Content Include="Views\Kupac\PrikaziProfilKupca.cshtml" />
     <Content Include="Views\Prodavac\PrikaziProfilProdavca.cshtml" />
+    <Content Include="Views\Administrator\KreirajProdavca.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
