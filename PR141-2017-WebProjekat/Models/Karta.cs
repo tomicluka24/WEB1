@@ -9,32 +9,32 @@ namespace PR141_2017_WebProjekat.Models
     {
         public string ID { get; set; }
         public Manifestacija Manifestacija { get; set; }
-        public DateTime DatumIVremeManifestacije { get; set; }
+        public DateTime DatumIVremeManifestacijce { get; set; }
         public double Cena { get; set; }
         public string Kupac { get; set; }
         public bool IsRezervisana { get; set; }
-        public string Tip { get; set; }
+        public TipKarte TipKarte { get; set; }
 
         public Karta()
         {
             ID = "";
             Manifestacija = new Manifestacija();
-            DatumIVremeManifestacije = new DateTime();
+            DatumIVremeManifestacijce = new DateTime();
             Cena = 0;
             Kupac = "";
             IsRezervisana = false;
-            Tip = "";
+            TipKarte = 0;
         }
 
-        public Karta(string iD, Manifestacija manifestacija, DateTime datumIVremeManifestacije, double cena, string kupac, string tip)
+        public Karta(string iD, Manifestacija manifestacija, DateTime datumIVremeManifestacijce, double cena, string kupac, bool isRezervisana, TipKarte tipKarte)
         {
             ID = iD;
             Manifestacija = manifestacija;
-            DatumIVremeManifestacije = datumIVremeManifestacije;
+            DatumIVremeManifestacijce = datumIVremeManifestacijce;
             Cena = cena;
             Kupac = kupac;
-            IsRezervisana = false;
-            Tip = tip;
+            IsRezervisana = isRezervisana;
+            TipKarte = tipKarte;
         }
     }
 }
