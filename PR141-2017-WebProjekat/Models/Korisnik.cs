@@ -16,8 +16,9 @@ namespace PR141_2017_WebProjekat.Models
         public string Uloga { get; set; }
         public Dictionary<string, Karta> SveKarteBezObziraNaStatus { get; set; } //ako je korisnik kupac
         public List<Manifestacija> Manifestacije { get; set; } //ako je korisnik prodavac
-        public double BrojSakupljenihBodova { get; set; } //ako je korisnik prodavac
+        public double BrojSakupljenihBodova { get; set; } //ako je korisnik kupac
         public TipKorisnika TipKorisnika { get; set; }
+        public bool IsIzbrisan { get; set; }
 
         public Korisnik()
         {
@@ -32,24 +33,10 @@ namespace PR141_2017_WebProjekat.Models
             Manifestacije = new List<Manifestacija>();
             BrojSakupljenihBodova = 0;
             TipKorisnika = new TipKorisnika();
+            IsIzbrisan = false;
         }
 
-        public Korisnik(string korisnickoIme, string lozinka, string ime, string prezime, string pol, DateTime datumRodjenja, string uloga, double brojSakupljenihBodova, TipKorisnika tipKorisnika)
-        {
-            KorisnickoIme = korisnickoIme;
-            Lozinka = lozinka;
-            Ime = ime;
-            Prezime = prezime;
-            Pol = pol;
-            DatumRodjenja = datumRodjenja;
-            Uloga = uloga;
-            SveKarteBezObziraNaStatus = new Dictionary<string, Karta>();
-            Manifestacije = new List<Manifestacija>();
-            BrojSakupljenihBodova = brojSakupljenihBodova;
-            TipKorisnika = tipKorisnika;
-        }
-
-        public Korisnik(string korisnickoIme, string lozinka, string ime, string prezime, string pol, DateTime datumRodjenja, string uloga)
+        public Korisnik(string korisnickoIme, string lozinka, string ime, string prezime, string pol, DateTime datumRodjenja, string uloga, TipKorisnika tipKorisnika, bool isIzbrisan)
         {
             KorisnickoIme = korisnickoIme;
             Lozinka = lozinka;
@@ -61,7 +48,24 @@ namespace PR141_2017_WebProjekat.Models
             SveKarteBezObziraNaStatus = new Dictionary<string, Karta>();
             Manifestacije = new List<Manifestacija>();
             BrojSakupljenihBodova = 0;
-            TipKorisnika = new TipKorisnika();
+            TipKorisnika = tipKorisnika;
+            IsIzbrisan = isIzbrisan;
+        }
+
+        public Korisnik(string korisnickoIme, string lozinka, string ime, string prezime, string pol, DateTime datumRodjenja, string uloga, bool isIzbrisan, Dictionary<string, Karta> sveKarteBezObziraNaStatus, List<Manifestacija> manifestacije, double brojSakupljenihBodova, TipKorisnika tipKorisnika)
+        {
+            KorisnickoIme = korisnickoIme;
+            Lozinka = lozinka;
+            Ime = ime;
+            Prezime = prezime;
+            Pol = pol;
+            DatumRodjenja = datumRodjenja;
+            Uloga = uloga;
+            SveKarteBezObziraNaStatus = sveKarteBezObziraNaStatus;
+            Manifestacije = new List<Manifestacija>();
+            brojSakupljenihBodova = 0;
+            TipKorisnika = tipKorisnika;
+            IsIzbrisan = isIzbrisan;
         }
     }
 }

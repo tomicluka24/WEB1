@@ -18,9 +18,17 @@ namespace PR141_2017_WebProjekat
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
-            //kolekcija korisnika
+            //kolekcije korisnika
             List<Korisnik> korisnici = Podaci.IscitajKorisnike("~/App_Data/korisnici.txt");
             HttpContext.Current.Application["korisnici"] = korisnici;
+
+            //kolekcija manifestacija
+            List<Manifestacija> manifestacije = Podaci.IscitajManifestacije("~/App_Data/manifestacije.txt");
+            HttpContext.Current.Application["manifestacije"] = manifestacije;
+
+            //kolekcija karata
+            Dictionary<string,Karta> karte = Podaci.IscitajKarte("~/App_Data/karte.txt");
+            HttpContext.Current.Application["karte"] = karte;
         }
     }
 }

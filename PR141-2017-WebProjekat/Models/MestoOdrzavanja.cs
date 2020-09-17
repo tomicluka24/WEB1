@@ -10,22 +10,24 @@ namespace PR141_2017_WebProjekat.Models
         public string Mesto { get; set; }
         public double PostanskiBroj { get; set; }
         public string Ulica { get; set; }
-        public int Broj { get; set; }
-
+        public string Broj { get; set; }
+        public bool IsIzbrisano { get; set; }
         public MestoOdrzavanja()
         {
             Mesto = "";
             PostanskiBroj = 0;
             Ulica = "";
-            Broj = 0;
+            Broj = "";
+            IsIzbrisano = false;
         }
 
-        public MestoOdrzavanja(string mesto, double postanskiBroj, string ulica, int broj)
+        public MestoOdrzavanja(string mesto, double postanskiBroj, string ulica, string broj, bool isIzbrisano)
         {
             Mesto = mesto;
             PostanskiBroj = postanskiBroj;
             Ulica = ulica;
             Broj = broj;
+            IsIzbrisano = isIzbrisano;
         }
     }
 }

@@ -11,15 +11,84 @@ namespace PR141_2017_WebProjekat.Models
     {
         public static List<Korisnik> IscitajKorisnike(string putanja)
         {
+            TipKorisnika tk = new TipKorisnika();
+
+            Dictionary<string, Karta> karte = IscitajKarte("~/App_Data/karte.txt");
+            Dictionary<string, Karta> karteKonkretnogKorisnika = new Dictionary<string, Karta>();
+            Karta kar = new Karta();
+
+            List<Manifestacija> manifestacije = IscitajManifestacije("~/App_Data/manifestacije.txt");
+            List<Manifestacija> manifestacijeKonkretnogKorisnika = new List<Manifestacija>();
+            Manifestacija m = new Manifestacija();
+
+
             List<Korisnik> korisnici = new List<Korisnik>();
             putanja = HostingEnvironment.MapPath(putanja);
             FileStream stream = new FileStream(putanja, FileMode.Open);
             StreamReader sr = new StreamReader(stream);
             string red = "";
+
             while ((red = sr.ReadLine()) != null)
             {
                 string[] tokeni = red.Split(';');
-                Korisnik k = new Korisnik(tokeni[0], tokeni[1], tokeni[2], tokeni[3], tokeni[4], DateTime.ParseExact(tokeni[5], "MM/dd/yyyy", null), tokeni[6]); 
+                string[] manifestacijeKorisnika = tokeni[9].Split(',');
+                string[] karteKorisnika = tokeni[8].Split(',');
+
+                if (tokeni[6] == "kupac")
+                {
+                    if(tokeni[11] == "zlatni")
+                    {
+                        tk.ImeTipa = tokeni[14];
+                        tk.Popust = 0;
+                        tk.TrazeniBrojBodova = 3001;
+                    }
+                    if(tokeni[11] == "srebrni")
+                    {
+                        tk.ImeTipa = tokeni[14];
+                        tk.Popust = 0;
+                        tk.TrazeniBrojBodova = 999;
+                    }
+                    if (tokeni[11] == "bronzani")
+                    {
+                        tk.ImeTipa = tokeni[14];
+                        tk.Popust = 0;
+                        tk.TrazeniBrojBodova = 499;
+                    }
+                }
+
+                foreach (var karta in karte)
+                {
+                    for (int i = 0; i < karteKorisnika.Length; i++)
+                    {
+                        if(karta.Key == karteKorisnika[i])
+                        {
+                            karteKonkretnogKorisnika.Add(karta.Key, karta.Value);
+                        }
+
+                       
+                    }
+
+                }
+
+                foreach (var manifestacija in manifestacije)
+                {
+
+                    for (int i = 0; i < manifestacijeKorisnika.Length; i++)
+                    {
+                        if (manifestacija.Naziv == manifestacijeKorisnika[i])
+                        {
+                            manifestacijeKonkretnogKorisnika.Add(manifestacija);
+                        }
+                    }
+                }
+
+                if(karteKonkretnogKorisnika == null)
+                    karteKonkretnogKorisnika.Add(kar.ID, kar);
+                if (manifestacijeKonkretnogKorisnika == null)
+                    manifestacijeKonkretnogKorisnika.Add(m);
+
+                Korisnik k = new Korisnik(tokeni[0], tokeni[1], tokeni[2], tokeni[3], tokeni[4], DateTime.ParseExact(tokeni[5], "MM/dd/yyyy", null), tokeni[6], bool.Parse(tokeni[7]),
+                karteKonkretnogKorisnika, manifestacijeKonkretnogKorisnika, double.Parse(tokeni[10]), tk); 
                 korisnici.Add(k);
             }
 
@@ -67,6 +136,62 @@ namespace PR141_2017_WebProjekat.Models
 
             sw.Close();
             stream.Close();
+        }
+        public static List<Manifestacija> IscitajManifestacije(string putanja)
+        {
+            List<Manifestacija> manifestacije = new List<Manifestacija>();
+            putanja = HostingEnvironment.MapPath(putanja);
+            FileStream stream = new FileStream(putanja, FileMode.Open);
+            StreamReader sr = new StreamReader(stream);
+            string red = "";
+            while ((red = sr.ReadLine()) != null)
+            {
+                string[] tokeni = red.Split(';');
+
+                MestoOdrzavanja mO = new MestoOdrzavanja(tokeni[5], double.Parse(tokeni[6]), tokeni[7], tokeni[8], 
+                bool.Parse(tokeni[10])); //moze tokeni[10] jer ako je manifestacija izbrisana onda je i mesto izbrisano?
+                                         //ako ne moze, dodati u .txt poslednji parametar da bude isto boolean al za mesto
+                Manifestacija m = new Manifestacija(tokeni[0], tokeni[1], int.Parse(tokeni[2]), DateTime.ParseExact(tokeni[3], "MM/dd/yyyy HH:mm", null), 
+                double.Parse(tokeni[4]), mO, bool.Parse(tokeni[9]), bool.Parse(tokeni[10]));
+
+                if(!m.IsIzbrisana)
+                manifestacije.Add(m);
+            }
+
+            sr.Close();
+            stream.Close();
+            return manifestacije;
+        }
+
+        public static Dictionary<string, Karta> IscitajKarte(string putanja)
+        {
+            List<Manifestacija> manifestacije = IscitajManifestacije("~/App_Data/manifestacije.txt");
+            Manifestacija man = new Manifestacija();
+
+            Dictionary<string, Karta> karte = new Dictionary<string, Karta>();
+            putanja = HostingEnvironment.MapPath(putanja);
+            FileStream stream = new FileStream(putanja, FileMode.Open);
+            StreamReader sr = new StreamReader(stream);
+            string red = "";
+            while ((red = sr.ReadLine()) != null)
+            {
+                string[] tokeni = red.Split(';');
+                
+                foreach (var m in manifestacije)
+                {
+                    if(tokeni[1] == m.Naziv)
+                    {
+                        man = m;
+                    }
+                }
+                Karta k = new Karta(tokeni[0], man, DateTime.ParseExact(tokeni[2], "MM/dd/yyyy HH:mm", null), double.Parse(tokeni[3]), tokeni[4], bool.Parse(tokeni[5]), (TipKarte)Enum.Parse(typeof(TipKarte), tokeni[6]), bool.Parse(tokeni[7]));
+                if (!k.IsIzbrisana)
+                karte.Add(k.ID,k);
+            }
+
+            sr.Close();
+            stream.Close();
+            return karte;
         }
     }
 }

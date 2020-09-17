@@ -1,4 +1,4 @@
-﻿@model PR141_2017_WebProjekat.Models.Korisnik
+﻿@model List<PR141_2017_WebProjekat.Models.Manifestacija>
 @{
     ViewBag.Title = "Home Page";
 }
@@ -11,3 +11,56 @@
 <form action="~/Autentifikacija/Prijavljivanje">
     <input type="submit" value="Prijavi se">
 </form>
+
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>
+                Naziv
+            </th>
+            <th>
+                Tip
+            </th>
+            <th>
+                Broj mesta
+            </th>
+            <th>
+                Datum i vreme odrzavanja
+            </th>
+            <th>
+                Cena karte
+            </th>
+            <th>
+                Mesto odrzavanja
+            </th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var manifestacija in Model)
+        {
+            <tr>
+                <td>
+                    @manifestacija.Naziv
+                </td>
+                <td>
+                    @manifestacija.TipManifestacije
+                </td>
+                <td>
+                    @manifestacija.BrojMesta
+                </td>
+                <td>
+                    @manifestacija.DatumIVremeOdrzavanja
+                </td>
+                <td>
+                    @manifestacija.CenaRegularneKarte
+                </td>
+                <td>
+                    @manifestacija.MestoOdrzavanja.PostanskiBroj @manifestacija.MestoOdrzavanja.Mesto
+                    @manifestacija.MestoOdrzavanja.Ulica @manifestacija.MestoOdrzavanja.Broj
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

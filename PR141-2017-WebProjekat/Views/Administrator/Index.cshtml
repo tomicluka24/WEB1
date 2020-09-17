@@ -1,4 +1,4 @@
-﻿
+﻿@model List<PR141_2017_WebProjekat.Models.Manifestacija>
 @{
     ViewBag.Title = "Pocetna stranica administratora";
 }
@@ -14,3 +14,55 @@
 <form action="~/Administrator/IzlistajSveKorisnike">
     <input type="submit" value="Izlistaj sve korisnike registrovane na sistemu">
 </form>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>
+                Naziv
+            </th>
+            <th>
+                Tip
+            </th>
+            <th>
+                Broj mesta
+            </th>
+            <th>
+                Datum i vreme odrzavanja
+            </th>
+            <th>
+                Cena karte
+            </th>
+            <th>
+                Mesto odrzavanja
+            </th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var manifestacija in Model)
+        {
+            <tr>
+                <td>
+                    @manifestacija.Naziv
+                </td>
+                <td>
+                    @manifestacija.TipManifestacije
+                </td>
+                <td>
+                    @manifestacija.BrojMesta
+                </td>
+                <td>
+                    @manifestacija.DatumIVremeOdrzavanja
+                </td>
+                <td>
+                    @manifestacija.CenaRegularneKarte
+                </td>
+                <td>
+                    @manifestacija.MestoOdrzavanja.PostanskiBroj @manifestacija.MestoOdrzavanja.Mesto
+                    @manifestacija.MestoOdrzavanja.Ulica @manifestacija.MestoOdrzavanja.Broj
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
