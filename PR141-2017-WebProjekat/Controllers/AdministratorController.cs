@@ -23,6 +23,7 @@ namespace PR141_2017_WebProjekat.Controllers
             return View(k);
         }
 
+
         public ActionResult KreirajProdavca()
         {
             Korisnik korisnik = new Korisnik();
@@ -41,23 +42,11 @@ namespace PR141_2017_WebProjekat.Controllers
             return RedirectToAction("Index", "Administrator");
         }
 
-        public ActionResult IzmeniPodatke()
-        {
-            return View();
-        }
-
         public ActionResult IzlistajSveKorisnike()
         {
             List<Korisnik> korisnici = (List<Korisnik>)HttpContext.Application["korisnici"];
 
             return View(korisnici);
-        }
-
-        public ActionResult IzlistajSveKarte()
-        {
-            List<Karta> karte = (List<Karta>)HttpContext.Application["karte"];
-
-            return View(karte);
         }
     }
 }

@@ -140,7 +140,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\karte.txt" />
     <Content Include="App_Data\korisnici.txt" />
     <Content Include="App_Data\manifestacije.txt" />
     <Content Include="Content\bootstrap-theme.css" />
@@ -187,7 +186,6 @@
     <Content Include="Views\Administrator\KreirajProdavca.cshtml" />
     <Content Include="Views\Administrator\IzlistajSveKorisnike.cshtml" />
     <Content Include="Views\Home\IzlistajSveManifestacije.cshtml" />
-    <Content Include="Views\Administrator\IzmeniPodatke.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
