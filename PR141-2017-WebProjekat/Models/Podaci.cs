@@ -19,7 +19,7 @@ namespace PR141_2017_WebProjekat.Models
             while ((red = sr.ReadLine()) != null)
             {
                 string[] tokeni = red.Split(';');
-                Korisnik k = new Korisnik(tokeni[0], tokeni[1], tokeni[2], tokeni[3], tokeni[4], DateTime.ParseExact(tokeni[5], "MM/dd/yyyy", null), tokeni[6]); 
+                Korisnik k = new Korisnik(tokeni[0], tokeni[1], tokeni[2], tokeni[3], tokeni[4], DateTime.ParseExact(tokeni[5], "MM/dd/yyyy", null), tokeni[6], false); 
                 korisnici.Add(k);
             }
 
@@ -67,6 +67,31 @@ namespace PR141_2017_WebProjekat.Models
 
             sw.Close();
             stream.Close();
+        }
+        public static List<Manifestacija> IscitajManifestacije(string putanja)
+        {
+            List<Manifestacija> manifestacije = new List<Manifestacija>();
+            putanja = HostingEnvironment.MapPath(putanja);
+            FileStream stream = new FileStream(putanja, FileMode.Open);
+            StreamReader sr = new StreamReader(stream);
+            string red = "";
+            while ((red = sr.ReadLine()) != null)
+            {
+                string[] tokeni = red.Split(';');
+
+                MestoOdrzavanja mO = new MestoOdrzavanja(tokeni[5], double.Parse(tokeni[6]), tokeni[7], tokeni[8], 
+                bool.Parse(tokeni[10])); //moze tokeni[10] jer ako je manifestacija izbrisana onda je i mesto izbrisano?
+                                         //ako ne moze, dodati u .txt poslednji parametar da bude isto boolean al za mesto
+                Manifestacija m = new Manifestacija(tokeni[0], tokeni[1], int.Parse(tokeni[2]), DateTime.ParseExact(tokeni[3], "MM/dd/yyyy HH:mm", null), 
+                double.Parse(tokeni[4]), mO, bool.Parse(tokeni[9]), bool.Parse(tokeni[10]));
+
+                if(!m.IsIzbrisana)
+                manifestacije.Add(m);
+            }
+
+            sr.Close();
+            stream.Close();
+            return manifestacije;
         }
     }
 }

@@ -14,6 +14,7 @@ namespace PR141_2017_WebProjekat.Models
         public string Kupac { get; set; }
         public bool IsRezervisana { get; set; }
         public TipKarte TipKarte { get; set; }
+        public bool IsIzbrisana { get; set; }
 
         public Karta()
         {
@@ -24,9 +25,10 @@ namespace PR141_2017_WebProjekat.Models
             Kupac = "";
             IsRezervisana = false;
             TipKarte = 0;
+            IsIzbrisana = false;
         }
 
-        public Karta(string iD, Manifestacija manifestacija, DateTime datumIVremeManifestacijce, double cena, string kupac, bool isRezervisana, TipKarte tipKarte)
+        public Karta(string iD, Manifestacija manifestacija, DateTime datumIVremeManifestacijce, double cena, string kupac, bool isRezervisana, TipKarte tipKarte, bool isIzbrisana)
         {
             ID = iD;
             Manifestacija = manifestacija;
@@ -35,6 +37,7 @@ namespace PR141_2017_WebProjekat.Models
             Kupac = kupac;
             IsRezervisana = isRezervisana;
             TipKarte = tipKarte;
+            IsIzbrisana = isIzbrisana;
         }
     }
 }

@@ -141,6 +141,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Data\korisnici.txt" />
+    <Content Include="App_Data\manifestacije.txt" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -184,6 +185,7 @@
     <Content Include="Views\Prodavac\PrikaziProfilProdavca.cshtml" />
     <Content Include="Views\Administrator\KreirajProdavca.cshtml" />
     <Content Include="Views\Administrator\IzlistajSveKorisnike.cshtml" />
+    <Content Include="Views\Home\IzlistajSveManifestacije.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

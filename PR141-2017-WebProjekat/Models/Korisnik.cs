@@ -18,6 +18,7 @@ namespace PR141_2017_WebProjekat.Models
         public List<Manifestacija> Manifestacije { get; set; } //ako je korisnik prodavac
         public double BrojSakupljenihBodova { get; set; } //ako je korisnik prodavac
         public TipKorisnika TipKorisnika { get; set; }
+        public bool IsIzbrisan { get; set; }
 
         public Korisnik()
         {
@@ -32,9 +33,10 @@ namespace PR141_2017_WebProjekat.Models
             Manifestacije = new List<Manifestacija>();
             BrojSakupljenihBodova = 0;
             TipKorisnika = new TipKorisnika();
+            IsIzbrisan = false;
         }
 
-        public Korisnik(string korisnickoIme, string lozinka, string ime, string prezime, string pol, DateTime datumRodjenja, string uloga, double brojSakupljenihBodova, TipKorisnika tipKorisnika)
+        public Korisnik(string korisnickoIme, string lozinka, string ime, string prezime, string pol, DateTime datumRodjenja, string uloga, double brojSakupljenihBodova, TipKorisnika tipKorisnika, bool isIzbrisan)
         {
             KorisnickoIme = korisnickoIme;
             Lozinka = lozinka;
@@ -47,9 +49,10 @@ namespace PR141_2017_WebProjekat.Models
             Manifestacije = new List<Manifestacija>();
             BrojSakupljenihBodova = brojSakupljenihBodova;
             TipKorisnika = tipKorisnika;
+            IsIzbrisan = isIzbrisan;
         }
 
-        public Korisnik(string korisnickoIme, string lozinka, string ime, string prezime, string pol, DateTime datumRodjenja, string uloga)
+        public Korisnik(string korisnickoIme, string lozinka, string ime, string prezime, string pol, DateTime datumRodjenja, string uloga, bool isIzbrisan)
         {
             KorisnickoIme = korisnickoIme;
             Lozinka = lozinka;
@@ -62,6 +65,7 @@ namespace PR141_2017_WebProjekat.Models
             Manifestacije = new List<Manifestacija>();
             BrojSakupljenihBodova = 0;
             TipKorisnika = new TipKorisnika();
+            IsIzbrisan = isIzbrisan;
         }
     }
 }

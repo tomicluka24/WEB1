@@ -12,7 +12,9 @@ namespace PR141_2017_WebProjekat.Controllers
         // GET: Administrator
         public ActionResult Index()
         {
-            return View();
+            List<Manifestacija> manifestacije = (List<Manifestacija>)HttpContext.Application["manifestacije"];
+            List<Manifestacija> sortiraneManifestacije = manifestacije.OrderBy(o => o.DatumIVremeOdrzavanja).ToList();
+            return View(sortiraneManifestacije);
         }
 
         public ActionResult PrikaziProfilAdministratora(Korisnik k)
@@ -40,7 +42,7 @@ namespace PR141_2017_WebProjekat.Controllers
             return RedirectToAction("Index", "Administrator");
         }
 
-        public ActionResult IzlistajSveKorisnike(Korisnik korisnik)
+        public ActionResult IzlistajSveKorisnike()
         {
             List<Korisnik> korisnici = (List<Korisnik>)HttpContext.Application["korisnici"];
 

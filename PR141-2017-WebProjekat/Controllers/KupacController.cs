@@ -12,7 +12,9 @@ namespace PR141_2017_WebProjekat.Controllers
         // GET: Kupac
         public ActionResult Index()
         {
-            return View();
+            List<Manifestacija> manifestacije = (List<Manifestacija>)HttpContext.Application["manifestacije"];
+            List<Manifestacija> sortiraneManifestacije = manifestacije.OrderBy(o => o.DatumIVremeOdrzavanja).ToList();
+            return View(sortiraneManifestacije);
         }
 
         public ActionResult PrikaziProfilKupca(Korisnik k)

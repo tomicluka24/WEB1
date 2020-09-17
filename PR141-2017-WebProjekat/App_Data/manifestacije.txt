@@ -1,0 +1,4 @@
+﻿kralj lavova;crtani;100;09/28/2020 20:00;300;vrbas;21460;desanke maksimovic;24;true;false
+vuk sa vol strita;film;120;09/26/2020 21:00;400;novi sad;21000;svetozara miletica;21a;false;false
+labudovo jezero;balet;80;09/25/2020 19:30;500;beograd;11000;knez mihajilova;11;true;false
+karmen;opera;50;09/27/2020 22:00;1000;Nis;70000;marsala tita;11c;false;false

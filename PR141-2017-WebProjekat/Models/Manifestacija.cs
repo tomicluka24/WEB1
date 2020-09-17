@@ -12,8 +12,9 @@ namespace PR141_2017_WebProjekat.Models
         public int BrojMesta { get; set; }
         public DateTime DatumIVremeOdrzavanja { get; set; }
         public double CenaRegularneKarte { get; set; }
-        public bool IsAktivno { get; set; }
         public MestoOdrzavanja MestoOdrzavanja { get; set; }
+        public bool IsAktivna { get; set; }
+        public bool IsIzbrisana { get; set; }
 
         //dodaj za sliku
         public Manifestacija()
@@ -23,19 +24,21 @@ namespace PR141_2017_WebProjekat.Models
             BrojMesta = 0;
             DatumIVremeOdrzavanja = new DateTime();
             CenaRegularneKarte = 0;
-            IsAktivno = false;
             MestoOdrzavanja = new MestoOdrzavanja();
+            IsAktivna = true;
+            IsIzbrisana = false;
         }
 
-        public Manifestacija(string naziv, string tipManifestacije, int brojMesta, DateTime datumIVremeOdrzavanja, double cenaRegularneKarte,  MestoOdrzavanja mestoOdrzavanja)
+        public Manifestacija(string naziv, string tipManifestacije, int brojMesta, DateTime datumIVremeOdrzavanja, double cenaRegularneKarte, MestoOdrzavanja mestoOdrzavanja, bool isAktivna, bool isIzbrisana)
         {
             Naziv = naziv;
             TipManifestacije = tipManifestacije;
             BrojMesta = brojMesta;
             DatumIVremeOdrzavanja = datumIVremeOdrzavanja;
             CenaRegularneKarte = cenaRegularneKarte;
-            IsAktivno = false;
             MestoOdrzavanja = mestoOdrzavanja;
+            IsAktivna = isAktivna;
+            IsIzbrisana = isIzbrisana;
         }
     }
 }
