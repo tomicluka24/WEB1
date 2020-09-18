@@ -137,6 +137,7 @@
     <Compile Include="Models\Manifestacija.cs" />
     <Compile Include="Models\MestoOdrzavanja.cs" />
     <Compile Include="Models\TipKorisnika.cs" />
+    <Compile Include="Models\UploadedFile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -148,6 +149,18 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="favicon.ico" />
+    <Content Include="Files\exit.jpg" />
+    <Content Include="Files\guca.jpg" />
+    <Content Include="Files\karmen.jpg" />
+    <Content Include="Files\kobasicijada.jpg" />
+    <Content Include="Files\kupusijada.jpg" />
+    <Content Include="Files\labudovo jezero.jpg" />
+    <Content Include="Files\laugh factory.jpg" />
+    <Content Include="Files\lion king.jpg" />
+    <Content Include="Files\look mom i can fly.jpg" />
+    <Content Include="Files\nisvil.jpg" />
+    <Content Include="Files\vuk sa vol strita.jpg" />
+    <Content Include="Files\winter fest.jpg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />

@@ -1,6 +1,7 @@
 ﻿using PR141_2017_WebProjekat.Models;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -41,6 +42,15 @@ namespace PR141_2017_WebProjekat
             //kolekcija karata
             List<Manifestacija> karte = Podaci.IscitajManifestacije("~/App_Data/karte.txt");
             HttpContext.Current.Application["karte"] = karte;
+
+            //fotografije
+            string path = Path.Combine(Server.MapPath("~/Files/"));
+            List<UploadedFile> files = new List<UploadedFile>();
+            foreach (var file in Directory.GetFiles(path))
+            {
+                files.Add(new UploadedFile(Path.GetFileName(file), file));
+            }
+            //HttpContext.Current.Application["Files"] = files;
         }
     }
 }

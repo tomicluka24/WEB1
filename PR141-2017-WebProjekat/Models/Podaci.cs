@@ -169,7 +169,7 @@ namespace PR141_2017_WebProjekat.Models
                 try
                 {
                 m = new Manifestacija(tokeni[0], tokeni[1], int.Parse(tokeni[2]), DateTime.ParseExact(tokeni[3], "MM/dd/yyyy HH:mm", null), 
-                double.Parse(tokeni[4]), mO, bool.Parse(tokeni[9]), bool.Parse(tokeni[10]));
+                double.Parse(tokeni[4]), mO, bool.Parse(tokeni[9]), bool.Parse(tokeni[10]), tokeni[11]);
 
                 }
                 catch (Exception e)

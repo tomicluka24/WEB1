@@ -13,6 +13,8 @@ namespace PR141_2017_WebProjekat.Controllers
         {
             List<Manifestacija> manifestacije = (List<Manifestacija>)HttpContext.Application["manifestacije"];
             List<Manifestacija> sortiraneManifestacije = manifestacije.OrderBy(o => o.DatumIVremeOdrzavanja).ToList();
+            List<UploadedFile> files = (List<UploadedFile>)HttpContext.Application["files"];
+
             return View(sortiraneManifestacije);
         }
 
