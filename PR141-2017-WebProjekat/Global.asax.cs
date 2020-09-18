@@ -22,9 +22,25 @@ namespace PR141_2017_WebProjekat
             List<Korisnik> korisnici = Podaci.IscitajKorisnike("~/App_Data/korisnici.txt");
             HttpContext.Current.Application["korisnici"] = korisnici;
 
-            //kolekcija korisnika
+            ////kolekcija admina
+            //List<Korisnik> admini = Podaci.IscitajKorisnike("~/App_Data/admini.txt");
+            //HttpContext.Current.Application["admini"] = admini;
+
+            ////kolekcija kupaca
+            //List<Korisnik> kupci = Podaci.IscitajKorisnike("~/App_Data/kupci.txt");
+            //HttpContext.Current.Application["kupci"] = kupci;
+
+            ////kolekcija prodavaca
+            //List<Korisnik> prodavci = Podaci.IscitajKorisnike("~/App_Data/prodavci.txt");
+            //HttpContext.Current.Application["prodavci"] = prodavci;
+
+            //kolekcija manifestacija
             List<Manifestacija> manifestacije = Podaci.IscitajManifestacije("~/App_Data/manifestacije.txt");
             HttpContext.Current.Application["manifestacije"] = manifestacije;
+
+            //kolekcija karata
+            List<Manifestacija> karte = Podaci.IscitajManifestacije("~/App_Data/karte.txt");
+            HttpContext.Current.Application["karte"] = karte;
         }
     }
 }

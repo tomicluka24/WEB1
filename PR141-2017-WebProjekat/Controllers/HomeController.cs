@@ -16,10 +16,5 @@ namespace PR141_2017_WebProjekat.Controllers
             return View(sortiraneManifestacije);
         }
 
-        //public ActionResult IzlistajSveManifestacije()
-        //{
-            
-        //}
-
     }
 }

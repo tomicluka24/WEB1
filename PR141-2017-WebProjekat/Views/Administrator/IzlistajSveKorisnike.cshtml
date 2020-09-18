@@ -1,9 +1,9 @@
 ﻿@model List<PR141_2017_WebProjekat.Models.Korisnik>
 @{
-    ViewBag.Title = "IzlistajSveKorisnike";
+    ViewBag.Title = "Izlistaj sve korisnike";
 }
 
-<h2>Svi Korisnici</h2>
+<h2>Svi admini</h2>
 
 <table class="table table-bordered">
     <thead>
@@ -35,29 +35,201 @@
     <tbody>
         @foreach (var korisnik in Model)
         {
-            <tr>
-                <td>
-                    @korisnik.Ime
-                </td>
-                <td>
-                    @korisnik.Prezime
-                </td>
-                <td>
-                    @korisnik.KorisnickoIme
-                </td>
-                <td>
-                    @korisnik.Lozinka
-                </td>
-                <td>
-                    @korisnik.Pol
-                </td>
-                <td>
-                    @korisnik.DatumRodjenja.Date.ToShortDateString()
-                </td>
-                <td>
-                    @korisnik.Uloga
-                </td>
-            </tr>
+            if (@korisnik.Uloga == "administrator")
+            {
+                <tr>
+                    <td>
+                        @korisnik.Ime
+                    </td>
+                    <td>
+                        @korisnik.Prezime
+                    </td>
+                    <td>
+                        @korisnik.KorisnickoIme
+                    </td>
+                    <td>
+                        @korisnik.Lozinka
+                    </td>
+                    <td>
+                        @korisnik.Pol
+                    </td>
+                    <td>
+                        @korisnik.DatumRodjenja.Date.ToShortDateString()
+                    </td>
+                    <td>
+                        @korisnik.Uloga
+                    </td>
+                </tr>
+            }
         }
     </tbody>
 </table>
+
+<h2>Svi kupci</h2>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>
+                Ime
+            </th>
+            <th>
+                Prezime
+            </th>
+            <th>
+                Korisnicko ime
+            </th>
+            <th>
+                Lozinka
+            </th>
+            <th>
+                Pol
+            </th>
+            <th>
+                Datum rodjenja
+            </th>
+            <th>
+                Uloga
+            </th>
+            <th>
+                Karte
+            </th>
+            <th>
+                Broj sakupljenih bodova
+            </th>
+            <th>
+                Tip
+            </th>
+            <th>
+                Popust
+            </th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var korisnik in Model)
+        {
+            if (@korisnik.Uloga == "kupac")
+            {
+        <tr>
+            <td>
+                @korisnik.Ime
+            </td>
+            <td>
+                @korisnik.Prezime
+            </td>
+            <td>
+                @korisnik.KorisnickoIme
+            </td>
+            <td>
+                @korisnik.Lozinka
+            </td>
+            <td>
+                @korisnik.Pol
+            </td>
+            <td>
+                @korisnik.DatumRodjenja.Date.ToShortDateString()
+            </td>
+            <td>
+                @korisnik.Uloga
+            </td>
+            <td>
+                @foreach (var karta in korisnik.SveKarteBezObziraNaStatus)
+                {
+                    @karta.Value.ID 
+                    Write(";");
+                }
+            </td>
+            <td>
+                @korisnik.BrojSakupljenihBodova
+            </td>
+            <td>
+                @korisnik.TipKorisnika.ImeTipa
+            </td>
+            <td>
+                @korisnik.TipKorisnika.Popust
+            </td>
+        </tr>
+            }
+
+        }
+    </tbody>
+</table>
+
+<h2>Svi prodavci</h2>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>
+                Ime
+            </th>
+            <th>
+                Prezime
+            </th>
+            <th>
+                Korisnicko ime
+            </th>
+            <th>
+                Lozinka
+            </th>
+            <th>
+                Pol
+            </th>
+            <th>
+                Datum rodjenja
+            </th>
+            <th>
+                Uloga
+            </th>
+            <th>
+                Manifestacije
+            </th>
+        </tr>
+    </thead>
+
+
+    <tbody>
+        @foreach (var korisnik in Model)
+        {
+            if (@korisnik.Uloga == "prodavac")
+            {
+                <tr>
+                    <td>
+                        @korisnik.Ime
+                    </td>
+                    <td>
+                        @korisnik.Prezime
+                    </td>
+                    <td>
+                        @korisnik.KorisnickoIme
+                    </td>
+                    <td>
+                        @korisnik.Lozinka
+                    </td>
+                    <td>
+                        @korisnik.Pol
+                    </td>
+                    <td>
+                        @korisnik.DatumRodjenja.Date.ToShortDateString()
+                    </td>
+                    <td>
+                        @korisnik.Uloga
+                    </td>
+                    <td>
+                        @foreach (var manifestacija in korisnik.Manifestacije)
+                        {
+                            @manifestacija.Naziv 
+                            Write(";");
+                        }
+                    </td>
+                </tr>
+            }
+
+        }
+    </tbody>
+</table>
+
+
+
+   

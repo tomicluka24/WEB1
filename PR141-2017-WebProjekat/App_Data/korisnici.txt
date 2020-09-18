@@ -1,16 +1,15 @@
-﻿luka98;tomic33;luka;tomic;muski;03/04/1998;administrator;false; ; ; ;
-marko98;corovic8;marko;corovic;muski;01/07/1998;administrator;false; ; ; ;
-vojo98;vukicevic24;vojislav;vukicevic;muski;10/07/1998;administrator;false; ; ; ;
-acke;acobanmunja;aco;vukicevic;muski;11/01/1965;administrator;false; ; ; ;
-vito64;vitoni;vito;tomic;muski;12/12/1964;administrator;false; ; ; ;
-milos;milos;milos;milos;muski;12/21/1111;prodavac;false; ;exit,labudovo jezero; ;
-rade98;rade60;rade;kerkez;muski;10/10/1998;prodavac;false; ;nisvil,karmen; ;
-sadasdas;sadasdas;asdasd;sadasd;dasdasd;09/26/2020;prodavac;false; ;kupusijada,look mom i can fly; ;
-darkoni;darkoni123;darko;darkovic;zenski;11/11/1992;prodavac;false; ;laugh factory,guca; ;
-janja;janja;janja;janja;muski;12/12/1966;prodavac;false; ;winter fest,kobasicijada; ;
-stefan98;stefan81;stefan;nikolic;muski;02/05/1998;kupac;false;1111,2222; ;1000;bronzani
-janko91;janko91;janko;jankovic;muski;12/12/1957;kupac;false;3333,4444; ;3000;srebrni
-branko12;branko12;branko;brankovic;muski;05/30/1999;kupac;false;5555,6666; ;4000;zlatni
-darko123;darko123;darko;darkovic;muski;07/25/2000;kupac;false;7777,88888; ;5000;zlatni
-sibo98;sibo123;milos;sibalic;muski;12/12/1912;kupac;false;9999,1919,1212,1313; ;500;bronzani
-
+﻿luka98;tomic33;luka;tomic;muski;03/04/1998;administrator;false
+marko98;corovic8;marko;corovic;muski;01/07/1998;administrator;false
+vojo98;vukicevic24;vojislav;vukicevic;muski;10/07/1998;administrator;false
+acke;acobanmunja;aco;vukicevic;muski;11/01/1965;administrator;false
+vito64;vitoni;vito;tomic;muski;12/12/1964;administrator;false
+stefan98;stefan81;stefan;nikolic;muski;02/05/1998;kupac;false;1111,2222;1000;bronzani
+janko91;janko91;janko;jankovic;muski;12/12/1957;kupac;false;3333,4444;3000;srebrni
+branko12;branko12;branko;brankovic;muski;05/30/1999;kupac;false;5555,6666;4000;zlatni
+darko123;darko123;darko;darkovic;muski;07/25/2000;kupac;false;7777,8888;5000;zlatni
+sibo98;sibo123;milos;sibalic;muski;12/12/1912;kupac;false;9999,1919,1212,1313;500;bronzani
+milos;milos;milos;milos;muski;12/21/1111;prodavac;false;exit,labudovo jezero
+rade98;rade60;rade;kerkez;muski;10/10/1998;prodavac;false;nisvil,karmen
+sadasdas;sadasdas;asdasd;sadasd;dasdasd;09/26/2020;prodavac;false;kupusijada,look mom i can fly
+darkoni;darkoni123;darko;darkovic;zenski;11/11/1992;prodavac;false;laugh factory,guca
+janja;janja;janja;janja;muski;12/12/1966;prodavac;false;winter fest,kobasicijada
