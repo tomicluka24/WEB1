@@ -125,8 +125,17 @@ namespace PR141_2017_WebProjekat.Models
             #endregion
 
             string objectToWrite = korisnik.KorisnickoIme + ";" + korisnik.Lozinka + ";" + korisnik.Ime + ";" + korisnik.Prezime + ";"
-            + korisnik.Pol + ";" + mesec + "/" + dan + "/"  + godina + ";" + korisnik.Uloga;
+            + korisnik.Pol + ";" + mesec + "/" + dan + "/"  + godina + ";" + korisnik.Uloga + ";" + "false";
 
+            if(korisnik.Uloga == "kupac")
+            {
+                objectToWrite = objectToWrite + ";" + " , " + ";" + "0" + ";" + "bronzani";
+            }
+
+            if(korisnik.Uloga == "prodavac")
+            {
+                objectToWrite = objectToWrite + ";" + " , ";
+            }
             
             sw.WriteLine(objectToWrite);
 

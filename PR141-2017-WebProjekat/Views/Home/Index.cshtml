@@ -34,6 +34,9 @@
             <th>
                 Mesto odrzavanja
             </th>
+            <th>
+                Aktivna
+            </th>
         </tr>
     </thead>
 
@@ -59,6 +62,16 @@
                 <td>
                     @manifestacija.MestoOdrzavanja.PostanskiBroj @manifestacija.MestoOdrzavanja.Mesto
                     @manifestacija.MestoOdrzavanja.Ulica @manifestacija.MestoOdrzavanja.Broj
+                </td>
+                <td>
+                    @if (manifestacija.IsAktivna == true)
+                    {
+                        Write("da");
+                    }
+                    @if (manifestacija.IsAktivna == false)
+                    {
+                        Write("ne");
+                    }
                 </td>
             </tr>
         }
