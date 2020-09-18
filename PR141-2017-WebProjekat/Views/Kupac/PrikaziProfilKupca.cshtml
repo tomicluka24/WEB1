@@ -13,4 +13,69 @@
     <li>Lozinka: @Model.Lozinka</li>
     <li>Pol: @Model.Pol</li>
     <li>Datum rodjenja: @Model.DatumRodjenja.Day/@Model.DatumRodjenja.Month/@Model.DatumRodjenja.Year</li>
+    <li>Tip korisnika: @Model.TipKorisnika.ImeTipa</li>
+    <li>Ostvaren popust: @Model.TipKorisnika.Popust</li>
 </ul>
+
+<h2>Sve karte kupca</h2>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>
+                Id
+            </th>
+            <th>
+                Manifestacija
+            </th>
+            <th>
+                Tip manifestacije
+            </th>
+            <th>
+                Datum i vreme manifestacije
+            </th>
+            <th>
+                Cena karte
+            </th>
+            <th>
+                Tip karte
+            </th>
+            <th>
+                Rezervisana
+            </th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var karta in Model.SveKarteBezObziraNaStatus.Values)
+        {
+        <tr>
+            <td>
+                @karta.ID
+            </td>
+            <td>
+                @karta.Manifestacija.Naziv
+            </td>
+            <td>
+                @karta.Manifestacija.TipManifestacije
+            </td>
+            <td>
+                @karta.DatumIVremeManifestacijce.ToString()
+            </td>
+            <td>
+                @karta.Cena
+            </td>
+            <td>
+                @karta.TipKarte
+            </td>
+            <td>
+                @if (karta.IsRezervisana == true)
+                {
+                    Write("da");
+                }
+            </td>
+
+        </tr>
+        }
+    </tbody>
+</table>
+
