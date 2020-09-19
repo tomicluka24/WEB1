@@ -1,20 +1,9 @@
-﻿@model List<PR141_2017_WebProjekat.Models.Manifestacija>
+﻿@model PR141_2017_WebProjekat.Models.Korisnik
 @{
-    ViewBag.Title = "Pocetna strana prodavca";
+    ViewBag.Title = "Prikazi manifestacije prodavca";
 }
 
-<form method="post" action="~/Prodavac/PrikaziProfilProdavca">
-    <input type="submit" value="Pogledaj svoje podatke">
-</form>
-
-<form method="post" action="~/Prodavac/PrikaziManifestacijeProdavca">
-    <input type="submit" value="Prikazi manifestacije">
-</form>
-
-<form method="post" action="~/Prodavac/PrikaziKarteManifestacija">
-    <input type="submit" value="Prikazi rezervisane karte">
-</form>
-
+<h2>Sve manifestacije prodavca</h2>
 <table class="table table-bordered">
     <thead>
         <tr>
@@ -22,19 +11,16 @@
                 Naziv
             </th>
             <th>
-                Tip
+                Tip manifestacije
             </th>
             <th>
                 Broj mesta
             </th>
             <th>
-                Datum i vreme odrzavanja
-            </th>
-            <th>
-                Cena karte
-            </th>
-            <th>
                 Mesto odrzavanja
+            </th>
+            <th>
+                Cena regularne karte
             </th>
             <th>
                 Aktivna
@@ -43,7 +29,7 @@
     </thead>
 
     <tbody>
-        @foreach (var manifestacija in Model)
+        @foreach (var manifestacija in Model.Manifestacije)
         {
             <tr>
                 <td>
@@ -56,14 +42,10 @@
                     @manifestacija.BrojMesta
                 </td>
                 <td>
-                    @manifestacija.DatumIVremeOdrzavanja
+                    @manifestacija.MestoOdrzavanja.PostanskiBroj @manifestacija.MestoOdrzavanja.Mesto @manifestacija.MestoOdrzavanja.Ulica @manifestacija.MestoOdrzavanja.Broj
                 </td>
                 <td>
                     @manifestacija.CenaRegularneKarte
-                </td>
-                <td>
-                    @manifestacija.MestoOdrzavanja.PostanskiBroj @manifestacija.MestoOdrzavanja.Mesto
-                    @manifestacija.MestoOdrzavanja.Ulica @manifestacija.MestoOdrzavanja.Broj
                 </td>
                 <td>
                     @if (manifestacija.IsAktivna == true)
@@ -75,11 +57,8 @@
                         Write("ne");
                     }
                 </td>
-                 <td>
-                    <img src="~/Files/@manifestacija.Slika" style="width:100px; height:100px"/>
-                </td>
+
             </tr>
         }
     </tbody>
 </table>
-

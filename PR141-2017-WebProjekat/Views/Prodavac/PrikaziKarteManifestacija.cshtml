@@ -1,0 +1,57 @@
+﻿@model List<PR141_2017_WebProjekat.Models.Karta>
+@{
+    ViewBag.Title = "PrikaziKarteManifestacija";
+}
+
+<h2>Prikazi karte manifestacija</h2>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>
+                ID
+            </th>
+            <th>
+                Naziv manifestacije
+            </th>
+            <th>
+                Datum i vreme manifestacije
+            </th>
+            <th>
+                Tip karte
+            </th>
+            <th>
+                Cena karte
+            </th>
+            <th>
+                Kupac
+            </th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var karta in Model)
+        {
+        <tr>
+            <td>
+                @karta.ID
+            </td>
+            <td>
+                @karta.Manifestacija.Naziv
+            </td>
+            <td>
+                @karta.DatumIVremeManifestacijce
+            </td>
+            <td>
+                @karta.TipKarte.ToString()
+            </td>
+            <td>
+                @karta.Cena.ToString()
+            </td>
+            <td>
+                @karta.Kupac
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>

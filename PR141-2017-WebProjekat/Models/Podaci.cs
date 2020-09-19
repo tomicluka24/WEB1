@@ -310,6 +310,8 @@ namespace PR141_2017_WebProjekat.Models
             korisnici[index - 1] = k;
             File.WriteAllLines(putanja, korisnici);
         }
+
+       
     }
 
 }
