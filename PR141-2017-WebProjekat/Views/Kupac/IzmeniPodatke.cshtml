@@ -7,7 +7,6 @@
 
 <div>
     @ViewBag.Message
-
 </div>
 
 @*<form action="~/Autentifikacija/IzmeniPodatke" method="post">
@@ -24,14 +23,14 @@
     <label for="fname">Datum rodjenja:</label>
     <input type="date" id="fname" name="fname" value="@Model.DatumRodjenja.ToShortDateString()"><br><br>
 
-    <input type="submit" value="Izmeni podatke" >
+    <input type="submit" value="Izmeni podatke">
 </form>*@
 
 <form action="~/Autentifikacija/IzmeniPodatke" method="post">
     <table>
         <tr>
             <td>Korisnicko ime:</td>
-            <td><input name="korisnickoIme" value ="@Model.KorisnickoIme" readonly/></td>
+            <td><input name="korisnickoIme" value="@Model.KorisnickoIme" readonly /></td>
         </tr>
         <tr>
             <td>Ime:</td>

@@ -51,5 +51,27 @@ namespace PR141_2017_WebProjekat.Controllers
             return RedirectToAction("Prijavljivanje", "Autentifikacija");
         }
 
+        [HttpPost]
+        public ActionResult IzmeniPodatke(Korisnik korisnik)
+        {
+            Session["korisnik"] = korisnik;
+            //korisnik = (Korisnik)Session["korisnik"];
+            
+
+            Podaci.IzmeniKorisnika(korisnik);
+            if(korisnik.Uloga == "administrator")
+            {
+                return RedirectToAction("PrikaziProfilAdministratora", "Administrator");
+            }
+            else if (korisnik.Uloga == "kupac")
+            {
+                return RedirectToAction("PrikaziProfilKupca", "Kupac");
+            }
+            else
+            {
+                return RedirectToAction("PrikaziProfilProdavca", "Prodavac");
+            }
+        }
+
     }
 }

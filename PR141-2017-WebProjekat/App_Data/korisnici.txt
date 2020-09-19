@@ -1,4 +1,4 @@
-﻿luka98;tomic33;luka;tomic;muski;03/04/1998;administrator;false
+luka98;tomic33;luka;tomic;muski;03/04/1998;administrator;false
 marko98;corovic8;marko;corovic;muski;01/07/1998;administrator;false
 vojo98;vukicevic24;vojislav;vukicevic;muski;10/07/1998;administrator;false
 acke;acobanmunja;aco;vukicevic;muski;11/01/1965;administrator;false
@@ -15,3 +15,4 @@ darkoni;darkoni123;darko;darkovic;zenski;11/11/1992;prodavac;false;laugh factory
 janja;janja;janja;janja;muski;12/12/1966;prodavac;false;winter fest,kobasicijada
 sakebanmunja;sakesake;sasa;pesalj;muski;04/18/1965;prodavac;false; , 
 lakikawasaki;balkanbet;lazar;kostic;muski;12/12/2020;kupac;false; , ;0;bronzani
+masja;masja;marko;markovic;zenski;12/31/2132;kupac;false; , ;0;bronzani

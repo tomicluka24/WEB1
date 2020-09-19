@@ -48,5 +48,11 @@ namespace PR141_2017_WebProjekat.Controllers
 
             return View(korisnici);
         }
+
+        public ActionResult IzmeniPodatke(Korisnik k)
+        {
+            k = (Korisnik)Session["korisnik"];
+            return View(k);
+        }
     }
 }

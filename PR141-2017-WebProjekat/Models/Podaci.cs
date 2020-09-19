@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Web;
 using System.Web.Hosting;
 
@@ -11,8 +12,6 @@ namespace PR141_2017_WebProjekat.Models
     {
         public static List<Korisnik> IscitajKorisnike(string putanja)
         {
-            
-
             List<Korisnik> korisnici = new List<Korisnik>();
             putanja = HostingEnvironment.MapPath(putanja);
             FileStream stream = new FileStream(putanja, FileMode.Open);
@@ -215,6 +214,101 @@ namespace PR141_2017_WebProjekat.Models
             sr.Close();
             stream.Close();
             return karte;
+        }
+        public static void IzmeniKorisnika(Korisnik korisnik)
+        {
+            //string path = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"~/App_Data/korisnici.txt");
+
+            string putanja = HostingEnvironment.MapPath("~/App_Data/korisnici.txt");
+            string[] korisnici = File.ReadAllLines(putanja);
+            int count = 0;
+            int index = -1;
+            int brojElemenata = 0;
+
+            string manifestacijeProdavca = "";
+            string poeniKupca = "";
+            string tipKupca = "";
+            string karteKupca = "";
+
+
+            foreach (var item in korisnici)
+            {
+                count++;
+                string[] tokeni = item.Split(';');
+                
+                
+                if (tokeni[0] == korisnik.KorisnickoIme)
+                {
+                    brojElemenata = tokeni.Count();
+                    index = count;
+
+                    if (brojElemenata == 9)
+                    {
+                        manifestacijeProdavca = tokeni[8];
+                        break;    
+                    }
+                    if (brojElemenata == 11)
+                    {
+                        poeniKupca = tokeni[9];
+                        tipKupca = tokeni[10];
+                        karteKupca = tokeni[8];
+                        break;
+                    }
+
+
+
+                }
+
+
+                
+            }
+
+            #region
+            string mesec = korisnik.DatumRodjenja.Month.ToString();
+            string dan = korisnik.DatumRodjenja.Day.ToString();
+            string godina = korisnik.DatumRodjenja.Year.ToString();
+            if (korisnik.DatumRodjenja.Month <= 9)
+            {
+                mesec = '0' + mesec;
+            }
+            if (korisnik.DatumRodjenja.Day <= 9)
+            {
+                dan = '0' + dan;
+            }
+            if (korisnik.DatumRodjenja.Year < 1000 && korisnik.DatumRodjenja.Year > 99)
+            {
+                godina = '0' + godina;
+            }
+            if (korisnik.DatumRodjenja.Year < 100 && korisnik.DatumRodjenja.Year > 9)
+            {
+                godina = "00" + godina;
+            }
+            if (korisnik.DatumRodjenja.Year < 10)
+            {
+                godina = "000" + godina;
+            }
+            #endregion
+
+            string k = "";
+
+            if(brojElemenata == 8)
+            {
+                k = korisnik.KorisnickoIme + ";" + korisnik.Lozinka + ";" + korisnik.Ime + ";" + korisnik.Prezime + ";"
+                + korisnik.Pol + ";" + mesec + "/" + dan + "/" + godina + ";" + "administrator" + ";" + "false";
+            }
+            else if(brojElemenata == 11)
+            {
+                k = korisnik.KorisnickoIme + ";" + korisnik.Lozinka + ";" + korisnik.Ime + ";" + korisnik.Prezime + ";"
+                + korisnik.Pol + ";" + mesec + "/" + dan + "/" + godina + ";" + "kupac" + ";" + "false" + ";" + karteKupca + ";" + poeniKupca + ";" + tipKupca;
+            }
+            else
+            {
+                k = korisnik.KorisnickoIme + ";" + korisnik.Lozinka + ";" + korisnik.Ime + ";" + korisnik.Prezime + ";"
+                + korisnik.Pol + ";" + mesec + "/" + dan + "/" + godina + ";" + "prodavac" + ";" + "false" + manifestacijeProdavca;
+            }
+
+            korisnici[index - 1] = k;
+            File.WriteAllLines(putanja, korisnici);
         }
     }
 

@@ -199,6 +199,9 @@
     <Content Include="Views\Prodavac\PrikaziProfilProdavca.cshtml" />
     <Content Include="Views\Administrator\KreirajProdavca.cshtml" />
     <Content Include="Views\Administrator\IzlistajSveKorisnike.cshtml" />
+    <Content Include="Views\Administrator\IzmeniPodatke.cshtml" />
+    <Content Include="Views\Kupac\IzmeniPodatke.cshtml" />
+    <Content Include="Views\Prodavac\IzmeniPodatke.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
