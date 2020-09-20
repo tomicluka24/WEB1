@@ -208,6 +208,7 @@
     <Content Include="Views\Prodavac\PrikaziManifestacijeProdavca.cshtml" />
     <Content Include="Views\Prodavac\DodajManifestaciju.cshtml" />
     <Content Include="Views\Home\PrikaziManifestaciju.cshtml" />
+    <Content Include="Views\Administrator\IzlistajSveKarte.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

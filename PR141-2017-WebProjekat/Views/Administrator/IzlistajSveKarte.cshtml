@@ -1,0 +1,71 @@
+﻿@model List<PR141_2017_WebProjekat.Models.Karta>
+@{
+    ViewBag.Title = "Izlistaj sve karte";
+}
+
+<h2>Sve karte</h2>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>
+                ID
+            </th>
+            <th>
+                Naziv manifestacije
+            </th>
+            <th>
+                Datum i vreme manifestacije
+            </th>
+            <th>
+                Tip karte
+            </th>
+            <th>
+                Cena karte
+            </th>
+            <th>
+                Kupac
+            </th>
+            <th>
+                Rezervisana
+            </th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var karta in Model)
+        {
+            <tr>
+                <td>
+                    @karta.ID
+                </td>
+                <td>
+                    <a href="~/Home/PrikaziManifestaciju?Naziv=@karta.Manifestacija.Naziv">@karta.Manifestacija.Naziv</a>
+                </td>
+                <td>
+                    @karta.DatumIVremeManifestacijce
+                </td>
+                <td>
+                    @karta.TipKarte.ToString()
+                </td>
+                <td>
+                    @karta.Cena.ToString()
+                </td>
+                <td>
+                    @karta.Kupac
+                </td>
+                <td>
+                    @if (karta.IsRezervisana == true)
+                    {
+                        Write("da");
+                    }
+                    @if (karta.IsRezervisana == false)
+                    {
+                        Write("ne");
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+

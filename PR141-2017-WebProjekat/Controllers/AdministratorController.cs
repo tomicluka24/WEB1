@@ -48,6 +48,16 @@ namespace PR141_2017_WebProjekat.Controllers
 
             return View(korisnici);
         }
+        public ActionResult IzlistajSveKarte()
+        {
+            //List<Karta> karte = (List<Karta>)HttpContext.Application["karte"];
+            Dictionary<string, Karta> karte = Podaci.IscitajKarte("~/App_Data/karte.txt");
+            List<Karta> listaKarta = karte.Values.ToList();
+
+          
+
+            return View(listaKarta);
+        }
 
         public ActionResult IzmeniPodatke(Korisnik k)
         {
