@@ -217,5 +217,28 @@ namespace PR141_2017_WebProjekat.Controllers
             //Session["manifestacije"] = mZaPrikaz;        
             return RedirectToAction("Index", "Administrator");
         }
+        public ActionResult FiltrirajPoTipuKupca(string tip)
+        {
+            List<Korisnik> kZaPrikaz = new List<Korisnik>();
+            List<Korisnik> korisnici = (List<Korisnik>)HttpContext.Application["korisnici"];
+            foreach (var item in korisnici)
+            {
+                if (item.TipKorisnika.ImeTipa == tip)
+                {
+                    kZaPrikaz.Add(item);
+                }
+            }
+
+            HttpContext.Application["korisnici"] = kZaPrikaz;
+            //Session["manifestacije"] = mZaPrikaz;        
+            return RedirectToAction("IzlistajSveKorisnike", "Administrator");
+        }
+
+        public ActionResult UkloniFilterZaKupce()
+        {
+            HttpContext.Application["korisnici"] = Podaci.IscitajKorisnike("~/App_Data/korisnici.txt");
+            //Session["manifestacije"] = mZaPrikaz;        
+            return RedirectToAction("IzlistajSveKorisnike", "Administrator");
+        }
     }
 }

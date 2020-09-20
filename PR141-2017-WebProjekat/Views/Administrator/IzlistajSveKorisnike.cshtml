@@ -94,7 +94,18 @@
 </table>
 
 <h2>Svi kupci</h2>
-
+<label>Filtriraj po tipu kupca:</label>
+<form action="~/Administrator/FiltrirajPoTipuKupca" method="post">
+    <select name="tip" id="filtriranje">
+        <option value="bronzani">bronzani</option>
+        <option value="srebrni">srebrni</option>
+        <option value="zlatni">zlatni</option>
+    </select>
+    <input type="submit" value="Filtriraj">
+</form>
+<form action="~/Administrator/UkloniFilterZaKupce" method="post">
+    <input type="submit" value="Ukloni filter">
+</form>
 <table class="table table-bordered">
     <thead>
         <tr>
@@ -133,6 +144,7 @@
             </th>
         </tr>
     </thead>
+
 
     <tbody>
         @foreach (var korisnik in Model)
