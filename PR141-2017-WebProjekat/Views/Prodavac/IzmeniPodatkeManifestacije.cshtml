@@ -1,0 +1,57 @@
+﻿@model PR141_2017_WebProjekat.Models.Manifestacija
+@{
+    ViewBag.Title = "IzmeniPodatkeManifestacije";
+}
+
+<h2>Izmeni Podatke manifestacije</h2>
+
+<form action="~/Autentifikacija/IzmeniPodatkeManifestacije" method="post">
+   
+    <table>
+        <tr>
+            <td>Naziv</td>
+            <td><input name="naziv" value="@Model.Naziv" readonly /></td>
+        </tr>
+        <tr>
+            <td>Tip:</td>
+            <td><input type="text" name="tipManifestacije" /></td>
+        </tr>
+        <tr>
+            <td>Broj mesta:</td>
+            <td><input type="text" name="brojMesta" /></td>
+        </tr>
+
+        <tr>
+            <td>Datum i vreme odrzavanja:</td>
+            <td><input type="datetime-local" name="datumIVremeOdrzavanja" /></td>
+        </tr>
+
+        <tr>
+            <td>Cena regularne karte:</td>
+            <td><input type="text" name="cenaRegularneKarte" /></td>
+        </tr>
+        <tr>
+            <td>Aktivna</td>
+            <td><input name="isAktivna" value="@Model.IsAktivna.ToString()" readonly /></td>
+        </tr>
+        <tr>
+            @using (Html.BeginForm("IzmeniPodatkeManifestacije", "Prodavac", FormMethod.Post))
+            {
+                @Html.LabelFor(model => model.MestoOdrzavanja.Mesto)
+                @Html.TextBoxFor(model => model.MestoOdrzavanja.Mesto)
+                @Html.LabelFor(model => model.MestoOdrzavanja.PostanskiBroj)
+                @Html.TextBoxFor(model => model.MestoOdrzavanja.PostanskiBroj)
+                @Html.LabelFor(model => model.MestoOdrzavanja.Ulica)
+                @Html.TextBoxFor(model => model.MestoOdrzavanja.Ulica)
+                @Html.LabelFor(model => model.MestoOdrzavanja.Broj)
+                @Html.TextBoxFor(model => model.MestoOdrzavanja.Broj)
+            }
+        </tr>
+        <tr>
+            <td colspan="2">
+                <input type="submit" value="Izmeni podatke" />
+            </td>
+        </tr>
+    </table>
+</form>
+

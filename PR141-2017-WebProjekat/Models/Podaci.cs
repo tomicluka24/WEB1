@@ -316,7 +316,13 @@ namespace PR141_2017_WebProjekat.Models
             FileStream stream = new FileStream(path, FileMode.Append);
             StreamWriter sw = new StreamWriter(stream);
 
-            string objectToWrite = manifestacija.Naziv + ";" + manifestacija.TipManifestacije + ";" + manifestacija.BrojMesta.ToString() + ";" + manifestacija.DatumIVremeOdrzavanja.ToString() + ";"
+            string mesec = manifestacija.DatumIVremeOdrzavanja.Month.ToString();
+            string dan = manifestacija.DatumIVremeOdrzavanja.Day.ToString();
+            string godina = manifestacija.DatumIVremeOdrzavanja.Year.ToString();
+            string sati = manifestacija.DatumIVremeOdrzavanja.Hour.ToString();
+            string minuta = manifestacija.DatumIVremeOdrzavanja.Minute.ToString();
+
+            string objectToWrite = manifestacija.Naziv + ";" + manifestacija.TipManifestacije + ";" + manifestacija.BrojMesta.ToString() + ";" + mesec + "/" + dan + "/" + godina + " " + sati + ":" + minuta + ";"
             + manifestacija.CenaRegularneKarte + ";" + manifestacija.MestoOdrzavanja.Mesto + ";" + manifestacija.MestoOdrzavanja.PostanskiBroj.ToString() + ";" + manifestacija.MestoOdrzavanja.Ulica + ";"
             + manifestacija.MestoOdrzavanja.Broj + ";" + "false" + ";" + "false" + ";" + manifestacija.Naziv + ".jpg";
 
@@ -325,6 +331,70 @@ namespace PR141_2017_WebProjekat.Models
             sw.Close();
             stream.Close();
         }
+        public static void IzmeniManifestaciju(Manifestacija manifestacija)
+        {
+            string path = HostingEnvironment.MapPath("~/App_Data/manifestacije.txt");
+            int count = 0;
+            int index = -1;
+
+            string[] manifestacije = File.ReadAllLines(path);
+
+            foreach (var item in manifestacije)
+            {
+                count++;
+                string[] tokeni = item.Split(';');
+                if(manifestacija.Naziv == tokeni[0])
+                {
+                    index = count;
+                    break;
+                }
+            }
+
+            #region
+            string mesec = manifestacija.DatumIVremeOdrzavanja.Month.ToString();
+            string dan = manifestacija.DatumIVremeOdrzavanja.Day.ToString();
+            string godina = manifestacija.DatumIVremeOdrzavanja.Year.ToString();
+            string sati = manifestacija.DatumIVremeOdrzavanja.Hour.ToString();
+            string minuta = manifestacija.DatumIVremeOdrzavanja.Minute.ToString();
+            if (manifestacija.DatumIVremeOdrzavanja.Month <= 9)
+            {
+                mesec = '0' + mesec;
+            }
+            if (manifestacija.DatumIVremeOdrzavanja.Day <= 9)
+            {
+                dan = '0' + dan;
+            }
+            if (manifestacija.DatumIVremeOdrzavanja.Year < 1000 && manifestacija.DatumIVremeOdrzavanja.Year > 99)
+            {
+                godina = '0' + godina;
+            }
+            if (manifestacija.DatumIVremeOdrzavanja.Year < 100 && manifestacija.DatumIVremeOdrzavanja.Year > 9)
+            {
+                godina = "00" + godina;
+            }
+            if (manifestacija.DatumIVremeOdrzavanja.Year < 10)
+            {
+                godina = "000" + godina;
+            }
+            if(manifestacija.DatumIVremeOdrzavanja.Hour < 10)
+            {
+                sati = "0" + sati;
+            }
+            if (manifestacija.DatumIVremeOdrzavanja.Minute < 10)
+            {
+                minuta = "0" + minuta;
+            }
+
+            #endregion
+            string izmenaManifestacije = manifestacija.Naziv + ";" + manifestacija.TipManifestacije + ";" + manifestacija.BrojMesta.ToString() + ";" + mesec + "/" + dan + "/" + godina + " " + sati + ":" + minuta  + ";"
+                 + manifestacija.CenaRegularneKarte + ";" + manifestacija.MestoOdrzavanja.Mesto + ";" + manifestacija.MestoOdrzavanja.PostanskiBroj.ToString() + ";"
+                 + manifestacija.MestoOdrzavanja.Ulica + ";" + manifestacija.MestoOdrzavanja.Broj + ";" + manifestacija.IsAktivna.ToString().ToLower() + ";" + manifestacija.IsIzbrisana.ToString().ToLower() + ";"
+                 + manifestacija.Naziv + ".jpg";
+
+            manifestacije[index - 1] = izmenaManifestacije;
+            File.WriteAllLines(path, manifestacije);
+        }
+
 
 
     }

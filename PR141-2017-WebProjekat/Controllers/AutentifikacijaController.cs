@@ -73,5 +73,18 @@ namespace PR141_2017_WebProjekat.Controllers
             }
         }
 
+        [HttpPost]
+        public ActionResult IzmeniPodatkeManifestacije(Manifestacija m)
+        {
+            Session["manifestacija"] = m;
+            //korisnik = (Korisnik)Session["korisnik"];
+
+
+            Podaci.IzmeniManifestaciju(m);
+
+
+            return RedirectToAction("PrikaziManifestacijeProdavca", "Prodavac");
+        }
+
     }
 }

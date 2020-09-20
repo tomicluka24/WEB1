@@ -35,6 +35,11 @@ namespace PR141_2017_WebProjekat.Controllers
             k = (Korisnik)Session["korisnik"];
             return View(k);
         }
+        public ActionResult IzmeniPodatkeManifestacije(Manifestacija m)
+        {
+            m = (Manifestacija)Session["manifestacija"];
+            return View(m);
+        }
 
         public ActionResult PrikaziKarteManifestacija(Korisnik k)
         {
@@ -213,6 +218,26 @@ namespace PR141_2017_WebProjekat.Controllers
             }
             HttpContext.Application["manifestacije"] = sortiraneManifestacije;
             return RedirectToAction("Index", "Prodavac");
+        }
+
+        
+
+        public ActionResult PrikaziManifestaciju(string Naziv)
+        {
+            //m = (Manifestacija)Session["manifestacija"];
+            Manifestacija mZaPrikaz = new Manifestacija();
+            List<Manifestacija> manifestacije = (List<Manifestacija>)HttpContext.Application["manifestacije"];
+            foreach (var item in manifestacije)
+            {
+                if (item.Naziv == Naziv)
+                {
+                    mZaPrikaz = item;
+                    break;
+                }
+            }
+
+            Session["manifestacija"] = mZaPrikaz;
+            return View(mZaPrikaz);
         }
     }
 }
