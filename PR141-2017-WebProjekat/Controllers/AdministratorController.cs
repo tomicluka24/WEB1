@@ -65,7 +65,6 @@ namespace PR141_2017_WebProjekat.Controllers
             return View(k);
         }
 
-        [HttpPost]
         public ActionResult SortirajPoNazivu(string naziv)
         {
             List<Manifestacija> manifestacije = (List<Manifestacija>)HttpContext.Application["manifestacije"];
@@ -87,7 +86,6 @@ namespace PR141_2017_WebProjekat.Controllers
             return RedirectToAction("Index", "Administrator");
         }
 
-        [HttpPost]
         public ActionResult SortirajPoDatumu(string datum)
         {
             List<Manifestacija> manifestacije = (List<Manifestacija>)HttpContext.Application["manifestacije"];
@@ -105,7 +103,6 @@ namespace PR141_2017_WebProjekat.Controllers
             return RedirectToAction("Index", "Administrator");
         }
 
-        [HttpPost]
         public ActionResult SortirajPoMestu(string mesto)
         {
             List<Manifestacija> manifestacije = (List<Manifestacija>)HttpContext.Application["manifestacije"];
@@ -123,7 +120,6 @@ namespace PR141_2017_WebProjekat.Controllers
             return RedirectToAction("Index", "Administrator");
         }
 
-        [HttpPost]
         public ActionResult SortirajPoCeniKarte(string cenaKarte)
         {
             List<Manifestacija> manifestacije = (List<Manifestacija>)HttpContext.Application["manifestacije"];
@@ -141,7 +137,6 @@ namespace PR141_2017_WebProjekat.Controllers
             return RedirectToAction("Index", "Administrator");
         }
 
-        [HttpPost]
         public ActionResult SortirajPoImenu(string ime)
         {
             List<Korisnik> korisnici = (List<Korisnik>)HttpContext.Application["korisnici"];
@@ -161,7 +156,6 @@ namespace PR141_2017_WebProjekat.Controllers
             return RedirectToAction("IzlistajSveKorisnike", "Administrator");
         }
 
-        [HttpPost]
         public ActionResult SortirajPoPrezimenu(string prezime)
         {
             List<Korisnik> korisnici = (List<Korisnik>)HttpContext.Application["korisnici"];
@@ -181,7 +175,6 @@ namespace PR141_2017_WebProjekat.Controllers
             return RedirectToAction("IzlistajSveKorisnike", "Administrator");
         }
 
-        [HttpPost]
         public ActionResult SortirajPoKorisnickomImenu(string korisnickoIme)
         {
             List<Korisnik> korisnici = (List<Korisnik>)HttpContext.Application["korisnici"];
@@ -199,6 +192,30 @@ namespace PR141_2017_WebProjekat.Controllers
             HttpContext.Application["korisnici"] = sortiraniKorisnici;
             //Session["manifestacije"] = sortiraneManifestacije;
             return RedirectToAction("IzlistajSveKorisnike", "Administrator");
+        }
+
+        public ActionResult FiltrirajPoTipu(string tip)
+        {
+            List<Manifestacija> mZaPrikaz = new List<Manifestacija>();
+            List<Manifestacija> manifestacije = (List<Manifestacija>)HttpContext.Application["manifestacije"];
+            foreach (var item in manifestacije)
+            {
+                if (item.TipManifestacije == tip)
+                {
+                    mZaPrikaz.Add(item);
+                }
+            }
+
+            HttpContext.Application["manifestacije"] = mZaPrikaz;
+            //Session["manifestacije"] = mZaPrikaz;        
+            return RedirectToAction("Index", "Administrator");
+        }
+
+        public ActionResult UkloniFilter()
+        {
+            HttpContext.Application["manifestacije"] = Podaci.IscitajManifestacije("~/App_Data/manifestacije.txt");
+            //Session["manifestacije"] = mZaPrikaz;        
+            return RedirectToAction("Index", "Administrator");
         }
     }
 }

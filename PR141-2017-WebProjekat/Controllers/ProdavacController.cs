@@ -144,7 +144,6 @@ namespace PR141_2017_WebProjekat.Controllers
         //    return View(m);
         //}
 
-        [HttpPost]
         public ActionResult SortirajPoNazivu(string naziv)
         {
             List<Manifestacija> manifestacije = (List<Manifestacija>)HttpContext.Application["manifestacije"];
@@ -166,7 +165,6 @@ namespace PR141_2017_WebProjekat.Controllers
             return RedirectToAction("Index", "Prodavac");
         }
 
-        [HttpPost]
         public ActionResult SortirajPoDatumu(string datum)
         {
             List<Manifestacija> manifestacije = (List<Manifestacija>)HttpContext.Application["manifestacije"];
@@ -184,7 +182,6 @@ namespace PR141_2017_WebProjekat.Controllers
             return RedirectToAction("Index", "Prodavac");
         }
 
-        [HttpPost]
         public ActionResult SortirajPoMestu(string mesto)
         {
             List<Manifestacija> manifestacije = (List<Manifestacija>)HttpContext.Application["manifestacije"];
@@ -202,7 +199,6 @@ namespace PR141_2017_WebProjekat.Controllers
             return RedirectToAction("Index", "Prodavac");
         }
 
-        [HttpPost]
         public ActionResult SortirajPoCeniKarte(string cenaKarte)
         {
             List<Manifestacija> manifestacije = (List<Manifestacija>)HttpContext.Application["manifestacije"];
@@ -220,8 +216,6 @@ namespace PR141_2017_WebProjekat.Controllers
             return RedirectToAction("Index", "Prodavac");
         }
 
-        
-
         public ActionResult PrikaziManifestaciju(string Naziv)
         {
             //m = (Manifestacija)Session["manifestacija"];
@@ -238,6 +232,29 @@ namespace PR141_2017_WebProjekat.Controllers
 
             Session["manifestacija"] = mZaPrikaz;
             return View(mZaPrikaz);
+        }
+        public ActionResult FiltrirajPoTipu(string tip)
+        {
+            List<Manifestacija> mZaPrikaz = new List<Manifestacija>();
+            List<Manifestacija> manifestacije = (List<Manifestacija>)HttpContext.Application["manifestacije"];
+            foreach (var item in manifestacije)
+            {
+                if (item.TipManifestacije == tip)
+                {
+                    mZaPrikaz.Add(item);
+                }
+            }
+
+            HttpContext.Application["manifestacije"] = mZaPrikaz;
+            //Session["manifestacije"] = mZaPrikaz;        
+            return RedirectToAction("Index", "Prodavac");
+        }
+
+        public ActionResult UkloniFilter()
+        {
+            HttpContext.Application["manifestacije"] = Podaci.IscitajManifestacije("~/App_Data/manifestacije.txt");
+            //Session["manifestacije"] = mZaPrikaz;        
+            return RedirectToAction("Index", "Prodavac");
         }
     }
 }

@@ -35,7 +35,6 @@ namespace PR141_2017_WebProjekat.Controllers
                 return View(mZaPrikaz);
         }
 
-        [HttpPost]
         public ActionResult SortirajPoNazivu(string naziv)
         {
             List<Manifestacija> manifestacije = (List<Manifestacija>)HttpContext.Application["manifestacije"];
@@ -57,7 +56,6 @@ namespace PR141_2017_WebProjekat.Controllers
             return RedirectToAction("Index","Home");
         }
 
-        [HttpPost]
         public ActionResult SortirajPoDatumu(string datum)
         {
             List<Manifestacija> manifestacije = (List<Manifestacija>)HttpContext.Application["manifestacije"];
@@ -75,7 +73,6 @@ namespace PR141_2017_WebProjekat.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        [HttpPost]
         public ActionResult SortirajPoMestu(string mesto)
         {
             List<Manifestacija> manifestacije = (List<Manifestacija>)HttpContext.Application["manifestacije"];
@@ -93,7 +90,6 @@ namespace PR141_2017_WebProjekat.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        [HttpPost]
         public ActionResult SortirajPoCeniKarte(string cenaKarte)
         {
             List<Manifestacija> manifestacije = (List<Manifestacija>)HttpContext.Application["manifestacije"];
@@ -108,6 +104,30 @@ namespace PR141_2017_WebProjekat.Controllers
                 sortiraneManifestacije = manifestacije.OrderByDescending(o => o.CenaRegularneKarte).ToList();
             }
             HttpContext.Application["manifestacije"] = sortiraneManifestacije;
+            return RedirectToAction("Index", "Home");
+        }
+
+        public ActionResult FiltrirajPoTipu(string tip)
+        {
+            List<Manifestacija> mZaPrikaz = new List<Manifestacija>();
+            List <Manifestacija> manifestacije = (List<Manifestacija>)HttpContext.Application["manifestacije"];
+            foreach (var item in manifestacije)
+            {
+                if (item.TipManifestacije == tip)
+                {
+                    mZaPrikaz.Add(item);
+                }
+            }
+
+            HttpContext.Application["manifestacije"] = mZaPrikaz;
+            //Session["manifestacije"] = mZaPrikaz;        
+            return RedirectToAction("Index", "Home");
+        }
+
+        public ActionResult UkloniFilter()
+        {
+            HttpContext.Application["manifestacije"] = Podaci.IscitajManifestacije("~/App_Data/manifestacije.txt");
+            //Session["manifestacije"] = mZaPrikaz;        
             return RedirectToAction("Index", "Home");
         }
     }

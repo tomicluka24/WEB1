@@ -14,12 +14,12 @@
 
 <label>Sortiraj po:</label>
 <form action="~/Home/SortirajPoNazivu" method="post">
-        <label>nazivu:</label>
-        <select name="naziv" id="sortiranje">
-            <option value="a-z">a-z</option>
-            <option value="z-a">z-a</option>
-        </select>
-        <input type="submit" value="Sortiraj">
+    <label>nazivu:</label>
+    <select name="naziv" id="sortiranje">
+        <option value="a-z">a-z</option>
+        <option value="z-a">z-a</option>
+    </select>
+    <input type="submit" value="Sortiraj">
 </form>
 
 <form action="~/Home/SortirajPoMestu" method="post">
@@ -36,7 +36,7 @@
     <select name="cenaKarte" id="sortiranje">
         <option value="jeftinije prvo">jeftinije prvo</option>
         <option value="skuplje prvo">skuplje prvo </option>
-</select>
+    </select>
     <input type="submit" value="Sortiraj">
 </form>
 
@@ -50,6 +50,24 @@
 </form>
 
 
+<label>Filtriraj po tipu:</label>
+<form action="~/Home/FiltrirajPoTipu" method="post">
+    <select name="tip" id="filtriranje">
+        <option value="film">film</option>
+        <option value="festival">festival</option>
+        <option value="crtani">crtani</option>
+        <option value="balet">balet</option>
+        <option value="film">film</option>
+        <option value="opera">opera</option>
+        <option value="kultno zbivanje">kultno zbivanje</option>
+        <option value="stand-up komedija">stand-up komedija</option>
+        <option value="koncert">koncert</option>
+    </select>
+    <input type="submit" value="Filtriraj">
+</form>
+<form action="~/Home/UkloniFilter" method="post">
+    <input type="submit" value="Ukloni filter">
+</form>
 <form action="~/Home/PrikaziManifestaciju" method="post">
     <table class="table table-bordered">
         <thead>

@@ -56,6 +56,24 @@
     <input type="submit" value="Sortiraj">
 </form>
 
+<label>Filtriraj po tipu:</label>
+<form action="~/Prodavac/FiltrirajPoTipu" method="post">
+    <select name="tip" id="filtriranje">
+        <option value="film">film</option>
+        <option value="festival">festival</option>
+        <option value="crtani">crtani</option>
+        <option value="balet">balet</option>
+        <option value="film">film</option>
+        <option value="opera">opera</option>
+        <option value="kultno zbivanje">kultno zbivanje</option>
+        <option value="stand-up komedija">stand-up komedija</option>
+        <option value="koncert">koncert</option>
+    </select>
+    <input type="submit" value="Filtriraj">
+</form>
+<form action="~/Prodavac/UkloniFilter" method="post">
+    <input type="submit" value="Ukloni filter">
+</form>
 <table class="table table-bordered">
     <thead>
         <tr>
