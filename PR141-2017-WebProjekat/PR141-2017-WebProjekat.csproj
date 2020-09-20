@@ -206,6 +206,7 @@
     <Content Include="Views\Prodavac\IzmeniPodatke.cshtml" />
     <Content Include="Views\Prodavac\PrikaziKarteManifestacija.cshtml" />
     <Content Include="Views\Prodavac\PrikaziManifestacijeProdavca.cshtml" />
+    <Content Include="Views\Prodavac\DodajManifestaciju.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

@@ -310,8 +310,23 @@ namespace PR141_2017_WebProjekat.Models
             korisnici[index - 1] = k;
             File.WriteAllLines(putanja, korisnici);
         }
+        public static void UpisiManifestaciju(Manifestacija manifestacija)
+        {
+            string path = HostingEnvironment.MapPath("~/App_Data/manifestacije.txt");
+            FileStream stream = new FileStream(path, FileMode.Append);
+            StreamWriter sw = new StreamWriter(stream);
 
-       
+            string objectToWrite = manifestacija.Naziv + ";" + manifestacija.TipManifestacije + ";" + manifestacija.BrojMesta.ToString() + ";" + manifestacija.DatumIVremeOdrzavanja.ToString() + ";"
+            + manifestacija.CenaRegularneKarte + ";" + manifestacija.MestoOdrzavanja.Mesto + ";" + manifestacija.MestoOdrzavanja.PostanskiBroj.ToString() + ";" + manifestacija.MestoOdrzavanja.Ulica + ";"
+            + manifestacija.MestoOdrzavanja.Broj + ";" + "false" + ";" + "false" + ";" + manifestacija.Naziv + ".jpg";
+
+            sw.WriteLine(objectToWrite);
+
+            sw.Close();
+            stream.Close();
+        }
+
+
     }
 
 }

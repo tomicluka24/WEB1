@@ -1,0 +1,60 @@
+﻿@model PR141_2017_WebProjekat.Models.Manifestacija
+
+
+
+
+    @{
+        ViewBag.Title = "Dodaj manifestaciju";
+    }
+
+    <h2>Dodaj manifestaciju</h2>
+
+    <div>
+        @ViewBag.Message
+    </div>
+
+    <form action="~/Prodavac/DodajManifestaciju" method="post">
+        <table>
+            <tr>
+                <td>Naziv:</td>
+                <td><input type="text" name="naziv" /></td>
+            </tr>
+            <tr>
+                <td>Tip:</td>
+                <td><input type="text" name="tipManifestacije" /></td>
+            </tr>
+            <tr>
+                <td>Broj mesta:</td>
+                <td><input type="text" name="brojMesta" /></td>
+            </tr>
+            <tr>
+                <td>Datum i vreme odrzavanja:</td>
+                <td><input type="datetime-local" name="datumIVremeOdrzavanja" /></td>
+            </tr>
+            <tr>
+                <td>Cena regularne karte:</td>
+                <td><input type="text" name="cenaRegularneKarte" /></td>
+            </tr>
+            <tr>
+                <td>Poster:</td>
+                <td><input type="file" name="cenaRegularneKarte" formenctype="multipart/form-data" /></td>
+            </tr>
+            @using (Html.BeginForm("DodajManifestaciju", "Prodavac", FormMethod.Post))
+            {
+                @Html.LabelFor(model => model.MestoOdrzavanja.Mesto)
+                @Html.TextBoxFor(model => model.MestoOdrzavanja.Mesto)
+                @Html.LabelFor(model => model.MestoOdrzavanja.PostanskiBroj)
+                @Html.TextBoxFor(model => model.MestoOdrzavanja.PostanskiBroj)
+                @Html.LabelFor(model => model.MestoOdrzavanja.Ulica)
+                @Html.TextBoxFor(model => model.MestoOdrzavanja.Ulica)
+                @Html.LabelFor(model => model.MestoOdrzavanja.Broj)
+                @Html.TextBoxFor(model => model.MestoOdrzavanja.Broj)
+            }
+            <tr>
+                <td colspan="2">
+                    <input type="submit" value="Kreiraj manifestaciju" />
+                </td>
+            </tr>
+        </table>
+    </form>
+
