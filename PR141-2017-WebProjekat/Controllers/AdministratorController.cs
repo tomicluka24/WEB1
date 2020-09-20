@@ -130,5 +130,65 @@ namespace PR141_2017_WebProjekat.Controllers
             HttpContext.Application["manifestacije"] = sortiraneManifestacije;
             return RedirectToAction("Index", "Administrator");
         }
+
+        [HttpPost]
+        public ActionResult SortirajPoImenu(string ime)
+        {
+            List<Korisnik> korisnici = (List<Korisnik>)HttpContext.Application["korisnici"];
+            List<Korisnik> sortiraniKorisnici = new List<Korisnik>();
+            if (ime == "a-z")
+            {
+                sortiraniKorisnici = korisnici.OrderBy(o => o.Ime).ToList();
+            }
+
+            if (ime == "z-a")
+            {
+                //sortiraneManifestacije = manifestacije.OrderByDescending(o => o.Naziv).ThenBy(o => o.DatumIVremeOdrzavanja).ToList();
+                sortiraniKorisnici = korisnici.OrderByDescending(o => o.Ime).ToList();
+            }
+            HttpContext.Application["korisnici"] = sortiraniKorisnici;
+            //Session["manifestacije"] = sortiraneManifestacije;
+            return RedirectToAction("IzlistajSveKorisnike", "Administrator");
+        }
+
+        [HttpPost]
+        public ActionResult SortirajPoPrezimenu(string prezime)
+        {
+            List<Korisnik> korisnici = (List<Korisnik>)HttpContext.Application["korisnici"];
+            List<Korisnik> sortiraniKorisnici = new List<Korisnik>();
+            if (prezime == "a-z")
+            {
+                sortiraniKorisnici = korisnici.OrderBy(o => o.Prezime).ToList();
+            }
+
+            if (prezime == "z-a")
+            {
+                //sortiraneManifestacije = manifestacije.OrderByDescending(o => o.Naziv).ThenBy(o => o.DatumIVremeOdrzavanja).ToList();
+                sortiraniKorisnici = korisnici.OrderByDescending(o => o.Prezime).ToList();
+            }
+            HttpContext.Application["korisnici"] = sortiraniKorisnici;
+            //Session["manifestacije"] = sortiraneManifestacije;
+            return RedirectToAction("IzlistajSveKorisnike", "Administrator");
+        }
+
+        [HttpPost]
+        public ActionResult SortirajPoKorisnickomImenu(string korisnickoIme)
+        {
+            List<Korisnik> korisnici = (List<Korisnik>)HttpContext.Application["korisnici"];
+            List<Korisnik> sortiraniKorisnici = new List<Korisnik>();
+            if (korisnickoIme == "a-z")
+            {
+                sortiraniKorisnici = korisnici.OrderBy(o => o.KorisnickoIme).ToList();
+            }
+
+            if (korisnickoIme == "z-a")
+            {
+                //sortiraneManifestacije = manifestacije.OrderByDescending(o => o.Naziv).ThenBy(o => o.DatumIVremeOdrzavanja).ToList();
+                sortiraniKorisnici = korisnici.OrderByDescending(o => o.KorisnickoIme).ToList();
+            }
+            HttpContext.Application["korisnici"] = sortiraniKorisnici;
+            //Session["manifestacije"] = sortiraneManifestacije;
+            return RedirectToAction("IzlistajSveKorisnike", "Administrator");
+        }
     }
 }
