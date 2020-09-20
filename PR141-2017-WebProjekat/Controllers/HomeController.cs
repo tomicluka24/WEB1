@@ -17,6 +17,22 @@ namespace PR141_2017_WebProjekat.Controllers
 
             return View(sortiraneManifestacije);
         }
+        public ActionResult PrikaziManifestaciju(string Naziv)
+        {
+            //m = (Manifestacija)Session["manifestacija"];
+            Manifestacija mZaPrikaz = new Manifestacija();
+            List<Manifestacija> manifestacije = (List<Manifestacija>)HttpContext.Application["manifestacije"];
+            foreach (var item in manifestacije)
+            {
+                if (item.Naziv == Naziv)
+                {
+                    mZaPrikaz = item;
+                    break;
+                }
+            }
+
+                return View(mZaPrikaz);
+        }
 
     }
 }

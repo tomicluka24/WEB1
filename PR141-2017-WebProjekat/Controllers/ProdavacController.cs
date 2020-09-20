@@ -72,11 +72,11 @@ namespace PR141_2017_WebProjekat.Controllers
         }
 
         [HttpPost]
-        public ActionResult DodajManifestaciju(Manifestacija m, HttpPostedFileBase file)
+        public ActionResult DodajManifestaciju(Manifestacija m)
         {
             bool datumIVremeIsti = false;
             bool mestoIsto = false;
-            m.Slika = Path.GetFileName(file.FileName);
+           // m.Slika = Path.GetFileName(file.FileName);
             List<Manifestacija> manifestacije = (List<Manifestacija>)HttpContext.Application["manifestacije"];
 
             foreach (var item in manifestacije)

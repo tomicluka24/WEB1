@@ -1,8 +1,4 @@
 ﻿@model PR141_2017_WebProjekat.Models.Manifestacija
-
-
-
-
     @{
         ViewBag.Title = "Dodaj manifestaciju";
     }
@@ -36,9 +32,9 @@
                 <td><input type="text" name="cenaRegularneKarte" /></td>
             </tr>
             <tr>
-                <td>Poster:</td>
-                <td><input type="file" name="cenaRegularneKarte" formenctype="multipart/form-data" /></td>
-            </tr>
+            <td>Poster:</td>
+            <td><input type="file" name="slika" formenctype="multipart/form-data" /></td>
+        </tr>
             @using (Html.BeginForm("DodajManifestaciju", "Prodavac", FormMethod.Post))
             {
                 @Html.LabelFor(model => model.MestoOdrzavanja.Mesto)
@@ -50,6 +46,7 @@
                 @Html.LabelFor(model => model.MestoOdrzavanja.Broj)
                 @Html.TextBoxFor(model => model.MestoOdrzavanja.Broj)
             }
+           
             <tr>
                 <td colspan="2">
                     <input type="submit" value="Kreiraj manifestaciju" />

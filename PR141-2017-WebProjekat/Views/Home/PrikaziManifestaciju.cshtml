@@ -1,0 +1,26 @@
+﻿@model PR141_2017_WebProjekat.Models.Manifestacija
+@{
+    ViewBag.Title = "Manifestacija";
+}
+
+<h2>Manifestacija</h2>
+
+<ul>
+    <li>Naziv: @Model.Naziv</li>
+    <li>Tip manifestacije: @Model.TipManifestacije </li>
+    <li>Mesto odrzavanja: @Model.MestoOdrzavanja.Mesto @Model.MestoOdrzavanja.PostanskiBroj.ToString() @Model.MestoOdrzavanja.Ulica @Model.MestoOdrzavanja.Broj</li>
+    <li>Datum: @Model.DatumIVremeOdrzavanja.ToString() </li>
+    <li>Broj mesta: @Model.BrojMesta </li>
+    <li>Cena karte: @Model.CenaRegularneKarte </li>
+    <li>
+        Aktivna: @if (Model.IsAktivna == true)
+        {
+            Write("da");
+        }
+                 @if (Model.IsAktivna == false)
+        {
+            Write("ne");
+        }
+    </li>
+    
+</ul>

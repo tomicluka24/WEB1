@@ -10,3 +10,4 @@ laugh factory;stand-up komedija;20;09/29/2020 19:00;450;novi sad;21000;bulevar o
 nisvil;festival;20000;10/02/2020 13:00;3000;nis;70000;djure salaja;150;true;false;nisvil.jpg
 winter fest;festival;10000;10/03/2020 13:30;2000;subotica;20000;pozorisni trg;112;true;false;winter fest.jpg
 kobasicijada;kultno zbivanje;120000;10/05/2020 15:00;1100;turija;10000;heroja pinkija;20;true;false;kobasicijada.jpg
+beer fest;aaaaaaa;12312;9/3/2020 1:34:00 PM;123;123;123;123;123;false;false;beer fest.jpg
