@@ -15,6 +15,43 @@
     <input type="submit" value="Izlistaj sve korisnike registrovane na sistemu">
 </form>
 
+<label>Sortiraj po:</label>
+<form action="~/Administrator/SortirajPoNazivu" method="post">
+    <label>nazivu:</label>
+    <select name="naziv" id="sortiranje">
+        <option value="a-z">a-z</option>
+        <option value="z-a">z-a</option>
+    </select>
+    <input type="submit" value="Sortiraj">
+</form>
+
+<form action="~/Administrator/SortirajPoMestu" method="post">
+    <label>mestu:</label>
+    <select name="mesto" id="sortiranje">
+        <option value="a-z">a-z</option>
+        <option value="z-a">z-a</option>
+    </select>
+    <input type="submit" value="Sortiraj">
+</form>
+
+<form action="~/Administrator/SortirajPoCeniKarte" method="post">
+    <label>ceni karte:</label>
+    <select name="cenaKarte" id="sortiranje">
+        <option value="jeftinije prvo">jeftinije prvo</option>
+        <option value="skuplje prvo">skuplje prvo </option>
+    </select>
+    <input type="submit" value="Sortiraj">
+</form>
+
+<form action="~/Administrator/SortirajPoDatumu" method="post">
+    <label>datumu:</label>
+    <select name="datum" id="sortiranje">
+        <option value="najskorije prvo">najskorije prvo</option>
+        <option value="najskorije poslednje">najskorije poslednje</option>
+    </select>
+    <input type="submit" value="Sortiraj">
+</form>
+
 <table class="table table-bordered">
     <thead>
         <tr>
@@ -75,8 +112,8 @@
                         Write("ne");
                     }
                 </td>
-                 <td>
-                    <img src="~/Files/@manifestacija.Slika" style="width:100px; height:100px"/>
+                <td>
+                    <img src="~/Files/@manifestacija.Slika" style="width:100px; height:100px" />
                 </td>
             </tr>
         }
