@@ -16,21 +16,17 @@ namespace PR141_2017_WebProjekat.Controllers
            // List<Manifestacija> sortiraneManifestacije = manifestacije.OrderBy(o => o.DatumIVremeOdrzavanja).ToList();
             return View(manifestacije);
         }
-
         public ActionResult PrikaziProfilAdministratora(Korisnik k)
         {
             k = (Korisnik)Session["korisnik"];
             return View(k);
         }
-
-
         public ActionResult KreirajProdavca()
         {
             Korisnik korisnik = new Korisnik();
             Session["korisnik"] = korisnik;
             return View(korisnik);
         }
-
         [HttpPost]
         public ActionResult KreirajProdavca(Korisnik korisnik)
         {
@@ -41,7 +37,6 @@ namespace PR141_2017_WebProjekat.Controllers
 
             return RedirectToAction("Index", "Administrator");
         }
-
         public ActionResult IzlistajSveKorisnike()
         {
             List<Korisnik> korisnici = (List<Korisnik>)HttpContext.Application["korisnici"];
@@ -58,13 +53,11 @@ namespace PR141_2017_WebProjekat.Controllers
 
             return View(listaKarta);
         }
-
         public ActionResult IzmeniPodatke(Korisnik k)
         {
             k = (Korisnik)Session["korisnik"];
             return View(k);
         }
-
         public ActionResult SortirajPoNazivu(string naziv)
         {
             List<Manifestacija> manifestacije = (List<Manifestacija>)HttpContext.Application["manifestacije"];
@@ -85,7 +78,6 @@ namespace PR141_2017_WebProjekat.Controllers
             //Session["manifestacije"] = sortiraneManifestacije;
             return RedirectToAction("Index", "Administrator");
         }
-
         public ActionResult SortirajPoDatumu(string datum)
         {
             List<Manifestacija> manifestacije = (List<Manifestacija>)HttpContext.Application["manifestacije"];
@@ -102,7 +94,6 @@ namespace PR141_2017_WebProjekat.Controllers
             HttpContext.Application["manifestacije"] = sortiraneManifestacije;
             return RedirectToAction("Index", "Administrator");
         }
-
         public ActionResult SortirajPoMestu(string mesto)
         {
             List<Manifestacija> manifestacije = (List<Manifestacija>)HttpContext.Application["manifestacije"];
@@ -119,7 +110,6 @@ namespace PR141_2017_WebProjekat.Controllers
             HttpContext.Application["manifestacije"] = sortiraneManifestacije;
             return RedirectToAction("Index", "Administrator");
         }
-
         public ActionResult SortirajPoCeniKarte(string cenaKarte)
         {
             List<Manifestacija> manifestacije = (List<Manifestacija>)HttpContext.Application["manifestacije"];
@@ -136,7 +126,6 @@ namespace PR141_2017_WebProjekat.Controllers
             HttpContext.Application["manifestacije"] = sortiraneManifestacije;
             return RedirectToAction("Index", "Administrator");
         }
-
         public ActionResult SortirajPoImenu(string ime)
         {
             List<Korisnik> korisnici = (List<Korisnik>)HttpContext.Application["korisnici"];
@@ -155,7 +144,6 @@ namespace PR141_2017_WebProjekat.Controllers
             //Session["manifestacije"] = sortiraneManifestacije;
             return RedirectToAction("IzlistajSveKorisnike", "Administrator");
         }
-
         public ActionResult SortirajPoPrezimenu(string prezime)
         {
             List<Korisnik> korisnici = (List<Korisnik>)HttpContext.Application["korisnici"];
@@ -174,8 +162,6 @@ namespace PR141_2017_WebProjekat.Controllers
             //Session["manifestacije"] = sortiraneManifestacije;
             return RedirectToAction("IzlistajSveKorisnike", "Administrator");
         }
-
-
         public ActionResult SortirajPoBrojuBodova(string brojBodova)
         {
             List<Korisnik> korisnici = (List<Korisnik>)HttpContext.Application["korisnici"];
@@ -212,7 +198,6 @@ namespace PR141_2017_WebProjekat.Controllers
             //Session["manifestacije"] = sortiraneManifestacije;
             return RedirectToAction("IzlistajSveKorisnike", "Administrator");
         }
-
         public ActionResult FiltrirajPoTipu(string tip)
         {
             List<Manifestacija> mZaPrikaz = new List<Manifestacija>();
@@ -229,7 +214,6 @@ namespace PR141_2017_WebProjekat.Controllers
             //Session["manifestacije"] = mZaPrikaz;        
             return RedirectToAction("Index", "Administrator");
         }
-
         public ActionResult UkloniFilter()
         {
             HttpContext.Application["manifestacije"] = Podaci.IscitajManifestacije("~/App_Data/manifestacije.txt");
@@ -252,7 +236,6 @@ namespace PR141_2017_WebProjekat.Controllers
             //Session["manifestacije"] = mZaPrikaz;        
             return RedirectToAction("IzlistajSveKorisnike", "Administrator");
         }
-
         public ActionResult UkloniFilterZaKupce()
         {
             HttpContext.Application["korisnici"] = Podaci.IscitajKorisnike("~/App_Data/korisnici.txt");
@@ -342,7 +325,6 @@ namespace PR141_2017_WebProjekat.Controllers
             HttpContext.Application["manifestacije"] = Podaci.IscitajManifestacije("~/App_Data/manifestacije.txt");
             return RedirectToAction("Index", "Administrator");
         }
-
         public ActionResult ObrisiKorisnika(string korisnickoIme)
         {
             Korisnik kZaBrisanje = new Korisnik();

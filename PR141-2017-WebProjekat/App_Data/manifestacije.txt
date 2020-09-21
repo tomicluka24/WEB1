@@ -7,6 +7,6 @@ karmen;opera;50;09/27/2020 22:00;1000;nis;70000;marsala tita;11c;false;false;kar
 kupusijada;kultno zbivanje;1000000;10/04/2020 13:55;12000;mrcajevci;9900;oslobodilacka;1;true;false;kupusijada.jpg
 look mom i can fly;koncert;6000;09/28/2020 20:40;2000;beograd;70000;narodnog fronta;bb;true;false;look mom i can fly.jpg
 laugh factory;stand-up komedija;20;09/29/2020 19:00;450;novi sad;21000;bulevar oslobodjenja;12;true;false;laugh factory.jpg
-nisvil;festival;20000;10/02/2020 13:00;3000;nis;70000;djure salaja;150;true;false;nisvil.jpg
+nisvil;nekilevitip;20000;09/02/2020 11:48;2131;nis;70000;djure salaja;150;true;false;nisvil.jpg
 winter fest;festival;10000;10/03/2020 13:30;2000;subotica;20000;pozorisni trg;112;true;false;winter fest.jpg
 kobasicijada;kultno zbivanje;120000;10/05/2020 15:00;1100;turija;10000;heroja pinkija;20;true;false;kobasicijada.jpg

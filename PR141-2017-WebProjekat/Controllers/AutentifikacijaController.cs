@@ -31,14 +31,12 @@ namespace PR141_2017_WebProjekat.Controllers
             else
                 return RedirectToAction("Index", "Kupac");
         }
-
         public ActionResult Registracija()
         {
             Korisnik korisnik = new Korisnik();
             Session["korisnik"] = korisnik;
             return View(korisnik);
         }
-
         [HttpPost]
         public ActionResult Registracija(Korisnik korisnik)
         {
@@ -50,7 +48,6 @@ namespace PR141_2017_WebProjekat.Controllers
 
             return RedirectToAction("Prijavljivanje", "Autentifikacija");
         }
-
         [HttpPost]
         public ActionResult IzmeniPodatke(Korisnik korisnik)
         {
@@ -72,7 +69,6 @@ namespace PR141_2017_WebProjekat.Controllers
                 return RedirectToAction("PrikaziProfilProdavca", "Prodavac");
             }
         }
-
         [HttpPost]
         public ActionResult IzmeniPodatkeManifestacije(Manifestacija m)
         {
@@ -82,9 +78,8 @@ namespace PR141_2017_WebProjekat.Controllers
 
             Podaci.IzmeniManifestaciju(m);
 
-
+            HttpContext.Application["manifestacije"] = Podaci.IscitajManifestacije("~/App_Data/manifestacije.txt");
             return RedirectToAction("PrikaziManifestacijeProdavca", "Prodavac");
         }
-
     }
 }
