@@ -82,6 +82,7 @@ namespace PR141_2017_WebProjekat.Models
                     }
 
                     Korisnik k = new Korisnik(tokeni[0], tokeni[1], tokeni[2], tokeni[3], tokeni[4], DateTime.ParseExact(tokeni[5], "MM/dd/yyyy", null), tokeni[6], manifestacijeProdavca, bool.Parse(tokeni[7]));
+                    if(k.IsIzbrisan != true)
                     korisnici.Add(k);
 
                 }
@@ -294,17 +295,17 @@ namespace PR141_2017_WebProjekat.Models
             if(brojElemenata == 8)
             {
                 k = korisnik.KorisnickoIme + ";" + korisnik.Lozinka + ";" + korisnik.Ime + ";" + korisnik.Prezime + ";"
-                + korisnik.Pol + ";" + mesec + "/" + dan + "/" + godina + ";" + "administrator" + ";" + "false";
+                + korisnik.Pol + ";" + mesec + "/" + dan + "/" + godina + ";" + "administrator" + ";" + korisnik.IsIzbrisan.ToString().ToLower();
             }
             else if(brojElemenata == 11)
             {
                 k = korisnik.KorisnickoIme + ";" + korisnik.Lozinka + ";" + korisnik.Ime + ";" + korisnik.Prezime + ";"
-                + korisnik.Pol + ";" + mesec + "/" + dan + "/" + godina + ";" + "kupac" + ";" + "false" + ";" + karteKupca + ";" + poeniKupca + ";" + tipKupca;
+                + korisnik.Pol + ";" + mesec + "/" + dan + "/" + godina + ";" + "kupac" + ";" + korisnik.IsIzbrisan.ToString().ToLower() + ";" + karteKupca + ";" + poeniKupca + ";" + tipKupca;
             }
             else
             {
                 k = korisnik.KorisnickoIme + ";" + korisnik.Lozinka + ";" + korisnik.Ime + ";" + korisnik.Prezime + ";"
-                + korisnik.Pol + ";" + mesec + "/" + dan + "/" + godina + ";" + "prodavac" + ";" + "false" + manifestacijeProdavca;
+                + korisnik.Pol + ";" + mesec + "/" + dan + "/" + godina + ";" + "prodavac" + ";" + korisnik.IsIzbrisan.ToString().ToLower() + manifestacijeProdavca;
             }
 
             korisnici[index - 1] = k;

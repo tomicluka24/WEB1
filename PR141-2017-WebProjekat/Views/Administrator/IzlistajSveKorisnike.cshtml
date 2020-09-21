@@ -65,7 +65,10 @@
         {
             if (@korisnik.Uloga == "administrator")
             {
+                if(korisnik.IsIzbrisan != true)
+                {
                 <tr>
+
                     <td>
                         @korisnik.Ime
                     </td>
@@ -87,7 +90,10 @@
                     <td>
                         @korisnik.Uloga
                     </td>
+
                 </tr>
+                }
+                
             }
         }
     </tbody>
@@ -160,6 +166,8 @@
         {
             if (@korisnik.Uloga == "kupac")
             {
+                if (korisnik.IsIzbrisan != true)
+                {
                 <tr>
                     <td>
                         @korisnik.Ime
@@ -198,7 +206,11 @@
                     <td>
                         @korisnik.TipKorisnika.Popust
                     </td>
+                    <td>
+                        <a href="~/Administrator/ObrisiKorisnika?KorisnickoIme=@korisnik.KorisnickoIme">obrisi korisnika</a>
+                    </td>
                 </tr>
+                }
             }
 
         }
@@ -243,6 +255,8 @@
         {
             if (@korisnik.Uloga == "prodavac")
             {
+                if (korisnik.IsIzbrisan != true)
+                {
                 <tr>
                     <td>
                         @korisnik.Ime
@@ -272,7 +286,11 @@
                             Write(";");
                         }
                     </td>
+                    <td>
+                        <a href="~/Administrator/ObrisiKorisnika?KorisnickoIme=@korisnik.KorisnickoIme">obrisi korisnika</a>
+                    </td>
                 </tr>
+                }
             }
 
         }

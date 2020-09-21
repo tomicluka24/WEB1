@@ -342,5 +342,25 @@ namespace PR141_2017_WebProjekat.Controllers
             HttpContext.Application["manifestacije"] = Podaci.IscitajManifestacije("~/App_Data/manifestacije.txt");
             return RedirectToAction("Index", "Administrator");
         }
+
+        public ActionResult ObrisiKorisnika(string korisnickoIme)
+        {
+            Korisnik kZaBrisanje = new Korisnik();
+            List<Korisnik> korisnici = Podaci.IscitajKorisnike("~/App_Data/korisnici.txt");
+
+            foreach (var item in korisnici)
+            {
+                if (item.KorisnickoIme == korisnickoIme && item.IsIzbrisan!=true)
+                {
+                    kZaBrisanje = item;
+                    kZaBrisanje.IsIzbrisan = true;
+                    break;
+                }
+            }
+
+            Podaci.IzmeniKorisnika(kZaBrisanje);
+            HttpContext.Application["korisnici"] = Podaci.IscitajKorisnike("~/App_Data/korisnici.txt");
+            return RedirectToAction("IzlistajSveKorisnike", "Administrator");
+        }
     }
 }
