@@ -17,10 +17,13 @@
         {
             Write("da");
         }
-                 @if (Model.IsAktivna == false)
+        @if (Model.IsAktivna == false)
         {
             Write("ne");
         }
     </li>
-    
+    <li>
+        <img src="~/Files/@Model.Slika" style="width:100px; height:100px" />
+    </li>
+
 </ul>

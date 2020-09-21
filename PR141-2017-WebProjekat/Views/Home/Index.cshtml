@@ -68,6 +68,37 @@
 <form action="~/Home/UkloniFilter" method="post">
     <input type="submit" value="Ukloni filter">
 </form>
+
+
+
+<label>Pretrazi po:</label>
+
+<form action="~/Home/PretragaPoNazivu" method="post">
+    <label>nazivu:</label>
+    <input type="search" id="site-search" name="naziv" />
+    <button>Pretrazi</button>
+</form>
+<form action="~/Home/PretragaPoMestu" method="post">
+    <label>mestu:</label>
+    <input type="search" id="site-search" name="mesto" />
+    <button>Pretrazi</button>
+</form>
+<form action="~/Home/PretragaPoCeni" method="post">
+    <label>ceni:</label>
+    <input type="search" id="site-search" name="donjaGranica" placeholder="od"/>
+    <input type="search" id="site-search" name="gornjaGranica" placeholder="do"/>
+    <button>Pretrazi</button>
+</form>
+<form action="~/Home/PretragaPoDatumu" method="post">
+    <label>datumu(od-do):</label>
+    <input type="datetime-local" id="site-search" name="donjaGranica" />
+    <input type="datetime-local" id="site-search" name="gornjaGranica" />
+    <button>Pretrazi</button>
+</form>
+<form action="~/Home/UkloniFilter" method="post">
+    <input type="submit" value="Ukloni pretragu">
+</form>
+
 <form action="~/Home/PrikaziManifestaciju" method="post">
     <table class="table table-bordered">
         <thead>

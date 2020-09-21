@@ -130,5 +130,69 @@ namespace PR141_2017_WebProjekat.Controllers
             //Session["manifestacije"] = mZaPrikaz;        
             return RedirectToAction("Index", "Home");
         }
+        public ActionResult PretragaPoNazivu(string naziv)
+        {
+            List<Manifestacija> mZaPrikaz = new List<Manifestacija>();
+            List<Manifestacija> manifestacije = (List<Manifestacija>)HttpContext.Application["manifestacije"];
+            foreach (var item in manifestacije)
+            {
+                if (item.Naziv == naziv)
+                {
+                    mZaPrikaz.Add(item);
+                }
+            }
+
+            HttpContext.Application["manifestacije"] = mZaPrikaz;
+            //Session["manifestacije"] = mZaPrikaz;        
+            return RedirectToAction("Index", "Home");
+        }
+        public ActionResult PretragaPoMestu(string mesto)
+        {
+            List<Manifestacija> mZaPrikaz = new List<Manifestacija>();
+            List<Manifestacija> manifestacije = (List<Manifestacija>)HttpContext.Application["manifestacije"];
+            foreach (var item in manifestacije)
+            {
+                if (item.MestoOdrzavanja.Mesto == mesto)
+                {
+                    mZaPrikaz.Add(item);
+                }
+            }
+
+            HttpContext.Application["manifestacije"] = mZaPrikaz;
+            //Session["manifestacije"] = mZaPrikaz;        
+            return RedirectToAction("Index", "Home");
+        }
+        public ActionResult PretragaPoCeni(double donjaGranica, double gornjaGranica)
+        {
+            List<Manifestacija> mZaPrikaz = new List<Manifestacija>();
+            List<Manifestacija> manifestacije = (List<Manifestacija>)HttpContext.Application["manifestacije"];
+            foreach (var item in manifestacije)
+            {
+                if (item.CenaRegularneKarte >= donjaGranica && item.CenaRegularneKarte <= gornjaGranica)
+                {
+                    mZaPrikaz.Add(item);
+                }
+            }
+
+            HttpContext.Application["manifestacije"] = mZaPrikaz;
+            //Session["manifestacije"] = mZaPrikaz;        
+            return RedirectToAction("Index", "Home");
+        }
+        public ActionResult PretragaPoDatumu(DateTime donjaGranica, DateTime gornjaGranica)
+        {
+            List<Manifestacija> mZaPrikaz = new List<Manifestacija>();
+            List<Manifestacija> manifestacije = (List<Manifestacija>)HttpContext.Application["manifestacije"];
+            foreach (var item in manifestacije)
+            {
+                if (item.DatumIVremeOdrzavanja >= donjaGranica && item.DatumIVremeOdrzavanja <= gornjaGranica)
+                {
+                    mZaPrikaz.Add(item);
+                }
+            }
+
+            HttpContext.Application["manifestacije"] = mZaPrikaz;
+            //Session["manifestacije"] = mZaPrikaz;        
+            return RedirectToAction("Index", "Home");
+        }
     }
 }

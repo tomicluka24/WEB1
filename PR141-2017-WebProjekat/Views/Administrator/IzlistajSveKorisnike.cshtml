@@ -93,6 +93,15 @@
     </tbody>
 </table>
 
+<form action="~/Administrator/SortirajPoBrojuBodova" method="post">
+    <label>Sortiraj kupce po broju bodova:</label>
+    <select name="brojBodova" id="sortiranje">
+        <option value="uzlazno">uzlazno</option>
+        <option value="silazno">silazno</option>
+    </select>
+    <input type="submit" value="Sortiraj">
+</form>
+
 <h2>Svi kupci</h2>
 <label>Filtriraj po tipu kupca:</label>
 <form action="~/Administrator/FiltrirajPoTipuKupca" method="post">

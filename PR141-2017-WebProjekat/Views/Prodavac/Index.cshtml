@@ -74,6 +74,36 @@
 <form action="~/Prodavac/UkloniFilter" method="post">
     <input type="submit" value="Ukloni filter">
 </form>
+
+<label>Pretrazi po:</label>
+
+<form action="~/Prodavac/PretragaPoNazivu" method="post">
+    <label>nazivu:</label>
+    <input type="search" id="site-search" name="naziv" />
+    <button>Pretrazi</button>
+</form>
+<form action="~/Prodavac/PretragaPoMestu" method="post">
+    <label>mestu:</label>
+    <input type="search" id="site-search" name="mesto" />
+    <button>Pretrazi</button>
+</form>
+<form action="~/Prodavac/PretragaPoCeni" method="post">
+    <label>ceni:</label>
+    <input type="search" id="site-search" name="donjaGranica" placeholder="od" />
+    <input type="search" id="site-search" name="gornjaGranica" placeholder="do" />
+    <button>Pretrazi</button>
+</form>
+<form action="~/Prodavac/PretragaPoDatumu" method="post">
+    <label>datumu(od-do):</label>
+    <input type="datetime-local" id="site-search" name="donjaGranica" />
+    <input type="datetime-local" id="site-search" name="gornjaGranica" />
+    <button>Pretrazi</button>
+</form>
+<form action="~/Prodavac/UkloniFilter" method="post">
+    <input type="submit" value="Ukloni pretragu">
+</form>
+
+
 <table class="table table-bordered">
     <thead>
         <tr>

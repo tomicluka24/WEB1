@@ -22,6 +22,55 @@
 </ul>
 
 <h2>Sve karte kupca</h2>
+
+<label>Sortiraj po:</label>
+<form action="~/Kupac/SortirajKartePoNazivu" method="post">
+    <label>nazivu:</label>
+    <select name="naziv" id="sortiranje">
+        <option value="a-z">a-z</option>
+        <option value="z-a">z-a</option>
+    </select>
+    <input type="submit" value="Sortiraj">
+</form>
+<form action="~/Kupac/SortirajKartePoCeni" method="post">
+    <label>ceni karte:</label>
+    <select name="cenaKarte" id="sortiranje">
+        <option value="jeftinije prvo">jeftinije prvo</option>
+        <option value="skuplje prvo">skuplje prvo </option>
+    </select>
+    <input type="submit" value="Sortiraj">
+</form>
+
+<form action="~/Kupac/SortirajKartePoDatumu" method="post">
+    <label>datumu:</label>
+    <select name="datum" id="sortiranje">
+        <option value="najskorije prvo">najskorije prvo</option>
+        <option value="najskorije poslednje">najskorije poslednje</option>
+    </select>
+    <input type="submit" value="Sortiraj">
+</form>
+@*<label>Pretrazi po:</label>
+
+    <form action="~/Kupac/PretragaPoNazivuManifestacije" method="post">
+        <label>nazivu:</label>
+        <input type="search" id="site-search" name="naziv" />
+        <button>Pretrazi</button>
+    </form>
+    <form action="~/Kupac/PretragaPoCeniKarte" method="post">
+        <label>ceni karte:</label>
+        <input type="search" id="site-search" name="cena" />
+        <button>Pretrazi</button>
+    </form>
+    <form action="~/Kupac/PretragaKarataPoDatumu" method="post">
+        <label>ceni:</label>
+        <input type="search" id="site-search" name="donjaGranica" placeholder="od" />
+        <input type="search" id="site-search" name="gornjaGranica" placeholder="do" />
+        <button>Pretrazi</button>
+    </form>
+    <form action="~/Kupac/UkloniFilterKarata" method="post">
+        <input type="submit" value="Ukloni pretragu">
+    </form>*@
+
 <table class="table table-bordered">
     <thead>
         <tr>
@@ -52,33 +101,33 @@
     <tbody>
         @foreach (var karta in Model.SveKarteBezObziraNaStatus.Values)
         {
-        <tr>
-            <td>
-                @karta.ID
-            </td>
-            <td>
-                @karta.Manifestacija.Naziv
-            </td>
-            <td>
-                @karta.Manifestacija.TipManifestacije
-            </td>
-            <td>
-                @karta.DatumIVremeManifestacijce.ToString()
-            </td>
-            <td>
-                @karta.Cena
-            </td>
-            <td>
-                @karta.TipKarte
-            </td>
-            <td>
-                @if (karta.IsRezervisana == true)
-                {
-                    Write("da");
-                }
-            </td>
+            <tr>
+                <td>
+                    @karta.ID
+                </td>
+                <td>
+                    @karta.Manifestacija.Naziv
+                </td>
+                <td>
+                    @karta.Manifestacija.TipManifestacije
+                </td>
+                <td>
+                    @karta.DatumIVremeManifestacijce.ToString()
+                </td>
+                <td>
+                    @karta.Cena
+                </td>
+                <td>
+                    @karta.TipKarte
+                </td>
+                <td>
+                    @if (karta.IsRezervisana == true)
+                    {
+                        Write("da");
+                    }
+                </td>
 
-        </tr>
+            </tr>
         }
     </tbody>
 </table>

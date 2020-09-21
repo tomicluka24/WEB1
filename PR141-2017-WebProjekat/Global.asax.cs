@@ -40,7 +40,7 @@ namespace PR141_2017_WebProjekat
             HttpContext.Current.Application["manifestacije"] = manifestacije.OrderBy(o => o.DatumIVremeOdrzavanja).ToList();
 
             //kolekcija karata
-            List<Manifestacija> karte = Podaci.IscitajManifestacije("~/App_Data/karte.txt");
+            Dictionary<string,Karta> karte = Podaci.IscitajKarte("~/App_Data/karte.txt");
             HttpContext.Current.Application["karte"] = karte;
 
             //fotografije
