@@ -323,5 +323,24 @@ namespace PR141_2017_WebProjekat.Controllers
             //Session["manifestacije"] = mZaPrikaz;        
             return RedirectToAction("Index", "Administrator");
         }
+        public ActionResult ObrisiManifestaciju(string naziv)
+        {
+            Manifestacija mZaBrisanje = new Manifestacija();
+            List<Manifestacija> manifestacije = Podaci.IscitajManifestacije("~/App_Data/manifestacije.txt");
+
+            foreach (var item in manifestacije)
+            {
+                if (item.Naziv == naziv && item.IsIzbrisana != true)
+                {
+                    mZaBrisanje = item;
+                    mZaBrisanje.IsIzbrisana = true;
+                    break;
+                }
+            }
+
+            Podaci.IzmeniManifestaciju(mZaBrisanje);
+            HttpContext.Application["manifestacije"] = Podaci.IscitajManifestacije("~/App_Data/manifestacije.txt");
+            return RedirectToAction("Index", "Administrator");
+        }
     }
 }

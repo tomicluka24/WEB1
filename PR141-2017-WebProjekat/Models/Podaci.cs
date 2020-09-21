@@ -177,10 +177,10 @@ namespace PR141_2017_WebProjekat.Models
                     Console.WriteLine(e);
                 }
 
-                if(!m.IsIzbrisana)
-                manifestacije.Add(m);
+                if (m.IsIzbrisana != true)
+                    manifestacije.Add(m);
             }
-
+          
             sr.Close();
             stream.Close();
             return manifestacije;

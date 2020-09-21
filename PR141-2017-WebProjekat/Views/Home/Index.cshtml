@@ -130,40 +130,44 @@
         <tbody>
             @foreach (var manifestacija in Model)
             {
-                <tr>
-                    <td>
-                        <a href="~/Home/PrikaziManifestaciju?Naziv=@manifestacija.Naziv">@manifestacija.Naziv</a>
-                    </td>
-                    <td>
-                        @manifestacija.TipManifestacije
-                    </td>
-                    <td>
-                        @manifestacija.BrojMesta
-                    </td>
-                    <td>
-                        @manifestacija.DatumIVremeOdrzavanja
-                    </td>
-                    <td>
-                        @manifestacija.CenaRegularneKarte
-                    </td>
-                    <td>
-                        @manifestacija.MestoOdrzavanja.PostanskiBroj @manifestacija.MestoOdrzavanja.Mesto
-                        @manifestacija.MestoOdrzavanja.Ulica @manifestacija.MestoOdrzavanja.Broj
-                    </td>
-                    <td>
-                        @if (manifestacija.IsAktivna == true)
-                        {
-                            Write("da");
-                        }
-                        @if (manifestacija.IsAktivna == false)
-                        {
-                            Write("ne");
-                        }
-                    </td>
-                    <td>
-                        <img src="~/Files/@manifestacija.Slika" style="width:100px; height:100px" />
-                    </td>
-                </tr>
+                if (manifestacija.IsIzbrisana != true)
+                {
+            <tr>
+                <td>
+                    <a href="~/Home/PrikaziManifestaciju?Naziv=@manifestacija.Naziv">@manifestacija.Naziv</a>
+                </td>
+                <td>
+                    @manifestacija.TipManifestacije
+                </td>
+                <td>
+                    @manifestacija.BrojMesta
+                </td>
+                <td>
+                    @manifestacija.DatumIVremeOdrzavanja
+                </td>
+                <td>
+                    @manifestacija.CenaRegularneKarte
+                </td>
+                <td>
+                    @manifestacija.MestoOdrzavanja.PostanskiBroj @manifestacija.MestoOdrzavanja.Mesto
+                    @manifestacija.MestoOdrzavanja.Ulica @manifestacija.MestoOdrzavanja.Broj
+                </td>
+                <td>
+                    @if (manifestacija.IsAktivna == true)
+                    {
+                        Write("da");
+                    }
+                    @if (manifestacija.IsAktivna == false)
+                    {
+                        Write("ne");
+                    }
+                </td>
+                <td>
+                    <img src="~/Files/@manifestacija.Slika" style="width:100px; height:100px" />
+                </td>
+                
+            </tr>
+                }
             }
         </tbody>
     </table>

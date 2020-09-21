@@ -1,12 +1,12 @@
 guca;festival;150000;10/01/2020 12:00;4500;guca;15000;danila bojovica;19;true;false;guca.jpg
 kralj lavova;crtani;100;09/28/2020 20:00;300;vrbas;21460;desanke maksimovic;24;true;false;lion king.jpg
 exit;festival;200000;09/30/2020 15:00;8000;novi sad;21000;milke grgurove;4c;true;false;exit.jpg
-vuk sa vol strita;film;120;09/26/2020 21:00;400;novi sad;21000;svetozara miletica;21a;false;false;vuk sa vol strita.jpg
+vuk sa vol strita;film;120;09/26/2020 21:00;400;novi sad;21000;svetozara miletica;21a;false;true;vuk sa vol strita.jpg
 labudovo jezero;balet;80;09/25/2020 19:30;500;beograd;11000;knez mihajilova;11;true;false;labudovo jezero.jpg
 karmen;opera;50;09/27/2020 22:00;1000;nis;70000;marsala tita;11c;false;false;karmen.jpg
 kupusijada;kultno zbivanje;1000000;10/04/2020 13:55;12000;mrcajevci;9900;oslobodilacka;1;true;false;kupusijada.jpg
-look mom i can fly;koncert;6000;09/28/2020 20:40;2000;beograd;70000;narodnog fronta;bb;true;false;look mom i can fly.jpg
-laugh factory;stand-up komedija;20;09/29/2020 19:00;450;novi sad;21000;bulevar oslobodjenja;12;true;false;laugh factory.jpg
+look mom i can fly;koncert;6000;09/28/2020 20:40;2000;beograd;70000;narodnog fronta;bb;true;true;look mom i can fly.jpg
+laugh factory;stand-up komedija;20;09/29/2020 19:00;450;novi sad;21000;bulevar oslobodjenja;12;true;true;laugh factory.jpg
 nisvil;festival;20000;10/02/2020 13:00;3000;nis;70000;djure salaja;150;true;false;nisvil.jpg
 winter fest;festival;10000;10/03/2020 13:30;2000;subotica;20000;pozorisni trg;112;true;false;winter fest.jpg
-kobasicijada;kultno zbivanje;120000;10/05/2020 15:00;1100;turija;10000;heroja pinkija;20;true;false;kobasicijada.jpg
+kobasicijada;kultno zbivanje;120000;10/05/2020 15:00;1100;turija;10000;heroja pinkija;20;true;true;kobasicijada.jpg
