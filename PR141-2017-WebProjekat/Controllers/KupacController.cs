@@ -55,22 +55,58 @@ namespace PR141_2017_WebProjekat.Controllers
         }
         public ActionResult SortirajKartePoNazivu(string naziv)
         {
-            Dictionary<string, Karta> karte = (Dictionary<string, Karta>)HttpContext.Application["karte"];
-            Dictionary<string, Karta> karteSortirane = new Dictionary<string, Karta>();
+            Korisnik k = (Korisnik)Session["korisnik"];
+
             if (naziv == "a-z")
+
             {
-                 // karteSortirane = karte.OrderBy(o => o.Value.Manifestacija.Naziv);
-                //var sortedDict = from entry in karte orderby entry.Value.Manifestacija.Naziv ascending select entry;
+                k.SveKarteBezObziraNaStatus.OrderBy(o => o.Value.Manifestacija.Naziv);
             }
 
             if (naziv == "z-a")
             {
-                //var sortedDict = from entry in karte orderby entry.Value.Manifestacija.Naziv ascending select entry;
-                //sortiraneManifestacije = manifestacije.OrderByDescending(o => o.Naziv).ThenBy(o => o.DatumIVremeOdrzavanja).ToList();
-                //karteSortirane = (Dictionary<string, Karta>)karte.OrderByDescending(o => o.Value.Manifestacija.Naziv);
+                k.SveKarteBezObziraNaStatus.OrderByDescending(o => o.Value.Manifestacija.Naziv);
             }
-            HttpContext.Application["karte"] = karteSortirane;
-            //Session["manifestacije"] = sortiraneManifestacije;
+
+            Session["korisnik"] = k;
+            return RedirectToAction("PrikaziProfilKupca", "Kupac");
+        }
+
+        public ActionResult SortirajKartePoDatumu(string datum)
+        {
+            Korisnik k = (Korisnik)Session["korisnik"];
+
+            if (datum == "najskorije prvo")
+
+            {
+                k.SveKarteBezObziraNaStatus.OrderBy(o => o.Value.Manifestacija.DatumIVremeOdrzavanja);
+            }
+
+            if (datum == "najskorije poslednje")
+            {
+                k.SveKarteBezObziraNaStatus.OrderByDescending(o => o.Value.Manifestacija.DatumIVremeOdrzavanja);
+            }
+
+            Session["korisnik"] = k;
+            return RedirectToAction("PrikaziProfilKupca", "Kupac");
+        }
+
+        public ActionResult SortirajKartePoCeni(string cena)
+        {
+            Korisnik k = (Korisnik)Session["korisnik"];
+
+            if (cena == "jeftinije prvo")
+
+            {
+                k.SveKarteBezObziraNaStatus.OrderBy(o => o.Value.Manifestacija.CenaRegularneKarte);
+            }
+
+            if (cena == "skuplje prvo")
+            {
+                k.SveKarteBezObziraNaStatus.OrderByDescending(o => o.Value.Manifestacija.CenaRegularneKarte);
+            }
+
+            Session["korisnik"] = k;
             return RedirectToAction("PrikaziProfilKupca", "Kupac");
         }
 
