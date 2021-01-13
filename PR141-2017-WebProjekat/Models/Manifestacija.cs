@@ -15,9 +15,9 @@ namespace PR141_2017_WebProjekat.Models
         public MestoOdrzavanja MestoOdrzavanja { get; set; }
         public bool IsAktivna { get; set; }
         public bool IsIzbrisana { get; set; }
-        public string Slika { get; set; }
+        public string Poster { get; set; }
 
-        //dodaj za sliku
+        
         public Manifestacija()
         {
             Naziv = "";
@@ -28,10 +28,10 @@ namespace PR141_2017_WebProjekat.Models
             MestoOdrzavanja = new MestoOdrzavanja();
             IsAktivna = true;
             IsIzbrisana = false;
-            Slika = "";
+            Poster = "";
         }
 
-        public Manifestacija(string naziv, string tipManifestacije, int brojMesta, DateTime datumIVremeOdrzavanja, double cenaRegularneKarte, MestoOdrzavanja mestoOdrzavanja, bool isAktivna, bool isIzbrisana, string slika)
+        public Manifestacija(string naziv, string tipManifestacije, int brojMesta, DateTime datumIVremeOdrzavanja, double cenaRegularneKarte, MestoOdrzavanja mestoOdrzavanja, bool isAktivna, bool isIzbrisana, string poster)
         {
             Naziv = naziv;
             TipManifestacije = tipManifestacije;
@@ -41,7 +41,7 @@ namespace PR141_2017_WebProjekat.Models
             MestoOdrzavanja = mestoOdrzavanja;
             IsAktivna = isAktivna;
             IsIzbrisana = isIzbrisana;
-            Slika = slika;
+            Poster = poster;
         }
     }
 }

@@ -9,13 +9,13 @@ namespace PR141_2017_WebProjekat.Controllers
 {
     public class KupacController : Controller
     {
-        // GET: Kupac
         public ActionResult Index()
         {
             List<Manifestacija> manifestacije = (List<Manifestacija>)HttpContext.Application["manifestacije"];
           //  List<Manifestacija> sortiraneManifestacije = manifestacije.OrderBy(o => o.DatumIVremeOdrzavanja).ToList();
             return View(manifestacije);
         }
+
         public ActionResult PrikaziProfilKupca(Korisnik k)
         {
             //List<Karta> karte= (List<Karta>)HttpContext.Application["karte"];
@@ -25,11 +25,13 @@ namespace PR141_2017_WebProjekat.Controllers
            // k.SveKarteBezObziraNaStatus = karteRecnik;
             return View(k);
         }
+
         public ActionResult IzmeniPodatke(Korisnik k)
         {
             k = (Korisnik)Session["korisnik"];
             return View(k);
         }
+
         public ActionResult SortirajPoNazivu(string naziv)
         {
             List<Manifestacija> manifestacije = (List<Manifestacija>)HttpContext.Application["manifestacije"];
@@ -50,6 +52,7 @@ namespace PR141_2017_WebProjekat.Controllers
             //Session["manifestacije"] = sortiraneManifestacije;
             return RedirectToAction("Index", "Kupac");
         }
+
         public ActionResult SortirajKartePoNazivu(string naziv)
         {
             Korisnik k = (Korisnik)Session["korisnik"];
@@ -68,6 +71,7 @@ namespace PR141_2017_WebProjekat.Controllers
             Session["korisnik"] = k;
             return RedirectToAction("PrikaziProfilKupca", "Kupac");
         }
+
         public ActionResult SortirajKartePoDatumu(string datum)
         {
             Korisnik k = (Korisnik)Session["korisnik"];
@@ -86,6 +90,7 @@ namespace PR141_2017_WebProjekat.Controllers
             Session["korisnik"] = k;
             return RedirectToAction("PrikaziProfilKupca", "Kupac");
         }
+
         public ActionResult SortirajKartePoCeni(string cena)
         {
             Korisnik k = (Korisnik)Session["korisnik"];
@@ -104,6 +109,7 @@ namespace PR141_2017_WebProjekat.Controllers
             Session["korisnik"] = k;
             return RedirectToAction("PrikaziProfilKupca", "Kupac");
         }
+
         public ActionResult SortirajPoDatumu(string datum)
         {
             List<Manifestacija> manifestacije = (List<Manifestacija>)HttpContext.Application["manifestacije"];
@@ -120,6 +126,7 @@ namespace PR141_2017_WebProjekat.Controllers
             HttpContext.Application["manifestacije"] = sortiraneManifestacije;
             return RedirectToAction("Index", "Kupac");
         }
+
         public ActionResult SortirajPoMestu(string mesto)
         {
             List<Manifestacija> manifestacije = (List<Manifestacija>)HttpContext.Application["manifestacije"];
@@ -136,6 +143,7 @@ namespace PR141_2017_WebProjekat.Controllers
             HttpContext.Application["manifestacije"] = sortiraneManifestacije;
             return RedirectToAction("Index", "Kupac");
         }
+
         public ActionResult SortirajPoCeniKarte(string cenaKarte)
         {
             List<Manifestacija> manifestacije = (List<Manifestacija>)HttpContext.Application["manifestacije"];
@@ -152,6 +160,7 @@ namespace PR141_2017_WebProjekat.Controllers
             HttpContext.Application["manifestacije"] = sortiraneManifestacije;
             return RedirectToAction("Index", "Kupac");
         }
+
         public ActionResult FiltrirajPoTipu(string tip)
         {
             List<Manifestacija> mZaPrikaz = new List<Manifestacija>();
@@ -168,12 +177,14 @@ namespace PR141_2017_WebProjekat.Controllers
             //Session["manifestacije"] = mZaPrikaz;        
             return RedirectToAction("Index", "Kupac");
         }
+
         public ActionResult UkloniFilter()
         {
             HttpContext.Application["manifestacije"] = Podaci.IscitajManifestacije("~/App_Data/manifestacije.txt");
             //Session["manifestacije"] = mZaPrikaz;        
             return RedirectToAction("Index", "Kupac");
         }
+
         public ActionResult UkloniFilterKarata()
         {
             Korisnik k = (Korisnik)Session["korisnik"];
@@ -181,6 +192,7 @@ namespace PR141_2017_WebProjekat.Controllers
             //Session["manifestacije"] = mZaPrikaz;        
             return RedirectToAction("PrikaziProfilKupca", "Kupac");
         }
+
         public ActionResult PretragaPoNazivu(string naziv)
         {
             List<Manifestacija> mZaPrikaz = new List<Manifestacija>();
@@ -197,6 +209,7 @@ namespace PR141_2017_WebProjekat.Controllers
             //Session["manifestacije"] = mZaPrikaz;        
             return RedirectToAction("Index", "Kupac");
         }
+
         public ActionResult PretragaPoMestu(string mesto)
         {
             List<Manifestacija> mZaPrikaz = new List<Manifestacija>();
@@ -213,6 +226,7 @@ namespace PR141_2017_WebProjekat.Controllers
             //Session["manifestacije"] = mZaPrikaz;        
             return RedirectToAction("Index", "Kupac");
         }
+
         public ActionResult PretragaPoCeni(double donjaGranica, double gornjaGranica)
         {
             List<Manifestacija> mZaPrikaz = new List<Manifestacija>();
@@ -229,6 +243,7 @@ namespace PR141_2017_WebProjekat.Controllers
             //Session["manifestacije"] = mZaPrikaz;        
             return RedirectToAction("Index", "Kupac");
         }
+
         public ActionResult PretragaPoDatumu(DateTime donjaGranica, DateTime gornjaGranica)
         {
             List<Manifestacija> mZaPrikaz = new List<Manifestacija>();
@@ -245,6 +260,7 @@ namespace PR141_2017_WebProjekat.Controllers
             //Session["manifestacije"] = mZaPrikaz;        
             return RedirectToAction("Index", "Kupac");
         }
+
         public ActionResult PretragaPoNazivuManifestacije(string naziv)
         {
             Dictionary<string,Karta> kZaPrikaz = new Dictionary<string, Karta>();
@@ -261,6 +277,7 @@ namespace PR141_2017_WebProjekat.Controllers
             //Session["manifestacije"] = mZaPrikaz;        
             return RedirectToAction("PrikaziProfilKupca", "Kupac");
         }
+
         public ActionResult PretragaPoCeniKarte(double cena)
         {
             Dictionary<string, Karta> kZaPrikaz = new Dictionary<string, Karta>();
@@ -277,6 +294,7 @@ namespace PR141_2017_WebProjekat.Controllers
             //Session["manifestacije"] = mZaPrikaz;        
             return RedirectToAction("PrikaziProfilKupca", "Kupac");
         }
+
         public ActionResult PretragaKarataPoDatumu(DateTime donjaGranica, DateTime gornjaGranica)
         {
             Dictionary<string, Karta> kZaPrikaz = new Dictionary<string, Karta>();

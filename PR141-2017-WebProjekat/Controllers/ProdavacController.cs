@@ -10,35 +10,39 @@ namespace PR141_2017_WebProjekat.Controllers
 {
     public class ProdavacController : Controller
     {
-        // GET: Prodavac
         public ActionResult Index()
         {
             List<Manifestacija> manifestacije = (List<Manifestacija>)HttpContext.Application["manifestacije"];
            // List<Manifestacija> sortiraneManifestacije = manifestacije.OrderBy(o => o.DatumIVremeOdrzavanja).ToList();
             return View(manifestacije);
         }
+
         public ActionResult PrikaziProfilProdavca(Korisnik k)
         {
             k = (Korisnik)Session["korisnik"];
             return View(k);
         }
+
         public ActionResult PrikaziManifestacijeProdavca(Korisnik k)
         {
             List<Manifestacija> manifestacije = (List<Manifestacija>)HttpContext.Application["manifestacije"];
             k = (Korisnik)Session["korisnik"];
             return View(k);
         }
+
         public ActionResult IzmeniPodatke(Korisnik k)
         {
             k = (Korisnik)Session["korisnik"];
             return View(k);
         }
+
         public ActionResult IzmeniPodatkeManifestacije(Manifestacija m)
         {
             m = (Manifestacija)Session["manifestacija"];
             HttpContext.Application["manifestacije"] = Podaci.IscitajManifestacije("~/App_Data/manifestacije.txt");
             return View(m);
         }
+
         public ActionResult PrikaziKarteManifestacija(Korisnik k)
         {
             ////karte  = (List<Karta>)Session["karte"];
@@ -66,13 +70,14 @@ namespace PR141_2017_WebProjekat.Controllers
             }
             return View(karteZaPrikaz);
         }
+
         public ActionResult DodajManifestaciju()
         {
             Manifestacija manifestacija = new Manifestacija();
             Session["manifestacija"] = manifestacija;
             return View(manifestacija);
         }
-        [HttpPost]
+
         public ActionResult DodajManifestaciju(Manifestacija m)
         {
             bool datumIVremeIsti = false;
@@ -113,31 +118,32 @@ namespace PR141_2017_WebProjekat.Controllers
             //}
 
             return RedirectToAction("Index", "Prodavac");
+            //public ActionResult DodajManifestaciju(Manifestacija m)
+            //{
+            //    //m.IsAktivna = false;
+            //    //m.IsIzbrisana = false;
+            //   List<Manifestacija> manifestacije = (List<Manifestacija>)Session["manifestacije"];
+
+            //    bool datumIVremeIsti = false;
+            //    bool mestoIsto = false;
+
+            //    foreach (var item in manifestacije)
+            //    {
+            //        if (item.DatumIVremeOdrzavanja == m.DatumIVremeOdrzavanja)
+            //            datumIVremeIsti = true;
+            //        if (item.MestoOdrzavanja == m.MestoOdrzavanja)
+            //            mestoIsto = true;
+            //    }
+
+            //    if (mestoIsto == false || datumIVremeIsti == false)
+            //        Podaci.UpisiManifestaciju(m);
+            //    else
+            //        ViewBag.Message = "Vreme i mesto su zauzeti za drugu manifestaciju";
+
+            //    return View(m);
+            //}
         }
-        //public ActionResult DodajManifestaciju(Manifestacija m)
-        //{
-        //    //m.IsAktivna = false;
-        //    //m.IsIzbrisana = false;
-        //   List<Manifestacija> manifestacije = (List<Manifestacija>)Session["manifestacije"];
 
-        //    bool datumIVremeIsti = false;
-        //    bool mestoIsto = false;
-
-        //    foreach (var item in manifestacije)
-        //    {
-        //        if (item.DatumIVremeOdrzavanja == m.DatumIVremeOdrzavanja)
-        //            datumIVremeIsti = true;
-        //        if (item.MestoOdrzavanja == m.MestoOdrzavanja)
-        //            mestoIsto = true;
-        //    }
-
-        //    if (mestoIsto == false || datumIVremeIsti == false)
-        //        Podaci.UpisiManifestaciju(m);
-        //    else
-        //        ViewBag.Message = "Vreme i mesto su zauzeti za drugu manifestaciju";
-
-        //    return View(m);
-        //}
         public ActionResult SortirajPoNazivu(string naziv)
         {
             List<Manifestacija> manifestacije = (List<Manifestacija>)HttpContext.Application["manifestacije"];
@@ -158,6 +164,7 @@ namespace PR141_2017_WebProjekat.Controllers
             //Session["manifestacije"] = sortiraneManifestacije;
             return RedirectToAction("Index", "Prodavac");
         }
+
         public ActionResult SortirajPoDatumu(string datum)
         {
             List<Manifestacija> manifestacije = (List<Manifestacija>)HttpContext.Application["manifestacije"];
@@ -174,6 +181,7 @@ namespace PR141_2017_WebProjekat.Controllers
             HttpContext.Application["manifestacije"] = sortiraneManifestacije;
             return RedirectToAction("Index", "Prodavac");
         }
+
         public ActionResult SortirajPoMestu(string mesto)
         {
             List<Manifestacija> manifestacije = (List<Manifestacija>)HttpContext.Application["manifestacije"];
@@ -190,6 +198,7 @@ namespace PR141_2017_WebProjekat.Controllers
             HttpContext.Application["manifestacije"] = sortiraneManifestacije;
             return RedirectToAction("Index", "Prodavac");
         }
+
         public ActionResult SortirajPoCeniKarte(string cenaKarte)
         {
             List<Manifestacija> manifestacije = (List<Manifestacija>)HttpContext.Application["manifestacije"];
@@ -206,6 +215,7 @@ namespace PR141_2017_WebProjekat.Controllers
             HttpContext.Application["manifestacije"] = sortiraneManifestacije;
             return RedirectToAction("Index", "Prodavac");
         }
+
         public ActionResult PrikaziManifestaciju(string Naziv)
         {
             //m = (Manifestacija)Session["manifestacija"];
@@ -223,6 +233,7 @@ namespace PR141_2017_WebProjekat.Controllers
             Session["manifestacija"] = mZaPrikaz;
             return View(mZaPrikaz);
         }
+
         public ActionResult FiltrirajPoTipu(string tip)
         {
             List<Manifestacija> mZaPrikaz = new List<Manifestacija>();
@@ -239,12 +250,14 @@ namespace PR141_2017_WebProjekat.Controllers
             //Session["manifestacije"] = mZaPrikaz;        
             return RedirectToAction("Index", "Prodavac");
         }
+
         public ActionResult UkloniFilter()
         {
             HttpContext.Application["manifestacije"] = Podaci.IscitajManifestacije("~/App_Data/manifestacije.txt");
             //Session["manifestacije"] = mZaPrikaz;        
             return RedirectToAction("Index", "Prodavac");
         }
+
         public ActionResult PretragaPoNazivu(string naziv)
         {
             List<Manifestacija> mZaPrikaz = new List<Manifestacija>();
@@ -261,6 +274,7 @@ namespace PR141_2017_WebProjekat.Controllers
             //Session["manifestacije"] = mZaPrikaz;        
             return RedirectToAction("Index", "Prodavac");
         }
+
         public ActionResult PretragaPoMestu(string mesto)
         {
             List<Manifestacija> mZaPrikaz = new List<Manifestacija>();
@@ -277,6 +291,7 @@ namespace PR141_2017_WebProjekat.Controllers
             //Session["manifestacije"] = mZaPrikaz;        
             return RedirectToAction("Index", "Prodavac");
         }
+
         public ActionResult PretragaPoCeni(double donjaGranica, double gornjaGranica)
         {
             List<Manifestacija> mZaPrikaz = new List<Manifestacija>();
@@ -293,6 +308,7 @@ namespace PR141_2017_WebProjekat.Controllers
             //Session["manifestacije"] = mZaPrikaz;        
             return RedirectToAction("Index", "Prodavac");
         }
+
         public ActionResult PretragaPoDatumu(DateTime donjaGranica, DateTime gornjaGranica)
         {
             List<Manifestacija> mZaPrikaz = new List<Manifestacija>();
