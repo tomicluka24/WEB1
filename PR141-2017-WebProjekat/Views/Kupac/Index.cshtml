@@ -2,6 +2,13 @@
 @{
     ViewBag.Title = "Pocetna stranica kupca";
 }
+@TempData["ErrorMessage"]
+
+@TempData["PretragaPoNazivuGreska"]
+@TempData["PretragaPoMestuGreska"]
+@TempData["PretragaPoCeniGreska"]
+@TempData["PretragaPoDatumuGreska"]
+@TempData["UspesnaPrijava"]
 
 <form method="post" action="~/Kupac/PrikaziProfilKupca">
     <input type="submit" value="Pogledaj svoje podatke">
@@ -77,8 +84,8 @@
 </form>
 <form action="~/Kupac/PretragaPoCeni" method="post">
     <label>ceni:</label>
-    <input type="search" id="site-search" name="donjaGranica" placeholder="od" />
-    <input type="search" id="site-search" name="gornjaGranica" placeholder="do" />
+    <input type="number" min="0" max="999999999" id="site-search" name="donjaGranica" placeholder="od" />
+    <input type="number" min="0" max="999999999" id="site-search" name="gornjaGranica" placeholder="do" />
     <button>Pretrazi</button>
 </form>
 <form action="~/Kupac/PretragaPoDatumu" method="post">
@@ -161,5 +168,8 @@
         }
     </tbody>
 </table>
+
+
+
 
 @Html.ActionLink("Odjava", "Odjava", "Autentifikacija")

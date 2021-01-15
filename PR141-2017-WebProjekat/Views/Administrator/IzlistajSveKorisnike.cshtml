@@ -2,7 +2,10 @@
 @{
     ViewBag.Title = "Izlistaj sve korisnike";
 }
+@TempData["DodanProdavac"]
+@TempData["UspesnoObrisanKorisnik"]
 
+<br />
 <label>Sortiraj po:</label>
 <form action="~/Administrator/SortirajPoImenu" method="post">
     <label>imenu:</label>
@@ -65,35 +68,35 @@
         {
             if (@korisnik.Uloga == "administrator")
             {
-                if(korisnik.IsIzbrisan != true)
+                if (korisnik.IsIzbrisan != true)
                 {
-                <tr>
+                    <tr>
 
-                    <td>
-                        @korisnik.Ime
-                    </td>
-                    <td>
-                        @korisnik.Prezime
-                    </td>
-                    <td>
-                        @korisnik.KorisnickoIme
-                    </td>
-                    <td>
-                        @korisnik.Lozinka
-                    </td>
-                    <td>
-                        @korisnik.Pol
-                    </td>
-                    <td>
-                        @korisnik.DatumRodjenja.Date.ToShortDateString()
-                    </td>
-                    <td>
-                        @korisnik.Uloga
-                    </td>
+                        <td>
+                            @korisnik.Ime
+                        </td>
+                        <td>
+                            @korisnik.Prezime
+                        </td>
+                        <td>
+                            @korisnik.KorisnickoIme
+                        </td>
+                        <td>
+                            @korisnik.Lozinka
+                        </td>
+                        <td>
+                            @korisnik.Pol
+                        </td>
+                        <td>
+                            @korisnik.DatumRodjenja?.Date.ToShortDateString()
+                        </td>
+                        <td>
+                            @korisnik.Uloga
+                        </td>
 
-                </tr>
+                    </tr>
                 }
-                
+
             }
         }
     </tbody>
@@ -168,48 +171,48 @@
             {
                 if (korisnik.IsIzbrisan != true)
                 {
-                <tr>
-                    <td>
-                        @korisnik.Ime
-                    </td>
-                    <td>
-                        @korisnik.Prezime
-                    </td>
-                    <td>
-                        @korisnik.KorisnickoIme
-                    </td>
-                    <td>
-                        @korisnik.Lozinka
-                    </td>
-                    <td>
-                        @korisnik.Pol
-                    </td>
-                    <td>
-                        @korisnik.DatumRodjenja.Date.ToShortDateString()
-                    </td>
-                    <td>
-                        @korisnik.Uloga
-                    </td>
-                    <td>
-                        @foreach (var karta in korisnik.SveKarteBezObziraNaStatus)
-                        {
-                            @karta.Value.ID
-                            Write(";");
-                        }
-                    </td>
-                    <td>
-                        @korisnik.BrojSakupljenihBodova
-                    </td>
-                    <td>
-                        @korisnik.TipKorisnika.ImeTipa
-                    </td>
-                    <td>
-                        @korisnik.TipKorisnika.Popust
-                    </td>
-                    <td>
-                        <a href="~/Administrator/ObrisiKorisnika?KorisnickoIme=@korisnik.KorisnickoIme">obrisi korisnika</a>
-                    </td>
-                </tr>
+                    <tr>
+                        <td>
+                            @korisnik.Ime
+                        </td>
+                        <td>
+                            @korisnik.Prezime
+                        </td>
+                        <td>
+                            @korisnik.KorisnickoIme
+                        </td>
+                        <td>
+                            @korisnik.Lozinka
+                        </td>
+                        <td>
+                            @korisnik.Pol
+                        </td>
+                        <td>
+                            @korisnik.DatumRodjenja.Value.Date.ToShortDateString()
+                        </td>
+                        <td>
+                            @korisnik.Uloga
+                        </td>
+                        <td>
+                            @foreach (var karta in korisnik.SveKarteBezObziraNaStatus)
+                            {
+                                @karta.Value.ID
+                                Write(";");
+                            }
+                        </td>
+                        <td>
+                            @korisnik.BrojSakupljenihBodova
+                        </td>
+                        <td>
+                            @korisnik.TipKorisnika.ImeTipa
+                        </td>
+                        <td>
+                            @korisnik.TipKorisnika.Popust
+                        </td>
+                        <td>
+                            <a href="~/Administrator/ObrisiKorisnika?KorisnickoIme=@korisnik.KorisnickoIme">obrisi korisnika</a>
+                        </td>
+                    </tr>
                 }
             }
 
@@ -257,39 +260,39 @@
             {
                 if (korisnik.IsIzbrisan != true)
                 {
-                <tr>
-                    <td>
-                        @korisnik.Ime
-                    </td>
-                    <td>
-                        @korisnik.Prezime
-                    </td>
-                    <td>
-                        @korisnik.KorisnickoIme
-                    </td>
-                    <td>
-                        @korisnik.Lozinka
-                    </td>
-                    <td>
-                        @korisnik.Pol
-                    </td>
-                    <td>
-                        @korisnik.DatumRodjenja.Date.ToShortDateString()
-                    </td>
-                    <td>
-                        @korisnik.Uloga
-                    </td>
-                    <td>
-                        @foreach (var manifestacija in korisnik.Manifestacije)
-                        {
-                            @manifestacija.Naziv
-                            Write(";");
-                        }
-                    </td>
-                    <td>
-                        <a href="~/Administrator/ObrisiKorisnika?KorisnickoIme=@korisnik.KorisnickoIme">obrisi korisnika</a>
-                    </td>
-                </tr>
+                    <tr>
+                        <td>
+                            @korisnik.Ime
+                        </td>
+                        <td>
+                            @korisnik.Prezime
+                        </td>
+                        <td>
+                            @korisnik.KorisnickoIme
+                        </td>
+                        <td>
+                            @korisnik.Lozinka
+                        </td>
+                        <td>
+                            @korisnik.Pol
+                        </td>
+                        <td>
+                            @korisnik.DatumRodjenja?.Date.ToShortDateString()
+                        </td>
+                        <td>
+                            @korisnik.Uloga
+                        </td>
+                        <td>
+                            @foreach (var manifestacija in korisnik.Manifestacije)
+                            {
+                                @manifestacija.Naziv
+                                Write(";");
+                            }
+                        </td>
+                        <td>
+                            <a href="~/Administrator/ObrisiKorisnika?KorisnickoIme=@korisnik.KorisnickoIme">obrisi korisnika</a>
+                        </td>
+                    </tr>
                 }
             }
 

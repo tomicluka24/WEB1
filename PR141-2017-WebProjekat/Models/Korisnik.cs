@@ -12,7 +12,7 @@ namespace PR141_2017_WebProjekat.Models
         public string Ime { get; set; }
         public string Prezime { get; set; }
         public string Pol { get; set; }
-        public DateTime DatumRodjenja { get; set; }
+        public DateTime? DatumRodjenja { get; set; }
         public string Uloga { get; set; }
         public Dictionary<string, Karta> SveKarteBezObziraNaStatus { get; set; } //ako je korisnik kupac
         public List<Manifestacija> Manifestacije { get; set; } //ako je korisnik prodavac
@@ -69,7 +69,6 @@ namespace PR141_2017_WebProjekat.Models
             TipKorisnika = new TipKorisnika();
             IsIzbrisan = isIzbrisan;
         }
-
 
         //za ucitavanje kupca
         public Korisnik(string korisnickoIme, string lozinka, string ime, string prezime, string pol, DateTime datumRodjenja, string uloga, Dictionary<string, Karta> sveKarteBezObziraNaStatus, double brojSakupljenihBodova, TipKorisnika tipKorisnika, bool isIzbrisan)

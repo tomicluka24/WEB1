@@ -3,6 +3,12 @@
     ViewBag.Title = "Pocetna strana prodavca";
 }
 
+@TempData["PretragaPoNazivuGreska"]
+@TempData["PretragaPoMestuGreska"]
+@TempData["PretragaPoCeniGreska"]
+@TempData["PretragaPoDatumuGreska"]
+@TempData["UspesnaPrijava"]
+
 <form method="post" action="~/Prodavac/PrikaziProfilProdavca">
     <input type="submit" value="Pogledaj svoje podatke">
 </form>
@@ -89,8 +95,8 @@
 </form>
 <form action="~/Prodavac/PretragaPoCeni" method="post">
     <label>ceni:</label>
-    <input type="search" id="site-search" name="donjaGranica" placeholder="od" />
-    <input type="search" id="site-search" name="gornjaGranica" placeholder="do" />
+    <input type="number" min ="0" max="999999999" id="site-search" name="donjaGranica" placeholder="od" />
+    <input type="number" min ="0" max="999999999" id="site-search" name="gornjaGranica" placeholder="do" />
     <button>Pretrazi</button>
 </form>
 <form action="~/Prodavac/PretragaPoDatumu" method="post">

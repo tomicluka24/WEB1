@@ -13,6 +13,7 @@ namespace PR141_2017_WebProjekat.Models
         public string Tekst { get; set; }
         public int Ocena { get; set; }
         public bool IsIzbrisan { get; set; }
+
         public Komentar()
         {
             Kupac = "";

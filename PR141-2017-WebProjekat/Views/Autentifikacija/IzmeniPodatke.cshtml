@@ -1,19 +1,18 @@
 ﻿@model PR141_2017_WebProjekat.Models.Korisnik
 @{
-    ViewBag.Title = "Registracija";
+    ViewBag.Title = "Izmeni podatke";
 }
-
-@TempData["RegistracijaGreska"]
+@ViewBag.GreskaIzmena
 @TempData["IzmenaGreska"]
 
-<h2>Registracija</h2>
+<h2>Izmeni podatke</h2>
 
-<div>
-    @ViewBag.Message
-</div>
-
-<form action="~/Autentifikacija/Registracija" method="post">
+<form action="~/Autentifikacija/IzmeniPodatke" method="post">
     <table>
+        <tr>
+            <td>Korisnicko ime:</td>
+            <td><input name="korisnickoIme" value="@Model.KorisnickoIme" readonly /></td>
+        </tr>
         <tr>
             <td>Ime:</td>
             <td><input type="text" name="ime" /></td>
@@ -22,10 +21,7 @@
             <td>Prezime:</td>
             <td><input type="text" name="prezime" /></td>
         </tr>
-        <tr>
-            <td>Korisnicko ime:</td>
-            <td><input type="text" name="korisnickoIme" /></td>
-        </tr>
+
         <tr>
             <td>Lozinka:</td>
             <td><input type="text" name="lozinka" /></td>
@@ -40,9 +36,8 @@
         </tr>
         <tr>
             <td colspan="2">
-                <input type="submit" value="Registruj se" />
+                <input type="submit" value="Izmeni podatke" />
             </td>
         </tr>
     </table>
 </form>
-

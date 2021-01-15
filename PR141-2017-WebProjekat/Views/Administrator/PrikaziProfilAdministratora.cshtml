@@ -2,6 +2,7 @@
 @{
     ViewBag.Title = "Korisnik";
 }
+@TempData["IzmenaPodataka"]
 
 <h2>Korisnik</h2>
 
@@ -16,5 +17,5 @@
     <li>Korisnicko ime: @Model.KorisnickoIme </li>
     <li>Lozinka: @Model.Lozinka </li>
     <li>Pol: @Model.Pol </li>
-    <li>Datum rodjenja: @Model.DatumRodjenja.Day/@Model.DatumRodjenja.Month/@Model.DatumRodjenja.Year </li>
+    <li>Datum rodjenja: @Model.DatumRodjenja.Value.Day/@Model.DatumRodjenja.Value.Month/@Model.DatumRodjenja.Value.Year </li>
 </ul>

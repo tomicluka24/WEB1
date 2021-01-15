@@ -3,8 +3,12 @@
     ViewBag.Title = "Pocetna stranica administratora";
 }
 
-
-
+@TempData["PretragaPoNazivuGreska"]
+@TempData["PretragaPoMestuGreska"]
+@TempData["PretragaPoCeniGreska"]
+@TempData["PretragaPoDatumuGreska"]
+@TempData["UspesnoObrisanaManifestacija"]
+@TempData["UspesnaPrijava"]
 <form action="~/Administrator/PrikaziProfilAdministratora">
     <input type="submit" value="Pogledaj svoje podatke">
 </form>
@@ -91,8 +95,8 @@
 </form>
 <form action="~/Administrator/PretragaPoCeni" method="post">
     <label>ceni:</label>
-    <input type="search" id="site-search" name="donjaGranica" placeholder="od" />
-    <input type="search" id="site-search" name="gornjaGranica" placeholder="do" />
+    <input type="number" min ="0" max="999999999" id="site-search" name="donjaGranica" placeholder="od" />
+    <input type="number" min ="0" max="999999999" id="site-search" name="gornjaGranica" placeholder="do" />
     <button>Pretrazi</button>
 </form>
 <form action="~/Administrator/PretragaPoDatumu" method="post">

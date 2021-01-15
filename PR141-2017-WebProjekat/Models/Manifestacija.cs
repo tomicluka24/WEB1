@@ -10,7 +10,7 @@ namespace PR141_2017_WebProjekat.Models
         public string Naziv { get; set; }
         public string TipManifestacije { get; set; }
         public int BrojMesta { get; set; }
-        public DateTime DatumIVremeOdrzavanja { get; set; }
+        public DateTime? DatumIVremeOdrzavanja { get; set; }
         public double CenaRegularneKarte { get; set; }
         public MestoOdrzavanja MestoOdrzavanja { get; set; }
         public bool IsAktivna { get; set; }
@@ -22,7 +22,7 @@ namespace PR141_2017_WebProjekat.Models
         {
             Naziv = "";
             TipManifestacije = "";
-            BrojMesta = 0;
+            BrojMesta = 1;
             DatumIVremeOdrzavanja = new DateTime();
             CenaRegularneKarte = 0;
             MestoOdrzavanja = new MestoOdrzavanja();

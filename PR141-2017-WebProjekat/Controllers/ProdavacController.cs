@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
 
@@ -27,7 +28,42 @@ namespace PR141_2017_WebProjekat.Controllers
         {
             List<Manifestacija> manifestacije = (List<Manifestacija>)HttpContext.Application["manifestacije"];
             k = (Korisnik)Session["korisnik"];
+
             return View(k);
+        }
+
+        public ActionResult ApdejtujManifestacijeProdavca(Korisnik k)
+        {
+            List<Manifestacija> manifestacije = (List<Manifestacija>)HttpContext.Application["manifestacije"];
+            k = (Korisnik)Session["korisnik"];
+
+            //int brManifestacija = 0;
+            List<Manifestacija> apdejtovaneManifestacije = new List<Manifestacija>();
+            //foreach (Manifestacija m in k.Manifestacije)
+            //{
+            //    brManifestacija++;
+            //}
+            //for (int i = 0; i < brManifestacija; i++)
+            //{
+            //    apdejtovaneManifestacije[i] = manifestacije.Find(manifestacija => manifestacija.Naziv == k.Manifestacije[i].Naziv);
+            //}
+            //k.Manifestacije = apdejtovaneManifestacije;
+
+            foreach (Manifestacija m in manifestacije)
+            {
+                foreach (Manifestacija m2 in k.Manifestacije)
+                {
+                    if(m.Naziv == m2.Naziv)
+                    {
+                        apdejtovaneManifestacije.Add(m);
+                    }
+                }
+            }
+
+            k.Manifestacije = apdejtovaneManifestacije;
+
+
+            return RedirectToAction("PrikaziManifestacijeProdavca");
         }
 
         public ActionResult IzmeniPodatke(Korisnik k)
@@ -36,11 +72,107 @@ namespace PR141_2017_WebProjekat.Controllers
             return View(k);
         }
 
-        public ActionResult IzmeniPodatkeManifestacije(Manifestacija m)
+        public ActionResult IzmeniPodatkeManifestacije()
         {
-            m = (Manifestacija)Session["manifestacija"];
+            Manifestacija manifestacija = (Manifestacija)Session["manifestacija"];
+            return View(manifestacija);
+
+        }
+
+        [HttpPost]
+        public ActionResult IzmeniPodatkeManifestacije(Manifestacija manifestacija)
+        {
+            // validacija
+            #region null
+
+            if (manifestacija.Naziv == null)
+            {
+                TempData["IzmeniManifestacijuGreska"] = "Polje Naziv ne sme ostati prazno.";
+                return RedirectToAction("IzmeniPodatkeManifestacije", "Prodavac");
+            }
+
+            if (manifestacija.TipManifestacije == null)
+            {
+                TempData["IzmeniManifestacijuGreska"] = "Polje Tip ne sme ostati prazno.";
+                return RedirectToAction("IzmeniPodatkeManifestacije", "Prodavac");
+            }
+
+            if (manifestacija?.BrojMesta == null)
+            {
+                TempData["IzmeniManifestacijuGreska"] = "Polje Broj mesta ne sme ostati prazno.";
+                return RedirectToAction("IzmeniPodatkeManifestacije", "Prodavac");
+            }
+
+            if (manifestacija.DatumIVremeOdrzavanja == null)
+            {
+                TempData["IzmeniManifestacijuGreska"] = "Polje Datum i vreme odrzavanja ne sme ostati prazno.";
+                return RedirectToAction("IzmeniPodatkeManifestacije", "Prodavac");
+            }
+
+            if (manifestacija?.CenaRegularneKarte == null)
+            {
+                TempData["IzmeniManifestacijuGreska"] = "Polje Cena regularne karte ne sme ostati prazno.";
+                return RedirectToAction("IzmeniPodatkeManifestacije", "Prodavac");
+            }
+
+            if (manifestacija.MestoOdrzavanja.Mesto == null)
+            {
+                TempData["IzmeniManifestacijuGreska"] = "Polje Mesto ne sme ostati prazno.";
+                return RedirectToAction("IzmeniPodatkeManifestacije", "Prodavac");
+            }
+
+            if (manifestacija.MestoOdrzavanja?.PostanskiBroj == null)
+            {
+                TempData["IzmeniManifestacijuGreska"] = "Polje Postanski broj ne sme ostati prazno.";
+                return RedirectToAction("IzmeniPodatkeManifestacije", "Prodavac");
+            }
+
+            if (manifestacija.MestoOdrzavanja.Ulica == null)
+            {
+                TempData["IzmeniManifestacijuGreska"] = "Polje Ulica ne sme ostati prazno.";
+                return RedirectToAction("IzmeniPodatkeManifestacije", "Prodavac");
+            }
+
+            if (manifestacija.MestoOdrzavanja.Broj == null)
+            {
+                TempData["IzmeniManifestacijuGreska"] = "Polje Broj ne sme ostati prazno.";
+                return RedirectToAction("IzmeniPodatkeManifestacije", "Prodavac");
+            }
+
+
+
+
+            #endregion
+
+            #region ostalo
+            List<Manifestacija> manifestacije = Podaci.IscitajManifestacije("~/App_Data/manifestacije.txt");
+            Manifestacija m = manifestacije.Find(x => x.Naziv == manifestacija.Naziv);
+
+            if (!Regex.IsMatch(manifestacija.MestoOdrzavanja.Mesto, @"^[a-zA-Z]+$"))
+            {
+                TempData["IzmeniManifestacijuGreska"] = "Za mesto mozete uneti samo slova.";
+                return RedirectToAction("IzmeniPodatkeManifestacije", "Prodavac");
+            }
+
+            //if (!Regex.IsMatch(manifestacija.MestoOdrzavanja.Ulica, @"^[a-zA-Z]+$"))
+            //{
+            //    TempData["IzmeniManifestacijuGreska"] = "Za ulicu mozete uneti samo slova.";
+            //    return RedirectToAction("IzmeniPodatkeManifestacije", "Prodavac");
+            //}
+
+            if (!Regex.IsMatch(manifestacija.TipManifestacije, @"^[a-zA-Z]+$"))
+            {
+                TempData["IzmeniManifestacijuGreska"] = "Za tip mozete uneti samo slova.";
+                return RedirectToAction("IzmeniPodatkeManifestacije", "Prodavac");
+            }
+
+
+            #endregion
+
+            Podaci.IzmeniManifestaciju(manifestacija);
             HttpContext.Application["manifestacije"] = Podaci.IscitajManifestacije("~/App_Data/manifestacije.txt");
-            return View(m);
+            TempData["UspesnaIzmenaManifestacije"] = "Uspesno ste izmenili manifestaciju";
+            return RedirectToAction("ApdejtujManifestacijeProdavca");
         }
 
         public ActionResult PrikaziKarteManifestacija(Korisnik k)
@@ -78,70 +210,114 @@ namespace PR141_2017_WebProjekat.Controllers
             return View(manifestacija);
         }
 
-        public ActionResult DodajManifestaciju(Manifestacija m)
+        [HttpPost]
+        public ActionResult DodajManifestaciju(Manifestacija manifestacija)
         {
-            bool datumIVremeIsti = false;
-            bool mestoIsto = false;
            // m.Slika = Path.GetFileName(file.FileName);
             List<Manifestacija> manifestacije = (List<Manifestacija>)HttpContext.Application["manifestacije"];
 
-            foreach (var item in manifestacije)
+            // validacija
+            #region null
+
+            if (manifestacija.Naziv == null)
             {
-                if (item.DatumIVremeOdrzavanja == m.DatumIVremeOdrzavanja)
-                    datumIVremeIsti = true;
-                if (item.MestoOdrzavanja == m.MestoOdrzavanja)
-                    mestoIsto = true;
+                TempData["DodajManifestacijuGreska"] = "Polje Naziv ne sme ostati prazno.";
+                return RedirectToAction("DodajManifestaciju");
             }
 
-            if (mestoIsto == false || datumIVremeIsti == false)
+            if (manifestacija.TipManifestacije == null)
             {
-                manifestacije.Add(m);
-                Podaci.UpisiManifestaciju(m);
+                TempData["DodajManifestacijuGreska"] = "Polje Tip ne sme ostati prazno.";
+                return RedirectToAction("DodajManifestaciju");
             }
-            else
-                ViewBag.Message = "Vreme i mesto su zauzeti za drugu manifestaciju";
 
-            //List<UploadedFile> files = (List<UploadedFile>)HttpContext.Application["files"];
-            //try
-            //{
-            //    if (file.ContentLength > 0)
-            //    {
-            //        string fileName = Path.GetFileName(file.FileName);
-            //        string path = Path.Combine(Server.MapPath("~/Files/")),
-            //    }
-                
-            //}
-            //catch 
-            //{
+            if (manifestacija?.BrojMesta == null)
+            {
+                TempData["DodajManifestacijuGreska"] = "Polje Broj mesta ne sme ostati prazno.";
+                return RedirectToAction("DodajManifestaciju");
+            }
 
-            //    ViewBag.Message = "File upload failed!";
-            //}
+            if (manifestacija.DatumIVremeOdrzavanja == null)
+            {
+                TempData["DodajManifestacijuGreska"] = "Polje Datum i vreme odrzavanja ne sme ostati prazno.";
+                return RedirectToAction("DodajManifestaciju");
+            }
+
+            if (manifestacija?.CenaRegularneKarte == null)
+            {
+                TempData["DodajManifestacijuGreska"] = "Polje Cena regularne karte ne sme ostati prazno.";
+                return RedirectToAction("DodajManifestaciju");
+            }
+
+            if (manifestacija.MestoOdrzavanja.Mesto == null)
+            {
+                TempData["DodajManifestacijuGreska"] = "Polje Mesto ne sme ostati prazno.";
+                return RedirectToAction("DodajManifestaciju");
+            }
+
+            if (manifestacija.MestoOdrzavanja?.PostanskiBroj == null)
+            {
+                TempData["DodajManifestacijuGreska"] = "Polje Postanski broj ne sme ostati prazno.";
+                return RedirectToAction("DodajManifestaciju");
+            }
+
+            if (manifestacija.MestoOdrzavanja.Ulica == null)
+            {
+                TempData["DodajManifestacijuGreska"] = "Polje Ulica ne sme ostati prazno.";
+                return RedirectToAction("DodajManifestaciju");
+            }
+
+            if (manifestacija.MestoOdrzavanja.Broj == null)
+            {
+                TempData["DodajManifestacijuGreska"] = "Polje Broj ne sme ostati prazno.";
+                return RedirectToAction("DodajManifestaciju");
+            }
+
+            if(manifestacija.Poster == null)
+            {
+                TempData["DodajManifestacijuGreska"] = "Polje Poster ne sme ostati prazno.";
+                return RedirectToAction("DodajManifestaciju");
+            }
+
+
+
+            #endregion
+
+            #region ostalo
+
+            Manifestacija m = manifestacije.Find(x => x.Naziv == manifestacija.Naziv);
+            if (m != null && !m.IsIzbrisana)
+            {
+                TempData["DodajManifestacijuGreska"] = "Manifetacija sa unetim nazivom vec postoji.";
+                return RedirectToAction("DodajManifestaciju");
+            }
+
+            if (!Regex.IsMatch(manifestacija.MestoOdrzavanja.Mesto, @"^[a-zA-Z]+$"))
+            {
+                TempData["DodajManifestacijuGreska"] = "Za mesto mozete uneti samo slova.";
+                return RedirectToAction("DodajManifestaciju");
+            }
+
+            if (!Regex.IsMatch(manifestacija.MestoOdrzavanja.Ulica, @"^[a-zA-Z]+$"))
+            {
+                TempData["DodajManifestacijuGreska"] = "Za ulicu mozete uneti samo slova.";
+                return RedirectToAction("DodajManifestaciju");
+            }
+
+            if (!Regex.IsMatch(manifestacija.TipManifestacije, @"^[a-zA-Z]+$"))
+            {
+                TempData["DodajManifestacijuGreska"] = "Za tip mozete uneti samo slova.";
+                return RedirectToAction("DodajManifestaciju");
+            }
+
+
+            #endregion
+
+
+            manifestacije.Add(manifestacija);
+            Podaci.UpisiManifestaciju(manifestacija);
 
             return RedirectToAction("Index", "Prodavac");
-            //public ActionResult DodajManifestaciju(Manifestacija m)
-            //{
-            //    //m.IsAktivna = false;
-            //    //m.IsIzbrisana = false;
-            //   List<Manifestacija> manifestacije = (List<Manifestacija>)Session["manifestacije"];
-
-            //    bool datumIVremeIsti = false;
-            //    bool mestoIsto = false;
-
-            //    foreach (var item in manifestacije)
-            //    {
-            //        if (item.DatumIVremeOdrzavanja == m.DatumIVremeOdrzavanja)
-            //            datumIVremeIsti = true;
-            //        if (item.MestoOdrzavanja == m.MestoOdrzavanja)
-            //            mestoIsto = true;
-            //    }
-
-            //    if (mestoIsto == false || datumIVremeIsti == false)
-            //        Podaci.UpisiManifestaciju(m);
-            //    else
-            //        ViewBag.Message = "Vreme i mesto su zauzeti za drugu manifestaciju";
-
-            //    return View(m);
-            //}
         }
 
         public ActionResult SortirajPoNazivu(string naziv)
@@ -260,6 +436,12 @@ namespace PR141_2017_WebProjekat.Controllers
 
         public ActionResult PretragaPoNazivu(string naziv)
         {
+            if (naziv == "")
+            {
+                TempData["PretragaPoNazivuGreska"] = "Ostavili ste prazno polje za pretragu po nazivu.";
+                return RedirectToAction("Index");
+            }
+
             List<Manifestacija> mZaPrikaz = new List<Manifestacija>();
             List<Manifestacija> manifestacije = (List<Manifestacija>)HttpContext.Application["manifestacije"];
             foreach (var item in manifestacije)
@@ -270,6 +452,13 @@ namespace PR141_2017_WebProjekat.Controllers
                 }
             }
 
+            if (!mZaPrikaz.Any())
+            {
+                TempData["PretragaPoNazivuGreska"] = "Trazena manifestacija ne postoji.";
+                return RedirectToAction("Index");
+            }
+
+
             HttpContext.Application["manifestacije"] = mZaPrikaz;
             //Session["manifestacije"] = mZaPrikaz;        
             return RedirectToAction("Index", "Prodavac");
@@ -277,6 +466,18 @@ namespace PR141_2017_WebProjekat.Controllers
 
         public ActionResult PretragaPoMestu(string mesto)
         {
+            if (mesto == "")
+            {
+                TempData["PretragaPoMestuGreska"] = "Ostavili ste prazno polje za pretragu po mestu.";
+                return RedirectToAction("Index");
+            }
+
+            if (!Regex.IsMatch(mesto, @"^[a-zA-Z]+$"))
+            {
+                TempData["PretragaPoMestuGreska"] = "Mozete uneti samo slova za pretragu mesta.";
+                return RedirectToAction("Index");
+            }
+
             List<Manifestacija> mZaPrikaz = new List<Manifestacija>();
             List<Manifestacija> manifestacije = (List<Manifestacija>)HttpContext.Application["manifestacije"];
             foreach (var item in manifestacije)
@@ -287,13 +488,35 @@ namespace PR141_2017_WebProjekat.Controllers
                 }
             }
 
+            if (!mZaPrikaz.Any())
+            {
+                TempData["PretragaPoMestuGreska"] = "Manifestacije u trazenom mestu ne postoje.";
+                return RedirectToAction("Index");
+            }
+
             HttpContext.Application["manifestacije"] = mZaPrikaz;
             //Session["manifestacije"] = mZaPrikaz;        
             return RedirectToAction("Index", "Prodavac");
         }
 
-        public ActionResult PretragaPoCeni(double donjaGranica, double gornjaGranica)
+        public ActionResult PretragaPoCeni(double? donjaGranica, double? gornjaGranica)
         {
+            if (donjaGranica < 0 || gornjaGranica < 0)
+            {
+                TempData["PretragaPoCeniGreska"] = "Ne mozete uneti negativan broj za cenu.";
+                return RedirectToAction("Index");
+            }
+            if (donjaGranica == null && gornjaGranica == null)
+            {
+                TempData["PretragaPoCeniGreska"] = "Ostavili ste prazno polje za pretragu po ceni.";
+                return RedirectToAction("Index");
+            }
+            if (donjaGranica > gornjaGranica)
+            {
+                TempData["PretragaPoCeniGreska"] = "U levo polje upisite manju a u desno polje vecu cenu.";
+                return RedirectToAction("Index");
+            }
+
             List<Manifestacija> mZaPrikaz = new List<Manifestacija>();
             List<Manifestacija> manifestacije = (List<Manifestacija>)HttpContext.Application["manifestacije"];
             foreach (var item in manifestacije)
@@ -304,13 +527,31 @@ namespace PR141_2017_WebProjekat.Controllers
                 }
             }
 
+            if (!mZaPrikaz.Any())
+            {
+                TempData["PretragaPoCeniGreska"] = "Manifestacije u trazenom opsegu cena ne postoje.";
+                return RedirectToAction("Index");
+            }
+
             HttpContext.Application["manifestacije"] = mZaPrikaz;
             //Session["manifestacije"] = mZaPrikaz;        
             return RedirectToAction("Index", "Prodavac");
         }
 
-        public ActionResult PretragaPoDatumu(DateTime donjaGranica, DateTime gornjaGranica)
+        public ActionResult PretragaPoDatumu(DateTime? donjaGranica, DateTime? gornjaGranica)
         {
+            if (donjaGranica == null || gornjaGranica == null)
+            {
+                TempData["PretragaPoDatumuGreska"] = "Ostavili ste prazno polje za pretragu po datumu.";
+                return RedirectToAction("Index");
+            }
+
+            if (DateTime.Compare((DateTime)donjaGranica, (DateTime)gornjaGranica) > 0)
+            {
+                TempData["PretragaPoDatumuGreska"] = "U levo polje upisite blizi a u desno polje dalji datum.";
+                return RedirectToAction("Index");
+            }
+
             List<Manifestacija> mZaPrikaz = new List<Manifestacija>();
             List<Manifestacija> manifestacije = (List<Manifestacija>)HttpContext.Application["manifestacije"];
             foreach (var item in manifestacije)
@@ -319,6 +560,12 @@ namespace PR141_2017_WebProjekat.Controllers
                 {
                     mZaPrikaz.Add(item);
                 }
+            }
+
+            if (!mZaPrikaz.Any())
+            {
+                TempData["PretragaPoDatumuGreska"] = "Manifestacije u trazenom opsegu datume ne postoje.";
+                return RedirectToAction("Index");
             }
 
             HttpContext.Application["manifestacije"] = mZaPrikaz;

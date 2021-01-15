@@ -3,28 +3,13 @@
     ViewBag.Title = "Izmeni podatke";
 }
 
+@ViewBag.GreskaIzmena
+@TempData["IzmenaGreska"]
 <h2>Izmeni podatke</h2>
 
 <div>
     @ViewBag.Message
 </div>
-
-@*<form action="~/Autentifikacija/IzmeniPodatke" method="post">
-    <label for="fname">Korisnicko ime:</label>
-    <input type="text" id="fname" name="fname" value="@Model.KorisnickoIme"><br><br>
-    <label for="fname">Lozinka:</label>
-    <input type="text" id="fname" name="fname" value="@Model.Lozinka"><br><br>
-    <label for="fname">Ime:</label>
-    <input type="text" id="fname" name="fname" value="@Model.Ime"><br><br>
-    <label for="fname">Prezime:</label>
-    <input type="text" id="fname" name="fname" value="@Model.Prezime"><br><br>
-    <label for="fname">Pol:</label>
-    <input type="text" id="fname" name="fname" value="@Model.Pol"><br><br>
-    <label for="fname">Datum rodjenja:</label>
-    <input type="date" id="fname" name="fname" value="@Model.DatumRodjenja.ToShortDateString()"><br><br>
-
-    <input type="submit" value="Izmeni podatke">
-</form>*@
 
 <form action="~/Autentifikacija/IzmeniPodatke" method="post">
     <table>

@@ -1,14 +1,14 @@
-﻿ @model PR141_2017_WebProjekat.Models.Korisnik
+﻿@model PR141_2017_WebProjekat.Models.Korisnik
 @{
     ViewBag.Title = "Kreiraj prodavca";
 }
 
+@TempData["KreiranjeProdavcaGreska"]
 <h2>Kreiraj prodavca</h2>
 
 <div>
     @ViewBag.Message
 </div>
-
 <form action="~/Administrator/KreirajProdavca" method="post">
     <table>
         <tr>

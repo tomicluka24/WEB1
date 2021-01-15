@@ -211,6 +211,7 @@
     <Content Include="Views\Administrator\IzlistajSveKarte.cshtml" />
     <Content Include="Views\Prodavac\IzmeniPodatkeManifestacije.cshtml" />
     <Content Include="Views\Prodavac\PrikaziManifestaciju.cshtml" />
+    <Content Include="Views\Autentifikacija\IzmeniPodatke.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

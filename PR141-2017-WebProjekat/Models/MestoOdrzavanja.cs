@@ -15,7 +15,7 @@ namespace PR141_2017_WebProjekat.Models
         public MestoOdrzavanja()
         {
             Mesto = "";
-            PostanskiBroj = 0;
+            PostanskiBroj = 10000;
             Ulica = "";
             Broj = "";
             IsIzbrisano = false;

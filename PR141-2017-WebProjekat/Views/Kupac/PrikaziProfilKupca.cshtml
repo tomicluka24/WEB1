@@ -2,6 +2,10 @@
 @{
     ViewBag.Title = "Korisnik";
 }
+@TempData["IzmenaPodataka"]
+@TempData["PretragaKarataPoDatumuGreska"]
+@TempData["PretragaKarataPoCeniGreska"]
+@TempData["PretragaKarataPoNazivuGreska"]
 
 <h2>Korisnik</h2>
 
@@ -16,7 +20,7 @@
     <li>Korisnicko ime: @Model.KorisnickoIme</li>
     <li>Lozinka: @Model.Lozinka</li>
     <li>Pol: @Model.Pol</li>
-    <li>Datum rodjenja: @Model.DatumRodjenja.Day/@Model.DatumRodjenja.Month/@Model.DatumRodjenja.Year</li>
+    <li>Datum rodjenja: @Model.DatumRodjenja.Value.Day/@Model.DatumRodjenja.Value.Month/@Model.DatumRodjenja.Value.Year</li>
     <li>Tip korisnika: @Model.TipKorisnika.ImeTipa</li>
     <li>Ostvaren popust: @Model.TipKorisnika.Popust</li>
 </ul>
@@ -34,7 +38,7 @@
 </form>
 <form action="~/Kupac/SortirajKartePoCeni" method="post">
     <label>ceni karte:</label>
-    <select name="cenaKarte" id="sortiranje">
+    <select name="cena" id="sortiranje">
         <option value="jeftinije prvo">jeftinije prvo</option>
         <option value="skuplje prvo">skuplje prvo </option>
     </select>
@@ -49,27 +53,6 @@
     </select>
     <input type="submit" value="Sortiraj">
 </form>
-@*<label>Pretrazi po:</label>
-
-    <form action="~/Kupac/PretragaPoNazivuManifestacije" method="post">
-        <label>nazivu:</label>
-        <input type="search" id="site-search" name="naziv" />
-        <button>Pretrazi</button>
-    </form>
-    <form action="~/Kupac/PretragaPoCeniKarte" method="post">
-        <label>ceni karte:</label>
-        <input type="search" id="site-search" name="cena" />
-        <button>Pretrazi</button>
-    </form>
-    <form action="~/Kupac/PretragaKarataPoDatumu" method="post">
-        <label>ceni:</label>
-        <input type="search" id="site-search" name="donjaGranica" placeholder="od" />
-        <input type="search" id="site-search" name="gornjaGranica" placeholder="do" />
-        <button>Pretrazi</button>
-    </form>
-    <form action="~/Kupac/UkloniFilterKarata" method="post">
-        <input type="submit" value="Ukloni pretragu">
-    </form>*@
 
 <table class="table table-bordered">
     <thead>
@@ -132,3 +115,46 @@
     </tbody>
 </table>
 
+<label>Filtriraj po tipu:</label>
+<form action="~/Kupac/FiltrirajPoTipuKarte" method="post">
+    <select name="tip" id="filtriranje">
+        <option value="VIP">VIP</option>
+        <option value="REGULAR">REGULAR</option>
+        <option value="FAN_PIT">FAN_PIT</option>
+    </select>
+    <input type="submit" value="Filtriraj">
+</form>
+
+<label>Filtriraj po statusu:</label>
+<form action="~/Kupac/FiltrirajPoStatusu" method="post">
+    <select name="status" id="filtriranje">
+        <option value="rezervisana">rezervisana</option>
+        <option value="nerezervisana">nerezervisana</option>
+    </select>
+    <input type="submit" value="Filtriraj">
+</form>
+
+<form action="~/Kupac/UkloniFilterKarata" method="post">
+    <input type="submit" value="Ukloni filter">
+</form>
+
+
+<label>Pretrazi po:</label>
+
+<form action="~/Kupac/PretragaPoNazivuManifestacije" method="post">
+    <label>nazivu:</label>
+    <input type="search" id="site-search" name="naziv" />
+    <button>Pretrazi</button>
+</form>
+
+<form action="~/Kupac/PretragaPoCeniKarte" method="post">
+    <label>ceni:</label>
+    <input type="number" min="0" id="site-search" name="cena" />
+    <button>Pretrazi</button>
+</form>
+
+<form action="~/Kupac/PretragaKarataPoDatumu" method="post">
+    <label>datumu i vremenu:</label>
+    <input type="datetime-local" id="site-search" name="datumIVreme" />
+    <button>Pretrazi</button>
+</form>

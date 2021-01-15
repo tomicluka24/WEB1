@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
 
@@ -134,6 +135,12 @@ namespace PR141_2017_WebProjekat.Controllers
 
         public ActionResult PretragaPoNazivu(string naziv)
         {
+            if (naziv == "")
+            {
+                TempData["PretragaPoNazivuGreska"] = "Ostavili ste prazno polje za pretragu po nazivu.";
+                return RedirectToAction("Index");
+            }
+
             List<Manifestacija> mZaPrikaz = new List<Manifestacija>();
             List<Manifestacija> manifestacije = (List<Manifestacija>)HttpContext.Application["manifestacije"];
             foreach (var item in manifestacije)
@@ -144,13 +151,34 @@ namespace PR141_2017_WebProjekat.Controllers
                 }
             }
 
+            if (!mZaPrikaz.Any())
+            {
+                TempData["PretragaPoNazivuGreska"] = "Trazena manifestacija ne postoji.";
+                return RedirectToAction("Index");
+            }
+
             HttpContext.Application["manifestacije"] = mZaPrikaz;
-            //Session["manifestacije"] = mZaPrikaz;        
+            //Session["manifestacije"] = mZaPrikaz; 
+            
+
             return RedirectToAction("Index", "Home");
         }
 
         public ActionResult PretragaPoMestu(string mesto)
         {
+            if (mesto == "")
+            {
+                TempData["PretragaPoMestuGreska"] = "Ostavili ste prazno polje za pretragu po mestu.";
+                return RedirectToAction("Index");
+            }
+
+            //if(!Regex.IsMatch(mesto, @"^[a-zA-Z]+$"))
+            //{
+            //    TempData["PretragaPoMestuGreska"] = "Mozete uneti samo slova za pretragu mesta.";
+            //    return RedirectToAction("Index");
+            //}
+
+
             List<Manifestacija> mZaPrikaz = new List<Manifestacija>();
             List<Manifestacija> manifestacije = (List<Manifestacija>)HttpContext.Application["manifestacije"];
             foreach (var item in manifestacije)
@@ -161,13 +189,35 @@ namespace PR141_2017_WebProjekat.Controllers
                 }
             }
 
+            if (!mZaPrikaz.Any())
+            {
+                TempData["PretragaPoMestuGreska"] = "Manifestacije u trazenom mestu ne postoje.";
+                return RedirectToAction("Index");
+            }
+
             HttpContext.Application["manifestacije"] = mZaPrikaz;
             //Session["manifestacije"] = mZaPrikaz;        
             return RedirectToAction("Index", "Home");
         }
 
-        public ActionResult PretragaPoCeni(double donjaGranica, double gornjaGranica)
+        public ActionResult PretragaPoCeni(double? donjaGranica, double? gornjaGranica)
         {
+            if(donjaGranica < 0 || gornjaGranica < 0)
+            {
+                TempData["PretragaPoCeniGreska"] = "Ne mozete uneti negativan broj za cenu.";
+                return RedirectToAction("Index");
+            }
+            if (donjaGranica == null && gornjaGranica == null)
+            {
+                TempData["PretragaPoCeniGreska"] = "Ostavili ste prazno polje za pretragu po ceni.";
+                return RedirectToAction("Index");
+            }
+            if(donjaGranica > gornjaGranica)
+            {
+                TempData["PretragaPoCeniGreska"] = "U levo polje upisite manju a u desno polje vecu cenu.";
+                return RedirectToAction("Index");
+            }
+
             List<Manifestacija> mZaPrikaz = new List<Manifestacija>();
             List<Manifestacija> manifestacije = (List<Manifestacija>)HttpContext.Application["manifestacije"];
             foreach (var item in manifestacije)
@@ -178,13 +228,32 @@ namespace PR141_2017_WebProjekat.Controllers
                 }
             }
 
+            if (!mZaPrikaz.Any())
+            {
+                TempData["PretragaPoCeniGreska"] = "Manifestacije u trazenom opsegu cena ne postoje.";
+                return RedirectToAction("Index");
+            }
+
+
             HttpContext.Application["manifestacije"] = mZaPrikaz;
             //Session["manifestacije"] = mZaPrikaz;        
             return RedirectToAction("Index", "Home");
         }
 
-        public ActionResult PretragaPoDatumu(DateTime donjaGranica, DateTime gornjaGranica)
+        public ActionResult PretragaPoDatumu(DateTime? donjaGranica, DateTime? gornjaGranica)
         {
+            if (donjaGranica == null || gornjaGranica == null)
+            {
+                TempData["PretragaPoDatumuGreska"] = "Ostavili ste prazno polje za pretragu po datumu.";
+                return RedirectToAction("Index");
+            }
+           
+            if (DateTime.Compare((DateTime)donjaGranica, (DateTime)gornjaGranica) > 0)
+            {
+                TempData["PretragaPoDatumuGreska"] = "U levo polje upisite blizi a u desno polje dalji datum.";
+                return RedirectToAction("Index");
+            }
+            
             List<Manifestacija> mZaPrikaz = new List<Manifestacija>();
             List<Manifestacija> manifestacije = (List<Manifestacija>)HttpContext.Application["manifestacije"];
             foreach (var item in manifestacije)
@@ -193,6 +262,12 @@ namespace PR141_2017_WebProjekat.Controllers
                 {
                     mZaPrikaz.Add(item);
                 }
+            }
+
+            if (!mZaPrikaz.Any())
+            {
+                TempData["PretragaPoDatumuGreska"] = "Manifestacije u trazenom opsegu datume ne postoje.";
+                return RedirectToAction("Index");
             }
 
             HttpContext.Application["manifestacije"] = mZaPrikaz;

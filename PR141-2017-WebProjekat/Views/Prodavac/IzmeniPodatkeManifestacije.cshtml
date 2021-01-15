@@ -3,9 +3,11 @@
     ViewBag.Title = "IzmeniPodatkeManifestacije";
 }
 
+@TempData["IzmeniManifestacijuGreska"]
+
 <h2>Izmeni Podatke manifestacije</h2>
 
-<form action="~/Autentifikacija/IzmeniPodatkeManifestacije" method="post">
+<form action="~/Prodavac/IzmeniPodatkeManifestacije" method="post">
    
     <table>
         <tr>
@@ -18,7 +20,7 @@
         </tr>
         <tr>
             <td>Broj mesta:</td>
-            <td><input type="text" name="brojMesta" /></td>
+            <td><input type="number" min="0" name="brojMesta" /></td>
         </tr>
 
         <tr>
@@ -28,7 +30,7 @@
 
         <tr>
             <td>Cena regularne karte:</td>
-            <td><input type="text" name="cenaRegularneKarte" /></td>
+            <td><input type="number" min="0" name="cenaRegularneKarte" /></td>
         </tr>
         <tr>
             <td>Aktivna</td>
@@ -40,11 +42,11 @@
                 @Html.LabelFor(model => model.MestoOdrzavanja.Mesto)
                 @Html.TextBoxFor(model => model.MestoOdrzavanja.Mesto)
                 @Html.LabelFor(model => model.MestoOdrzavanja.PostanskiBroj)
-                @Html.TextBoxFor(model => model.MestoOdrzavanja.PostanskiBroj)
+                @Html.TextBoxFor(model => model.MestoOdrzavanja.PostanskiBroj, new { @type = "number", @class = "span4", @min = "10000" })
                 @Html.LabelFor(model => model.MestoOdrzavanja.Ulica)
                 @Html.TextBoxFor(model => model.MestoOdrzavanja.Ulica)
                 @Html.LabelFor(model => model.MestoOdrzavanja.Broj)
-                @Html.TextBoxFor(model => model.MestoOdrzavanja.Broj)
+                @Html.TextBoxFor(model => model.MestoOdrzavanja.Broj, new { @type = "number", @class = "span4", @min = "1" });
             }
         </tr>
         <tr>

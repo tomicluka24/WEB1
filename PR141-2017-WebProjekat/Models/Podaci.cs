@@ -23,125 +23,76 @@ namespace PR141_2017_WebProjekat.Models
                 //Korisnik k = new Korisnik(tokeni[0], tokeni[1], tokeni[2], tokeni[3], tokeni[4], DateTime.ParseExact(tokeni[5], "MM/dd/yyyy", null), tokeni[6], false); 
                 //korisnici.Add(k);
 
-            if(tokeni[6] == "administrator")
+            if (tokeni[6] == "administrator")
+            {
+                Korisnik k = new Korisnik(tokeni[0], tokeni[1], tokeni[2], tokeni[3], tokeni[4], DateTime.ParseExact(tokeni[5], "MM/dd/yyyy", null), tokeni[6], bool.Parse(tokeni[7]));
+                korisnici.Add(k);
+            }
+            else if (tokeni[6] == "kupac")
+            {
+                Dictionary<string, Karta> karte = IscitajKarte("~/App_Data/karte.txt");
+                Dictionary<string, Karta> sveKarteKupca = new Dictionary<string, Karta>();
+
+                string[] IDevi = tokeni[8].Split(',');
+
+                for (int i = 0; i < IDevi.Length; i++)
                 {
-                    Korisnik k = new Korisnik(tokeni[0], tokeni[1], tokeni[2], tokeni[3], tokeni[4], DateTime.ParseExact(tokeni[5], "MM/dd/yyyy", null), tokeni[6], bool.Parse(tokeni[7]));
-                    korisnici.Add(k);
+                    if (karte.ContainsKey(IDevi[i]))
+                    {
+                        sveKarteKupca.Add(IDevi[i], karte[IDevi[i]]); 
+                    }
                 }
-            else if(tokeni[6] == "kupac")
+
+                TipKorisnika tK = new TipKorisnika();
+                tK.ImeTipa = tokeni[10];
+                if (tK.ImeTipa == "zlatni")
                 {
-                    Dictionary<string, Karta> karte = IscitajKarte("~/App_Data/karte.txt");
-                    Dictionary<string, Karta> sveKarteKupca = new Dictionary<string, Karta>();
-
-                    string[] IDevi = tokeni[8].Split(',');
-
-                    for (int i = 0; i < IDevi.Length; i++)
-                    {
-                        if(karte.ContainsKey(IDevi[i]))
-                            {
-                            sveKarteKupca.Add(IDevi[i], karte[IDevi[i]]); 
-                            }
-                    }
-
-                    TipKorisnika tK = new TipKorisnika();
-                    tK.ImeTipa = tokeni[10];
-                    if(tK.ImeTipa == "zlatni")
-                    {
-                        tK.Popust = 100;
-                        tK.TrazeniBrojBodova = 3001;
-                    }
-                    else if(tK.ImeTipa == "srebrni")
-                    {
-                        tK.Popust = 50;
-                        tK.TrazeniBrojBodova = 2000;
-                    }
-                    else
-                    {
-                        tK.Popust = 20;
-                        tK.TrazeniBrojBodova = 500;
-                    }
-
-                    Korisnik k = new Korisnik(tokeni[0], tokeni[1], tokeni[2], tokeni[3], tokeni[4], DateTime.ParseExact(tokeni[5], "MM/dd/yyyy", null), tokeni[6], sveKarteKupca, double.Parse(tokeni[9]), tK, bool.Parse(tokeni[7]));
-                    korisnici.Add(k);
+                    tK.Popust = 100;
+                    tK.TrazeniBrojBodova = 3001;
                 }
+                else if (tK.ImeTipa == "srebrni")
+                {
+                    tK.Popust = 50;
+                    tK.TrazeniBrojBodova = 2000;
+                }
+                else
+                {
+                    tK.Popust = 20;
+                    tK.TrazeniBrojBodova = 500;
+                }
+
+                Korisnik k = new Korisnik(tokeni[0], tokeni[1], tokeni[2], tokeni[3], tokeni[4], DateTime.ParseExact(tokeni[5], "MM/dd/yyyy", null), tokeni[6], sveKarteKupca, double.Parse(tokeni[9]), tK, bool.Parse(tokeni[7]));
+                korisnici.Add(k);
+            }
             else
-                {
-                    List<Manifestacija> manifestacije = IscitajManifestacije("~/App_Data/manifestacije.txt");
-                    List<Manifestacija> manifestacijeProdavca = new List<Manifestacija>();
+            {
+                List<Manifestacija> manifestacije = IscitajManifestacije("~/App_Data/manifestacije.txt");
+                List<Manifestacija> manifestacijeProdavca = new List<Manifestacija>();
 
-                    string[] nazivi = tokeni[8].Split(',');
-                    for (int i = 0; i < nazivi.Length; i++)
+                string[] nazivi = tokeni[8].Split(',');
+                for (int i = 0; i < nazivi.Length; i++)
+                {
+                    foreach (Manifestacija m in manifestacije)
                     {
-                        foreach (Manifestacija m in manifestacije)
+                        if (m.Naziv == nazivi[i])
                         {
-                            if(m.Naziv == nazivi[i])
-                            {
-                                manifestacijeProdavca.Add(m);
-                            }
+                            manifestacijeProdavca.Add(m);
                         }
                     }
-
-                    Korisnik k = new Korisnik(tokeni[0], tokeni[1], tokeni[2], tokeni[3], tokeni[4], DateTime.ParseExact(tokeni[5], "MM/dd/yyyy", null), tokeni[6], manifestacijeProdavca, bool.Parse(tokeni[7]));
-                    if(k.IsIzbrisan != true)
-                    korisnici.Add(k);
-
                 }
+
+                Korisnik k = new Korisnik(tokeni[0], tokeni[1], tokeni[2], tokeni[3], tokeni[4], DateTime.ParseExact(tokeni[5], "MM/dd/yyyy", null), tokeni[6], manifestacijeProdavca, bool.Parse(tokeni[7]));
+                if(k.IsIzbrisan != true)
+                korisnici.Add(k);
+
+            }
             }
 
             sr.Close();
             stream.Close();
             return korisnici;
         }
-        public static void UpisiKorisnika(Korisnik korisnik)
-        {
-            string path = HostingEnvironment.MapPath("~/App_Data/korisnici.txt");
-            FileStream stream = new FileStream(path, FileMode.Append);
-            StreamWriter sw = new StreamWriter(stream);
 
-            #region
-            string mesec = korisnik.DatumRodjenja.Month.ToString();
-            string dan = korisnik.DatumRodjenja.Day.ToString();
-            string godina = korisnik.DatumRodjenja.Year.ToString();
-            if (korisnik.DatumRodjenja.Month <= 9)
-            {
-                mesec = '0' + mesec;
-            }
-            if (korisnik.DatumRodjenja.Day <= 9)
-            {
-                dan = '0' + dan;
-            }
-            if (korisnik.DatumRodjenja.Year < 1000 && korisnik.DatumRodjenja.Year > 99)
-            {
-                godina = '0' + godina;
-            }
-            if (korisnik.DatumRodjenja.Year < 100 && korisnik.DatumRodjenja.Year > 9)
-            {
-                godina = "00" + godina;
-            }
-            if (korisnik.DatumRodjenja.Year < 10)
-            {
-                godina = "000" + godina;
-            }
-            #endregion
-
-            string objectToWrite = korisnik.KorisnickoIme + ";" + korisnik.Lozinka + ";" + korisnik.Ime + ";" + korisnik.Prezime + ";"
-            + korisnik.Pol + ";" + mesec + "/" + dan + "/"  + godina + ";" + korisnik.Uloga + ";" + "false";
-
-            if(korisnik.Uloga == "kupac")
-            {
-                objectToWrite = objectToWrite + ";" + " , " + ";" + "0" + ";" + "bronzani";
-            }
-
-            if(korisnik.Uloga == "prodavac")
-            {
-                objectToWrite = objectToWrite + ";" + " , ";
-            }
-            
-            sw.WriteLine(objectToWrite);
-
-            sw.Close();
-            stream.Close();
-        }
         public static List<Manifestacija> IscitajManifestacije(string putanja)
         {
             MestoOdrzavanja mO = new MestoOdrzavanja();
@@ -157,24 +108,20 @@ namespace PR141_2017_WebProjekat.Models
 
                 try
                 {
-
-                mO = new MestoOdrzavanja(tokeni[5], double.Parse(tokeni[6]), tokeni[7], tokeni[8], bool.Parse(tokeni[9])); 
+                    mO = new MestoOdrzavanja(tokeni[5], double.Parse(tokeni[6]), tokeni[7], tokeni[8], bool.Parse(tokeni[9])); 
                 }
                 catch (Exception e)
                 {
-
                     Console.WriteLine(e);
                 }
 
                 try
                 {
-                m = new Manifestacija(tokeni[0], tokeni[1], int.Parse(tokeni[2]), DateTime.ParseExact(tokeni[3], "MM/dd/yyyy HH:mm", null), 
-                double.Parse(tokeni[4]), mO, bool.Parse(tokeni[9]), bool.Parse(tokeni[10]), tokeni[11]);
-
+                    m = new Manifestacija(tokeni[0], tokeni[1], int.Parse(tokeni[2]), DateTime.ParseExact(tokeni[3], "MM/dd/yyyy HH:mm", null), 
+                    double.Parse(tokeni[4]), mO, bool.Parse(tokeni[9]), bool.Parse(tokeni[10]), tokeni[11]);
                 }
                 catch (Exception e)
                 {
-
                     Console.WriteLine(e);
                 }
 
@@ -186,6 +133,7 @@ namespace PR141_2017_WebProjekat.Models
             stream.Close();
             return manifestacije;
         }
+
         public static Dictionary<string, Karta> IscitajKarte(string putanja)
         {
             List<Manifestacija> manifestacije = IscitajManifestacije("~/App_Data/manifestacije.txt");
@@ -216,6 +164,80 @@ namespace PR141_2017_WebProjekat.Models
             stream.Close();
             return karte;
         }
+
+        public static void UpisiKorisnika(Korisnik korisnik)
+        {
+            string path = HostingEnvironment.MapPath("~/App_Data/korisnici.txt");
+            FileStream stream = new FileStream(path, FileMode.Append);
+            StreamWriter sw = new StreamWriter(stream);
+
+            #region datum i vreme
+            string mesec = korisnik.DatumRodjenja?.Month.ToString();
+            string dan = korisnik.DatumRodjenja?.Day.ToString();
+            string godina = korisnik.DatumRodjenja?.Year.ToString();
+            if (korisnik.DatumRodjenja?.Month <= 9)
+            {
+                mesec = '0' + mesec;
+            }
+            if (korisnik.DatumRodjenja?.Day <= 9)
+            {
+                dan = '0' + dan;
+            }
+            if (korisnik.DatumRodjenja?.Year < 1000 && korisnik.DatumRodjenja?.Year > 99)
+            {
+                godina = '0' + godina;
+            }
+            if (korisnik.DatumRodjenja?.Year < 100 && korisnik.DatumRodjenja?.Year > 9)
+            {
+                godina = "00" + godina;
+            }
+            if (korisnik.DatumRodjenja?.Year < 10)
+            {
+                godina = "000" + godina;
+            }
+            #endregion
+
+            string objectToWrite = korisnik.KorisnickoIme + ";" + korisnik.Lozinka + ";" + korisnik.Ime + ";" + korisnik.Prezime + ";"
+            + korisnik.Pol + ";" + mesec + "/" + dan + "/"  + godina + ";" + korisnik.Uloga + ";" + "false";
+
+            if (korisnik.Uloga == "kupac")
+            {
+                objectToWrite = objectToWrite + ";" + " , " + ";" + "0" + ";" + "bronzani";
+            }
+
+            if (korisnik.Uloga == "prodavac")
+            {
+                objectToWrite = objectToWrite + ";" + " , ";
+            }
+            
+            sw.WriteLine(objectToWrite);
+
+            sw.Close();
+            stream.Close();
+        }
+
+        public static void UpisiManifestaciju(Manifestacija manifestacija)
+        {
+            string path = HostingEnvironment.MapPath("~/App_Data/manifestacije.txt");
+            FileStream stream = new FileStream(path, FileMode.Append);
+            StreamWriter sw = new StreamWriter(stream);
+
+            string mesec = manifestacija.DatumIVremeOdrzavanja?.Month.ToString();
+            string dan = manifestacija.DatumIVremeOdrzavanja?.Day.ToString();
+            string godina = manifestacija.DatumIVremeOdrzavanja?.Year.ToString();
+            string sati = manifestacija.DatumIVremeOdrzavanja?.Hour.ToString();
+            string minuta = manifestacija.DatumIVremeOdrzavanja?.Minute.ToString();
+
+            string objectToWrite = manifestacija.Naziv + ";" + manifestacija.TipManifestacije + ";" + manifestacija.BrojMesta.ToString() + ";" + mesec + "/" + dan + "/" + godina + " " + sati + ":" + minuta + ";"
+            + manifestacija.CenaRegularneKarte + ";" + manifestacija.MestoOdrzavanja.Mesto + ";" + manifestacija.MestoOdrzavanja.PostanskiBroj.ToString() + ";" + manifestacija.MestoOdrzavanja.Ulica + ";"
+            + manifestacija.MestoOdrzavanja.Broj + ";" + "false" + ";" + "false" + ";" + manifestacija.Naziv + ".jpg";
+
+            sw.WriteLine(objectToWrite);
+
+            sw.Close();
+            stream.Close();
+        }
+
         public static void IzmeniKorisnika(Korisnik korisnik)
         {
             //string path = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"~/App_Data/korisnici.txt");
@@ -237,7 +259,6 @@ namespace PR141_2017_WebProjekat.Models
                 count++;
                 string[] tokeni = item.Split(';');
                 
-                
                 if (tokeni[0] == korisnik.KorisnickoIme)
                 {
                     brojElemenata = tokeni.Count();
@@ -255,36 +276,30 @@ namespace PR141_2017_WebProjekat.Models
                         karteKupca = tokeni[8];
                         break;
                     }
-
-
-
                 }
-
-
-                
             }
 
-            #region
-            string mesec = korisnik.DatumRodjenja.Month.ToString();
-            string dan = korisnik.DatumRodjenja.Day.ToString();
-            string godina = korisnik.DatumRodjenja.Year.ToString();
-            if (korisnik.DatumRodjenja.Month <= 9)
+            #region datum i vreme
+            string mesec = korisnik.DatumRodjenja?.Month.ToString();
+            string dan = korisnik.DatumRodjenja?.Day.ToString();
+            string godina = korisnik.DatumRodjenja?.Year.ToString();
+            if (korisnik.DatumRodjenja?.Month <= 9)
             {
                 mesec = '0' + mesec;
             }
-            if (korisnik.DatumRodjenja.Day <= 9)
+            if (korisnik.DatumRodjenja?.Day <= 9)
             {
                 dan = '0' + dan;
             }
-            if (korisnik.DatumRodjenja.Year < 1000 && korisnik.DatumRodjenja.Year > 99)
+            if (korisnik.DatumRodjenja?.Year < 1000 && korisnik.DatumRodjenja?.Year > 99)
             {
                 godina = '0' + godina;
             }
-            if (korisnik.DatumRodjenja.Year < 100 && korisnik.DatumRodjenja.Year > 9)
+            if (korisnik.DatumRodjenja?.Year < 100 && korisnik.DatumRodjenja?.Year > 9)
             {
                 godina = "00" + godina;
             }
-            if (korisnik.DatumRodjenja.Year < 10)
+            if (korisnik.DatumRodjenja?.Year < 10)
             {
                 godina = "000" + godina;
             }
@@ -292,12 +307,12 @@ namespace PR141_2017_WebProjekat.Models
 
             string k = "";
 
-            if(brojElemenata == 8)
+            if (brojElemenata == 8)
             {
                 k = korisnik.KorisnickoIme + ";" + korisnik.Lozinka + ";" + korisnik.Ime + ";" + korisnik.Prezime + ";"
                 + korisnik.Pol + ";" + mesec + "/" + dan + "/" + godina + ";" + "administrator" + ";" + korisnik.IsIzbrisan.ToString().ToLower();
             }
-            else if(brojElemenata == 11)
+            else if (brojElemenata == 11)
             {
                 k = korisnik.KorisnickoIme + ";" + korisnik.Lozinka + ";" + korisnik.Ime + ";" + korisnik.Prezime + ";"
                 + korisnik.Pol + ";" + mesec + "/" + dan + "/" + godina + ";" + "kupac" + ";" + korisnik.IsIzbrisan.ToString().ToLower() + ";" + karteKupca + ";" + poeniKupca + ";" + tipKupca;
@@ -305,33 +320,13 @@ namespace PR141_2017_WebProjekat.Models
             else
             {
                 k = korisnik.KorisnickoIme + ";" + korisnik.Lozinka + ";" + korisnik.Ime + ";" + korisnik.Prezime + ";"
-                + korisnik.Pol + ";" + mesec + "/" + dan + "/" + godina + ";" + "prodavac" + ";" + korisnik.IsIzbrisan.ToString().ToLower() + manifestacijeProdavca;
+                + korisnik.Pol + ";" + mesec + "/" + dan + "/" + godina + ";" + "prodavac" + ";" + korisnik.IsIzbrisan.ToString().ToLower() + ";" +  manifestacijeProdavca;
             }
 
             korisnici[index - 1] = k;
             File.WriteAllLines(putanja, korisnici);
         }
-        public static void UpisiManifestaciju(Manifestacija manifestacija)
-        {
-            string path = HostingEnvironment.MapPath("~/App_Data/manifestacije.txt");
-            FileStream stream = new FileStream(path, FileMode.Append);
-            StreamWriter sw = new StreamWriter(stream);
 
-            string mesec = manifestacija.DatumIVremeOdrzavanja.Month.ToString();
-            string dan = manifestacija.DatumIVremeOdrzavanja.Day.ToString();
-            string godina = manifestacija.DatumIVremeOdrzavanja.Year.ToString();
-            string sati = manifestacija.DatumIVremeOdrzavanja.Hour.ToString();
-            string minuta = manifestacija.DatumIVremeOdrzavanja.Minute.ToString();
-
-            string objectToWrite = manifestacija.Naziv + ";" + manifestacija.TipManifestacije + ";" + manifestacija.BrojMesta.ToString() + ";" + mesec + "/" + dan + "/" + godina + " " + sati + ":" + minuta + ";"
-            + manifestacija.CenaRegularneKarte + ";" + manifestacija.MestoOdrzavanja.Mesto + ";" + manifestacija.MestoOdrzavanja.PostanskiBroj.ToString() + ";" + manifestacija.MestoOdrzavanja.Ulica + ";"
-            + manifestacija.MestoOdrzavanja.Broj + ";" + "false" + ";" + "false" + ";" + manifestacija.Naziv + ".jpg";
-
-            sw.WriteLine(objectToWrite);
-
-            sw.Close();
-            stream.Close();
-        }
         public static void IzmeniManifestaciju(Manifestacija manifestacija)
         {
             string path = HostingEnvironment.MapPath("~/App_Data/manifestacije.txt");
@@ -344,49 +339,50 @@ namespace PR141_2017_WebProjekat.Models
             {
                 count++;
                 string[] tokeni = item.Split(';');
-                if(manifestacija.Naziv == tokeni[0])
+                if (manifestacija.Naziv == tokeni[0])
                 {
                     index = count;
                     break;
                 }
             }
 
-            #region
-            string mesec = manifestacija.DatumIVremeOdrzavanja.Month.ToString();
-            string dan = manifestacija.DatumIVremeOdrzavanja.Day.ToString();
-            string godina = manifestacija.DatumIVremeOdrzavanja.Year.ToString();
-            string sati = manifestacija.DatumIVremeOdrzavanja.Hour.ToString();
-            string minuta = manifestacija.DatumIVremeOdrzavanja.Minute.ToString();
-            if (manifestacija.DatumIVremeOdrzavanja.Month <= 9)
+            #region datum i vreme
+            string mesec = manifestacija.DatumIVremeOdrzavanja?.Month.ToString();
+            string dan = manifestacija.DatumIVremeOdrzavanja?.Day.ToString();
+            string godina = manifestacija.DatumIVremeOdrzavanja?.Year.ToString();
+            string sati = manifestacija.DatumIVremeOdrzavanja?.Hour.ToString();
+            string minuta = manifestacija.DatumIVremeOdrzavanja?.Minute.ToString();
+            if (manifestacija.DatumIVremeOdrzavanja?.Month <= 9)
             {
                 mesec = '0' + mesec;
             }
-            if (manifestacija.DatumIVremeOdrzavanja.Day <= 9)
+            if (manifestacija.DatumIVremeOdrzavanja?.Day <= 9)
             {
                 dan = '0' + dan;
             }
-            if (manifestacija.DatumIVremeOdrzavanja.Year < 1000 && manifestacija.DatumIVremeOdrzavanja.Year > 99)
+            if (manifestacija.DatumIVremeOdrzavanja?.Year < 1000 && manifestacija.DatumIVremeOdrzavanja?.Year > 99)
             {
                 godina = '0' + godina;
             }
-            if (manifestacija.DatumIVremeOdrzavanja.Year < 100 && manifestacija.DatumIVremeOdrzavanja.Year > 9)
+            if (manifestacija.DatumIVremeOdrzavanja?.Year < 100 && manifestacija.DatumIVremeOdrzavanja?.Year > 9)
             {
                 godina = "00" + godina;
             }
-            if (manifestacija.DatumIVremeOdrzavanja.Year < 10)
+            if (manifestacija.DatumIVremeOdrzavanja?.Year < 10)
             {
                 godina = "000" + godina;
             }
-            if(manifestacija.DatumIVremeOdrzavanja.Hour < 10)
+            if(manifestacija.DatumIVremeOdrzavanja?.Hour < 10)
             {
                 sati = "0" + sati;
             }
-            if (manifestacija.DatumIVremeOdrzavanja.Minute < 10)
+            if (manifestacija.DatumIVremeOdrzavanja?.Minute < 10)
             {
                 minuta = "0" + minuta;
             }
 
             #endregion
+
             string izmenaManifestacije = manifestacija.Naziv + ";" + manifestacija.TipManifestacije + ";" + manifestacija.BrojMesta.ToString() + ";" + mesec + "/" + dan + "/" + godina + " " + sati + ":" + minuta  + ";"
                  + manifestacija.CenaRegularneKarte + ";" + manifestacija.MestoOdrzavanja.Mesto + ";" + manifestacija.MestoOdrzavanja.PostanskiBroj.ToString() + ";"
                  + manifestacija.MestoOdrzavanja.Ulica + ";" + manifestacija.MestoOdrzavanja.Broj + ";" + manifestacija.IsAktivna.ToString().ToLower() + ";" + manifestacija.IsIzbrisana.ToString().ToLower() + ";"
@@ -395,8 +391,6 @@ namespace PR141_2017_WebProjekat.Models
             manifestacije[index - 1] = izmenaManifestacije;
             File.WriteAllLines(path, manifestacije);
         }
-
-
 
     }
 

@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
 
@@ -60,12 +61,14 @@ namespace PR141_2017_WebProjekat.Controllers
             if (naziv == "a-z")
 
             {
-                k.SveKarteBezObziraNaStatus.OrderBy(o => o.Value.Manifestacija.Naziv);
+                // k.SveKarteBezObziraNaStatus = (Dictionary<string, Karta>)(from entry in k.SveKarteBezObziraNaStatus orderby entry.Value.Manifestacija.Naziv ascending select entry);
+                k.SveKarteBezObziraNaStatus = k.SveKarteBezObziraNaStatus.OrderBy(x => x.Value.Manifestacija.Naziv).ToDictionary(x => x.Key, x => x.Value);
             }
 
             if (naziv == "z-a")
             {
-                k.SveKarteBezObziraNaStatus.OrderByDescending(o => o.Value.Manifestacija.Naziv);
+                //  k.SveKarteBezObziraNaStatus = (Dictionary<string, Karta>)(from entry in k.SveKarteBezObziraNaStatus orderby entry.Value.Manifestacija.Naziv descending select entry);
+                k.SveKarteBezObziraNaStatus = k.SveKarteBezObziraNaStatus.OrderByDescending(x => x.Value.Manifestacija.Naziv).ToDictionary(x => x.Key, x => x.Value);
             }
 
             Session["korisnik"] = k;
@@ -79,12 +82,12 @@ namespace PR141_2017_WebProjekat.Controllers
             if (datum == "najskorije prvo")
 
             {
-                k.SveKarteBezObziraNaStatus.OrderBy(o => o.Value.Manifestacija.DatumIVremeOdrzavanja);
+                k.SveKarteBezObziraNaStatus = k.SveKarteBezObziraNaStatus.OrderBy(x => x.Value.DatumIVremeManifestacijce).ToDictionary(x => x.Key, x => x.Value);
             }
 
             if (datum == "najskorije poslednje")
             {
-                k.SveKarteBezObziraNaStatus.OrderByDescending(o => o.Value.Manifestacija.DatumIVremeOdrzavanja);
+                k.SveKarteBezObziraNaStatus = k.SveKarteBezObziraNaStatus.OrderByDescending(x => x.Value.DatumIVremeManifestacijce).ToDictionary(x => x.Key, x => x.Value);
             }
 
             Session["korisnik"] = k;
@@ -98,12 +101,12 @@ namespace PR141_2017_WebProjekat.Controllers
             if (cena == "jeftinije prvo")
 
             {
-                k.SveKarteBezObziraNaStatus.OrderBy(o => o.Value.Manifestacija.CenaRegularneKarte);
+                k.SveKarteBezObziraNaStatus = k.SveKarteBezObziraNaStatus.OrderBy(x => x.Value.Cena).ToDictionary(x => x.Key, x => x.Value);
             }
 
             if (cena == "skuplje prvo")
             {
-                k.SveKarteBezObziraNaStatus.OrderByDescending(o => o.Value.Manifestacija.CenaRegularneKarte);
+                k.SveKarteBezObziraNaStatus = k.SveKarteBezObziraNaStatus.OrderByDescending(x => x.Value.Cena).ToDictionary(x => x.Key, x => x.Value);
             }
 
             Session["korisnik"] = k;
@@ -178,6 +181,51 @@ namespace PR141_2017_WebProjekat.Controllers
             return RedirectToAction("Index", "Kupac");
         }
 
+        public ActionResult FiltrirajPoTipuKarte(string tip)
+        {
+            Korisnik k = (Korisnik)Session["korisnik"];
+            Dictionary<string, Karta> kZaPrikaz = new Dictionary<string, Karta>();
+            Dictionary<string, Karta> karte = (Dictionary<string, Karta>)HttpContext.Application["karte"];
+            foreach (var item in k.SveKarteBezObziraNaStatus)
+            {
+                if (item.Value.TipKarte.ToString() == tip)
+                {
+                    kZaPrikaz.Add(item.Key,item.Value);
+                }
+            }
+            k.SveKarteBezObziraNaStatus = kZaPrikaz;
+            Session["korisnik"] = k;
+            //HttpContext.Application["karte"] = kZaPrikaz;
+            //Session["manifestacije"] = mZaPrikaz;        
+            return RedirectToAction("PrikaziProfilKupca", "Kupac");
+        }
+
+        public ActionResult FiltrirajPoStatusu(string status)
+        {
+            Korisnik k = (Korisnik)Session["korisnik"];
+            Dictionary<string, Karta> kZaPrikaz = new Dictionary<string, Karta>();
+            Dictionary<string, Karta> karte = (Dictionary<string, Karta>)HttpContext.Application["karte"];
+
+            bool isRezervisana = false;
+            if (status == "rezervisana")
+                isRezervisana = true;
+          
+
+            foreach (var item in karte)
+            {
+                if (item.Value.IsRezervisana == isRezervisana)
+                {
+                    kZaPrikaz.Add(item.Key,item.Value);
+                }
+            }
+
+            k.SveKarteBezObziraNaStatus = kZaPrikaz;
+            Session["korisnik"] = k;
+            //HttpContext.Application["karte"] = kZaPrikaz;
+            //Session["manifestacije"] = mZaPrikaz;        
+            return RedirectToAction("PrikaziProfilKupca", "Kupac");
+        }
+
         public ActionResult UkloniFilter()
         {
             HttpContext.Application["manifestacije"] = Podaci.IscitajManifestacije("~/App_Data/manifestacije.txt");
@@ -187,14 +235,34 @@ namespace PR141_2017_WebProjekat.Controllers
 
         public ActionResult UkloniFilterKarata()
         {
+            List<Korisnik> korisnici = Podaci.IscitajKorisnike("~/App_Data/korisnici.txt");
+
             Korisnik k = (Korisnik)Session["korisnik"];
+
+            foreach (var item in korisnici)
+           {
+                if(k.Ime == item.Ime)
+                {
+                    k = item;
+                }
+            }
+
+
             HttpContext.Application["karte"] = k.SveKarteBezObziraNaStatus;
+            HttpContext.Application["korisnik"] = k;
+            Session["korisnik"] = k;
             //Session["manifestacije"] = mZaPrikaz;        
             return RedirectToAction("PrikaziProfilKupca", "Kupac");
         }
 
         public ActionResult PretragaPoNazivu(string naziv)
         {
+            if (naziv == "")
+            {
+                TempData["PretragaPoNazivuGreska"] = "Ostavili ste prazno polje za pretragu po nazivu.";
+                return RedirectToAction("Index");
+            }
+
             List<Manifestacija> mZaPrikaz = new List<Manifestacija>();
             List<Manifestacija> manifestacije = (List<Manifestacija>)HttpContext.Application["manifestacije"];
             foreach (var item in manifestacije)
@@ -205,6 +273,12 @@ namespace PR141_2017_WebProjekat.Controllers
                 }
             }
 
+            if (!mZaPrikaz.Any())
+            {
+                TempData["PretragaPoNazivuGreska"] = "Trazena manifestacija ne postoji.";
+                return RedirectToAction("Index");
+            }
+
             HttpContext.Application["manifestacije"] = mZaPrikaz;
             //Session["manifestacije"] = mZaPrikaz;        
             return RedirectToAction("Index", "Kupac");
@@ -212,6 +286,18 @@ namespace PR141_2017_WebProjekat.Controllers
 
         public ActionResult PretragaPoMestu(string mesto)
         {
+            if (mesto == "")
+            {
+                TempData["PretragaPoMestuGreska"] = "Ostavili ste prazno polje za pretragu po mestu.";
+                return RedirectToAction("Index");
+            }
+
+            if (!Regex.IsMatch(mesto, @"^[a-zA-Z]+$"))
+            {
+                TempData["PretragaPoMestuGreska"] = "Mozete uneti samo slova za pretragu mesta.";
+                return RedirectToAction("Index");
+            }
+
             List<Manifestacija> mZaPrikaz = new List<Manifestacija>();
             List<Manifestacija> manifestacije = (List<Manifestacija>)HttpContext.Application["manifestacije"];
             foreach (var item in manifestacije)
@@ -222,13 +308,35 @@ namespace PR141_2017_WebProjekat.Controllers
                 }
             }
 
+            if (!mZaPrikaz.Any())
+            {
+                TempData["PretragaPoMestuGreska"] = "Manifestacije u trazenom mestu ne postoje.";
+                return RedirectToAction("Index");
+            }
+
             HttpContext.Application["manifestacije"] = mZaPrikaz;
             //Session["manifestacije"] = mZaPrikaz;        
             return RedirectToAction("Index", "Kupac");
         }
 
-        public ActionResult PretragaPoCeni(double donjaGranica, double gornjaGranica)
+        public ActionResult PretragaPoCeni(double? donjaGranica, double? gornjaGranica)
         {
+            if (donjaGranica < 0 || gornjaGranica < 0)
+            {
+                TempData["PretragaPoCeniGreska"] = "Ne mozete uneti negativan broj za cenu.";
+                return RedirectToAction("Index");
+            }
+            if (donjaGranica == null && gornjaGranica == null)
+            {
+                TempData["PretragaPoCeniGreska"] = "Ostavili ste prazno polje za pretragu po ceni.";
+                return RedirectToAction("Index");
+            }
+            if (donjaGranica > gornjaGranica)
+            {
+                TempData["PretragaPoCeniGreska"] = "U levo polje upisite manju a u desno polje vecu cenu.";
+                return RedirectToAction("Index");
+            }
+
             List<Manifestacija> mZaPrikaz = new List<Manifestacija>();
             List<Manifestacija> manifestacije = (List<Manifestacija>)HttpContext.Application["manifestacije"];
             foreach (var item in manifestacije)
@@ -239,13 +347,31 @@ namespace PR141_2017_WebProjekat.Controllers
                 }
             }
 
+            if (!mZaPrikaz.Any())
+            {
+                TempData["PretragaPoCeniGreska"] = "Manifestacije u trazenom opsegu cena ne postoje.";
+                return RedirectToAction("Index");
+            }
+
             HttpContext.Application["manifestacije"] = mZaPrikaz;
             //Session["manifestacije"] = mZaPrikaz;        
             return RedirectToAction("Index", "Kupac");
         }
 
-        public ActionResult PretragaPoDatumu(DateTime donjaGranica, DateTime gornjaGranica)
+        public ActionResult PretragaPoDatumu(DateTime? donjaGranica, DateTime? gornjaGranica)
         {
+            if (donjaGranica == null || gornjaGranica == null)
+            {
+                TempData["PretragaPoDatumuGreska"] = "Ostavili ste prazno polje za pretragu po datumu.";
+                return RedirectToAction("Index");
+            }
+
+            if (DateTime.Compare((DateTime)donjaGranica, (DateTime)gornjaGranica) > 0)
+            {
+                TempData["PretragaPoDatumuGreska"] = "U levo polje upisite blizi a u desno polje dalji datum.";
+                return RedirectToAction("Index");
+            }
+
             List<Manifestacija> mZaPrikaz = new List<Manifestacija>();
             List<Manifestacija> manifestacije = (List<Manifestacija>)HttpContext.Application["manifestacije"];
             foreach (var item in manifestacije)
@@ -256,6 +382,12 @@ namespace PR141_2017_WebProjekat.Controllers
                 }
             }
 
+            if (!mZaPrikaz.Any())
+            {
+                TempData["PretragaPoDatumuGreska"] = "Manifestacije u trazenom opsegu datume ne postoje.";
+                return RedirectToAction("Index");
+            }
+
             HttpContext.Application["manifestacije"] = mZaPrikaz;
             //Session["manifestacije"] = mZaPrikaz;        
             return RedirectToAction("Index", "Kupac");
@@ -263,52 +395,89 @@ namespace PR141_2017_WebProjekat.Controllers
 
         public ActionResult PretragaPoNazivuManifestacije(string naziv)
         {
-            Dictionary<string,Karta> kZaPrikaz = new Dictionary<string, Karta>();
-            Dictionary<string, Karta> karte = (Dictionary<string, Karta>)HttpContext.Application["karte"];
-            foreach (var item in karte)
+
+            if (naziv == "")
             {
-                if (item.Value.Manifestacija.Naziv == naziv)
-                {
-                    kZaPrikaz.Add(item.Key,item.Value);
-                }
+                TempData["PretragaKarataPoNazivuGreska"] = "Ostavili ste prazno polje za pretragu po nazivu.";
+                return RedirectToAction("PrikaziProfilKupca");
             }
 
-            HttpContext.Application["karte"] = kZaPrikaz;
-            //Session["manifestacije"] = mZaPrikaz;        
+            Korisnik k = (Korisnik)Session["korisnik"];
+            Dictionary<string, Karta> kZaPrikaz = new Dictionary<string, Karta>();
+
+            string key = k.SveKarteBezObziraNaStatus.FirstOrDefault(x => x.Value.Manifestacija.Naziv == naziv).Key;
+
+            if (key == null)
+            {
+                TempData["PretragaKarataPoNazivuGreska"] = "Karta sa unesenim nazivom ne postoji.";
+                return RedirectToAction("PrikaziProfilKupca");
+            }
+
+            Karta karta = k.SveKarteBezObziraNaStatus[key];
+
+
+            kZaPrikaz.Add(key, karta);
+
+            k.SveKarteBezObziraNaStatus = kZaPrikaz;
+            Session["korisnik"] = k;
             return RedirectToAction("PrikaziProfilKupca", "Kupac");
         }
 
-        public ActionResult PretragaPoCeniKarte(double cena)
+        public ActionResult PretragaPoCeniKarte(double? cena)
         {
-            Dictionary<string, Karta> kZaPrikaz = new Dictionary<string, Karta>();
-            Dictionary<string, Karta> karte = (Dictionary<string, Karta>)HttpContext.Application["karte"];
-            foreach (var item in karte)
+            if (cena == null)
             {
-                if (item.Value.Cena == cena)
-                {
-                    kZaPrikaz.Add(item.Key, item.Value);
-                }
+                TempData["PretragaKarataPoCeniGreska"] = "Ostavili ste prazno polje za pretragu po ceni.";
+                return RedirectToAction("PrikaziProfilKupca");
             }
+            Korisnik k = (Korisnik)Session["korisnik"];
+            Dictionary<string, Karta> kZaPrikaz = new Dictionary<string, Karta>();
 
-            HttpContext.Application["karte"] = kZaPrikaz;
-            //Session["manifestacije"] = mZaPrikaz;        
+            string key = k.SveKarteBezObziraNaStatus.FirstOrDefault(x => x.Value.Cena == cena).Key;
+
+
+            if (key == null)
+            {
+                TempData["PretragaKarataPoCeniGreska"] = "Karta sa unesenom cenom ne postoji.";
+                return RedirectToAction("PrikaziProfilKupca");
+            }
+            Karta karta = k.SveKarteBezObziraNaStatus[key];
+
+
+            kZaPrikaz.Add(key, karta);
+
+            k.SveKarteBezObziraNaStatus = kZaPrikaz;
+            Session["korisnik"] = k;
             return RedirectToAction("PrikaziProfilKupca", "Kupac");
         }
 
-        public ActionResult PretragaKarataPoDatumu(DateTime donjaGranica, DateTime gornjaGranica)
+        public ActionResult PretragaKarataPoDatumu(DateTime? datumIVreme)
         {
+            Korisnik k = (Korisnik)Session["korisnik"];
             Dictionary<string, Karta> kZaPrikaz = new Dictionary<string, Karta>();
-            Dictionary<string, Karta> karte = (Dictionary<string, Karta>)HttpContext.Application["karte"];
-            foreach (var item in karte)
+
+            if (datumIVreme == null)
             {
-                if (item.Value.Manifestacija.DatumIVremeOdrzavanja >= donjaGranica && item.Value.Manifestacija.DatumIVremeOdrzavanja <= gornjaGranica)
-                {
-                    kZaPrikaz.Add(item.Key, item.Value);
-                }
+                TempData["PretragaKarataPoDatumuGreska"] = "Ostavili ste prazno polje za pretragu po datumu.";
+                return RedirectToAction("PrikaziProfilKupca");
             }
 
-            HttpContext.Application["karte"] = kZaPrikaz;
-            //Session["manifestacije"] = mZaPrikaz;        
+
+            string key = k.SveKarteBezObziraNaStatus.FirstOrDefault(x => x.Value.DatumIVremeManifestacijce == datumIVreme).Key;
+            if (key == null)
+            {
+                TempData["PretragaKarataPoDatumuGreska"] = "Karte za trazeni datum i vreme ne postoje.";
+                return RedirectToAction("PrikaziProfilKupca");
+            }
+
+            Karta karta = k.SveKarteBezObziraNaStatus[key];
+
+
+            kZaPrikaz.Add(key, karta);
+
+            
+            k.SveKarteBezObziraNaStatus = kZaPrikaz;
+            Session["korisnik"] = k;
             return RedirectToAction("PrikaziProfilKupca", "Kupac");
         }
     }
