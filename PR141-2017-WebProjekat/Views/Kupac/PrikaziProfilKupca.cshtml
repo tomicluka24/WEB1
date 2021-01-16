@@ -6,7 +6,7 @@
 @TempData["PretragaKarataPoDatumuGreska"]
 @TempData["PretragaKarataPoCeniGreska"]
 @TempData["PretragaKarataPoNazivuGreska"]
-
+@TempData["KomentarUspesnoOstavljen"]
 <h2>Korisnik</h2>
 
 <form action="~/Kupac/IzmeniPodatke">
@@ -109,7 +109,12 @@
                         Write("da");
                     }
                 </td>
-
+                <td>
+                    @if (DateTime.Compare((DateTime)karta.DatumIVremeManifestacijce, DateTime.Now) < 0)
+                    {
+                        <a href="~/Kupac/OstaviKomentar?Naziv=@karta.Manifestacija.Naziv">ostavi komentar</a>
+                    }
+                </td>
             </tr>
         }
     </tbody>

@@ -10,7 +10,7 @@ namespace PR141_2017_WebProjekat.Models
         public string ID { get; set; }
         public Manifestacija Manifestacija { get; set; }
         public DateTime? DatumIVremeManifestacijce { get; set; }
-        public double Cena { get; set; }
+        public double? Cena { get; set; }
         public string Kupac { get; set; }
         public bool IsRezervisana { get; set; }
         public TipKarte TipKarte { get; set; }

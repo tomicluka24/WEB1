@@ -1,0 +1,88 @@
+﻿@model List<PR141_2017_WebProjekat.Models.Komentar>
+@{
+    ViewBag.Title = "Komentari";
+}
+
+@TempData["IzbrisanKomentar"]
+@TempData["VecOdobren"]
+@TempData["KomentarOdobren"]
+
+<h2>Komentari</h2>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>
+                ID komentara
+            </th>
+            <th>
+                Kupac
+            </th>
+            <th>
+                Manifestacija
+            </th>
+            <th>
+                Komentar
+            </th>
+            <th>
+                Ocena
+            </th>
+            <th>
+                Odobren
+            </th>
+            <th>
+                Izbrisan
+            </th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var komentar in Model)
+        {
+            <tr>
+                <td>
+                    @komentar.IdKomentara.ToString()
+                </td>
+                <td>
+                    @komentar.Kupac
+                </td>
+                <td>
+                    <a href="~/Prodavac/PrikaziManifestaciju?Naziv=@komentar.Manifestacija">@komentar.Manifestacija</a>
+                </td>
+                <td>
+                    @komentar.Tekst
+                </td>
+                <td>
+                    @komentar.Ocena.ToString()
+                </td>
+                <td>
+                    @if (komentar.IsOdobren == true)
+                    {
+                        Write("da");
+                    }
+                    @if (komentar.IsOdobren == false)
+                    {
+                        Write("ne");
+                    }
+                </td>
+                <td>
+                    @if (komentar.IsIzbrisan == true)
+                    {
+                        Write("da");
+                    }
+                    @if (komentar.IsIzbrisan == false)
+                    {
+                        Write("ne");
+                    }
+                </td>
+                <td>
+                    @if (komentar.IsOdobren == false && komentar.IsIzbrisan == false)
+                    {
+                        <a href="~/Prodavac/OdobriKomentar?IdKomentara=@komentar.IdKomentara">odobri komentar</a>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+
+</table>

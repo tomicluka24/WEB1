@@ -9,9 +9,9 @@ namespace PR141_2017_WebProjekat.Models
     {
         public string Naziv { get; set; }
         public string TipManifestacije { get; set; }
-        public int BrojMesta { get; set; }
+        public int? BrojMesta { get; set; }
         public DateTime? DatumIVremeOdrzavanja { get; set; }
-        public double CenaRegularneKarte { get; set; }
+        public double? CenaRegularneKarte { get; set; }
         public MestoOdrzavanja MestoOdrzavanja { get; set; }
         public bool IsAktivna { get; set; }
         public bool IsIzbrisana { get; set; }

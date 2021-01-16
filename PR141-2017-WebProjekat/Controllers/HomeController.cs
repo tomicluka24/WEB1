@@ -14,17 +14,17 @@ namespace PR141_2017_WebProjekat.Controllers
         {
 
             List<Manifestacija> manifestacije = (List<Manifestacija>)HttpContext.Application["manifestacije"];
-            //List<Manifestacija> sortiraneManifestacije = manifestacije.OrderBy(o => o.DatumIVremeOdrzavanja).ToList();
             List<UploadedFile> files = (List<UploadedFile>)HttpContext.Application["files"];
-
+            manifestacije = manifestacije.OrderByDescending(x => x.DatumIVremeOdrzavanja).ToList();
             return View(manifestacije);
         }
 
         public ActionResult PrikaziManifestaciju(string Naziv)
         {
-            //m = (Manifestacija)Session["manifestacija"];
             Manifestacija mZaPrikaz = new Manifestacija();
             List<Manifestacija> manifestacije = (List<Manifestacija>)HttpContext.Application["manifestacije"];
+            Korisnik korisnik = (Korisnik)Session["Korisnik"];
+
             foreach (var item in manifestacije)
             {
                 if (item.Naziv == Naziv)
@@ -34,9 +34,39 @@ namespace PR141_2017_WebProjekat.Controllers
                 }
             }
 
-                return View(mZaPrikaz);
-        }
+            List<Komentar> komentari = (List<Komentar>)HttpContext.Application["komentari"];
+            List<Komentar> kZaPrikaz = new List<Komentar>();
 
+            if (korisnik.Uloga == "administrator")
+            {
+                foreach (var komentar in komentari)
+                {
+                    // i odobrene i neodobrene
+                    if (komentar.Manifestacija == Naziv)
+                    {
+                        kZaPrikaz.Add(komentar);
+                    }
+                }
+            }
+
+            if (korisnik.Uloga == "kupac")
+            {
+                foreach (var komentar in komentari)
+                {
+                    // samo odobrene
+                    if (komentar.Manifestacija == Naziv && komentar.IsOdobren == true)
+                    {
+                        kZaPrikaz.Add(komentar);
+                    }
+
+                }
+            }
+
+            Tuple<Manifestacija, List<Komentar>> tuple = new Tuple<Manifestacija, List<Komentar>>(mZaPrikaz, kZaPrikaz);
+
+            Session["manifestacija"] = mZaPrikaz;
+            return View(tuple);
+        }
         public ActionResult SortirajPoNazivu(string naziv)
         {
             List<Manifestacija> manifestacije = (List<Manifestacija>)HttpContext.Application["manifestacije"];

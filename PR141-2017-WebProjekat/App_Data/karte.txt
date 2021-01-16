@@ -1,12 +1,16 @@
-﻿1111;look mom i can fly;09/28/2020 20:40;2000;stefan nikolic;true;VIP;false
-2222;guca;10/01/2020 12:00;4500;stefan nikolic;true;REGULAR;false
-3333;exit;09/30/2020 15:00;8000;janko jankovic;true;FAN_PIT;false
+﻿1111;look mom i can fly;09/28/2022 20:40;8000;stefan nikolic;true;VIP;false
+11111;look mom i can fly;09/28/2020 20:40;2000;janko jankovic;true;REGULAR;false
+111111;look mom i can fly;09/28/2023 20:40;4000;milos sibalic;true;FAN_PIT;false
+2222;guca;10/01/2020 12:00;2500;stefan nikolic;true;REGULAR;false
+22222;guca;10/01/2020 12:00;5000;darko darkovic;true;FAN_PIT;false
+222222;guca;10/01/2022 12:00;10000;branko brankovic;true;VIP;false
+3333;exit;09/30/2023 15:00;8000;janko jankovic;true;FAN_PIT;false
 4444;kralj lavova;09/28/2020 20:00;300;janko jankovic;true;REGULAR;false
-5555;labudovo jezero;09/25/2020 19:30;500;branko brankovic;true;VIP;false
-6666;vuk sa vol strita;09/26/2020 21:00;400;branko brankovic;true;VIP;false
+5555;labudovo jezero;09/25/2021 19:30;500;branko brankovic;true;VIP;false
+6666;vuk sa vol strita;09/26/2021 21:00;400;branko brankovic;true;VIP;false
 7777;karmen;09/27/2020 22:00;1000;darko darkovic;true;REGULAR;false
-8888;kupusijada;10/04/2020 13:55;12000;darko darkovic;true;VIP;false
+8888;kupusijada;10/04/2022 13:55;12000;darko darkovic;true;VIP;false
 9999;nisvil;10/02/2020 13:00;3000;milos sibalic;true;REGULAR;false
-1919;laugh factory;09/29/2020 19:00;450;milos sibalic;true;VIP;false
-1212;winter fest;10/03/2020 13:30;2000;milos sibalic;true;FAN_PIT;false
+1919;laugh factory;09/29/2021 19:00;450;milos sibalic;true;VIP;false
+1212;winter fest;10/03/2022 13:30;2000;milos sibalic;true;FAN_PIT;false
 1313;kobasicijada;10/05/2020 15:00;1100;milos sibalic;true;REGULAR;false

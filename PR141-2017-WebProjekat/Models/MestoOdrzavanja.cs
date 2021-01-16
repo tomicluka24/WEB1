@@ -8,7 +8,7 @@ namespace PR141_2017_WebProjekat.Models
     public class MestoOdrzavanja
     {
         public string Mesto { get; set; }
-        public double PostanskiBroj { get; set; }
+        public double? PostanskiBroj { get; set; }
         public string Ulica { get; set; }
         public string Broj { get; set; }
         public bool IsIzbrisano { get; set; }

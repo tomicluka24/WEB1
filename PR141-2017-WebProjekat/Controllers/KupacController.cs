@@ -13,7 +13,7 @@ namespace PR141_2017_WebProjekat.Controllers
         public ActionResult Index()
         {
             List<Manifestacija> manifestacije = (List<Manifestacija>)HttpContext.Application["manifestacije"];
-          //  List<Manifestacija> sortiraneManifestacije = manifestacije.OrderBy(o => o.DatumIVremeOdrzavanja).ToList();
+            manifestacije = manifestacije.OrderByDescending(x => x.DatumIVremeOdrzavanja).ToList();
             return View(manifestacije);
         }
 
@@ -479,6 +479,48 @@ namespace PR141_2017_WebProjekat.Controllers
             k.SveKarteBezObziraNaStatus = kZaPrikaz;
             Session["korisnik"] = k;
             return RedirectToAction("PrikaziProfilKupca", "Kupac");
+        }
+
+        public ActionResult OstaviKomentar(string naziv)
+        {
+            Komentar komentar = new Komentar();
+            komentar.Manifestacija = naziv;
+            Random random = new Random();
+            komentar.IdKomentara = random.Next(0, 99999);
+            Session["Komentar"] = komentar;
+
+            return View("OstaviKomentar");
+        }
+
+        [HttpPost]
+        public ActionResult OstaviKomentar(Komentar k)
+        {
+
+            if (k?.Ocena == null)
+            {
+                TempData["KomentarGreska"] = "Ne mozete ostaviti polje Ocena prazno";
+                return RedirectToAction("OstaviKomentar");
+            }
+
+            if (k.Tekst == null)
+            {
+                TempData["KomentarGreska"] = "Ne mozete ostaviti polje Tekst prazno";
+                return RedirectToAction("OstaviKomentar");
+            }
+
+            Komentar komentar = (Komentar)Session["Komentar"];
+            Korisnik korisnik = (Korisnik)Session["Korisnik"];
+            komentar.IsIzbrisan = false;
+            komentar.IsOdobren = false;
+            komentar.Kupac = korisnik.KorisnickoIme;
+            komentar.Ocena = k.Ocena;
+            komentar.Tekst = k.Tekst;
+
+            //provera da ne postoji id fali
+            Podaci.UpisiKomentar(komentar);
+
+            TempData["KomentarUspesnoOstavljen"] = "Uspesno ste ostavili komentar, bice objavljen nakon sto ga administrator odobri";
+            return RedirectToAction("PrikaziProfilKupca");
         }
     }
 }

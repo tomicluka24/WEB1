@@ -142,6 +142,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Data\karte.txt" />
+    <Content Include="App_Data\komentari.txt" />
     <Content Include="App_Data\korisnici.txt" />
     <Content Include="App_Data\manifestacije.txt" />
     <Content Include="Content\bootstrap-theme.css" />
@@ -212,6 +213,8 @@
     <Content Include="Views\Prodavac\IzmeniPodatkeManifestacije.cshtml" />
     <Content Include="Views\Prodavac\PrikaziManifestaciju.cshtml" />
     <Content Include="Views\Autentifikacija\IzmeniPodatke.cshtml" />
+    <Content Include="Views\Kupac\OstaviKomentar.cshtml" />
+    <Content Include="Views\Prodavac\PrikaziKomentare.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

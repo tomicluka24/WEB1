@@ -1,0 +1,25 @@
+﻿@model PR141_2017_WebProjekat.Models.Komentar
+@{
+    ViewBag.Title = "OstaviKomentar";
+}
+@TempData["KomentarGreska"]
+
+<h2>Ostavi komentar</h2>
+
+<form action="~/Kupac/OstaviKomentar" method="post">
+    <table>
+        <tr>
+            <td>Tekst:</td>
+            <td><input type="text" name="tekst" /></td>
+        </tr>
+        <tr>
+            <td>Ocena:</td>
+            <td><input type="number" min="1" max="5" name="ocena" /></td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <input type="submit" value="Ostavi komentar" />
+            </td>
+        </tr>
+    </table>
+</form>

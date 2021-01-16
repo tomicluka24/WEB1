@@ -14,7 +14,7 @@ namespace PR141_2017_WebProjekat.Controllers
         public ActionResult Index()
         {
             List<Manifestacija> manifestacije = (List<Manifestacija>)HttpContext.Application["manifestacije"];
-           // List<Manifestacija> sortiraneManifestacije = manifestacije.OrderBy(o => o.DatumIVremeOdrzavanja).ToList();
+            manifestacije = manifestacije.OrderByDescending(x => x.DatumIVremeOdrzavanja).ToList();
             return View(manifestacije);
         }
 
@@ -479,7 +479,9 @@ namespace PR141_2017_WebProjekat.Controllers
         public ActionResult ObrisiManifestaciju(string naziv)
         {
             Manifestacija mZaBrisanje = new Manifestacija();
-            List<Manifestacija> manifestacije = Podaci.IscitajManifestacije("~/App_Data/manifestacije.txt");
+            //List<Manifestacija> manifestacije = Podaci.IscitajManifestacije("~/App_Data/manifestacije.txt");
+            //List<Manifestacija> manifestacije = (List<Manifestacija>)Session["manifestacije"];
+            List<Manifestacija> manifestacije = (List<Manifestacija>)HttpContext.Application["manifestacije"];
 
             foreach (var item in manifestacije)
             {
@@ -494,6 +496,39 @@ namespace PR141_2017_WebProjekat.Controllers
             Podaci.IzmeniManifestaciju(mZaBrisanje);
             HttpContext.Application["manifestacije"] = Podaci.IscitajManifestacije("~/App_Data/manifestacije.txt");
             TempData["UspesnoObrisanaManifestacija"] = "Uspesno ste obrisali manifestaciju";
+            return RedirectToAction("Index", "Administrator");
+        }
+
+        public ActionResult OdobriManifestaciju(string naziv)
+        {
+            Manifestacija mZaOdobravanje = new Manifestacija();
+            List<Manifestacija> manifestacije = (List<Manifestacija>)HttpContext.Application["manifestacije"];
+
+            foreach (var item in manifestacije)
+            {
+                if (item.Naziv == naziv && item.IsIzbrisana == true)
+                {
+                    TempData["IzbrisanaManifestacija"] = "Ne mozete odobriti izbrisanu manifestaciju";
+                    return RedirectToAction("Index", "Administrator");
+                }
+
+                if (item.Naziv == naziv && item.IsAktivna && !item.IsIzbrisana)
+                {
+                    TempData["VecOdobrena"] = "Manifestacija je vec odobrena";
+                    return RedirectToAction("Index", "Administrator");
+                }
+
+                if (item.Naziv == naziv && !item.IsAktivna && item.IsIzbrisana != true)
+                {
+                    mZaOdobravanje = item;
+                    mZaOdobravanje.IsAktivna = true;
+                    break;
+                }
+            }
+
+            Podaci.IzmeniManifestaciju(mZaOdobravanje);
+            HttpContext.Application["manifestacije"] = Podaci.IscitajManifestacije("~/App_Data/manifestacije.txt");
+            TempData["UspesnoOdobrena"] = "Uspesno ste odobrili manifestaciju";
             return RedirectToAction("Index", "Administrator");
         }
 
@@ -517,5 +552,7 @@ namespace PR141_2017_WebProjekat.Controllers
             TempData["UspesnoObrisanKorisnik"] = "Uspesno ste obrisali korisnika";
             return RedirectToAction("IzlistajSveKorisnike", "Administrator");
         }
+
+      
     }
 }

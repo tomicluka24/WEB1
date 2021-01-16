@@ -1,29 +1,60 @@
-﻿@model PR141_2017_WebProjekat.Models.Manifestacija
+﻿@model Tuple<PR141_2017_WebProjekat.Models.Manifestacija, List<PR141_2017_WebProjekat.Models.Komentar>>
 @{
     ViewBag.Title = "Manifestacija";
 }
 
-<h2>Manifestacija</h2>
+<h1>Manifestacija</h1>
 
 <ul>
-    <li>Naziv: @Model.Naziv</li>
-    <li>Tip manifestacije: @Model.TipManifestacije </li>
-    <li>Mesto odrzavanja: @Model.MestoOdrzavanja.Mesto @Model.MestoOdrzavanja.PostanskiBroj.ToString() @Model.MestoOdrzavanja.Ulica @Model.MestoOdrzavanja.Broj</li>
-    <li>Datum i vreme odrzavanja: @Model.DatumIVremeOdrzavanja.ToString() </li>
-    <li>Broj mesta: @Model.BrojMesta </li>
-    <li>Cena karte: @Model.CenaRegularneKarte </li>
+    <li>Naziv: @Model.Item1.Naziv</li>
+    <li>Tip manifestacije: @Model.Item1.TipManifestacije </li>
+    <li>Mesto odrzavanja: @Model.Item1.MestoOdrzavanja.Mesto @Model.Item1.MestoOdrzavanja.PostanskiBroj.ToString() @Model.Item1.MestoOdrzavanja.Ulica @Model.Item1.MestoOdrzavanja.Broj</li>
+    <li>Datum: @Model.Item1.DatumIVremeOdrzavanja </li>
+    <li>Broj mesta: @Model.Item1.BrojMesta </li>
+    <li>Cena karte: @Model.Item1.CenaRegularneKarte </li>
     <li>
-        Aktivna: @if (Model.IsAktivna == true)
+        Aktivna: @if (Model.Item1.IsAktivna == true)
         {
             Write("da");
         }
-        @if (Model.IsAktivna == false)
+        @if (Model.Item1.IsAktivna == false)
         {
             Write("ne");
         }
     </li>
     <li>
-        <img src="~/Files/@Model.Poster" style="width:100px; height:100px" />
+        <img src="~/Files/@Model.Item1.Poster" style="width:100px; height:100px" />
     </li>
 
 </ul>
+
+
+<h2>Komentari </h2>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>
+                Komentar
+            </th>
+            <th>
+                Ocena
+            </th>
+    </thead>
+
+    <tbody>
+        @foreach (var Komentar in Model.Item2)
+        {
+            if (Komentar.IsIzbrisan != true)
+            {
+                <tr>
+                    <td>
+                        @Komentar.Tekst
+                    </td>
+                    <td>
+                        @Komentar.Ocena.ToString()
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>

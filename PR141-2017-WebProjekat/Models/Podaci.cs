@@ -165,6 +165,25 @@ namespace PR141_2017_WebProjekat.Models
             return karte;
         }
 
+        public static List<Komentar> IscitajKomentare(string putanja)
+        {
+            List<Komentar> komentari = new List<Komentar>();
+            putanja = HostingEnvironment.MapPath(putanja);
+            FileStream stream = new FileStream(putanja, FileMode.Open);
+            StreamReader sr = new StreamReader(stream);
+            string red = "";
+            while ((red = sr.ReadLine()) != null)
+            {
+                string[] tokeni = red.Split(';');
+                Komentar k = new Komentar(double.Parse(tokeni[0]), tokeni[1], tokeni[2], tokeni[3], Int32.Parse(tokeni[4]), bool.Parse(tokeni[5]), bool.Parse(tokeni[6]));
+                komentari.Add(k);
+            }
+
+            sr.Close();
+            stream.Close();
+            return komentari;
+        }
+
         public static void UpisiKorisnika(Korisnik korisnik)
         {
             string path = HostingEnvironment.MapPath("~/App_Data/korisnici.txt");
@@ -236,6 +255,46 @@ namespace PR141_2017_WebProjekat.Models
 
             sw.Close();
             stream.Close();
+        }
+
+        public static void UpisiKomentar(Komentar komentar)
+        {
+            string path = HostingEnvironment.MapPath("~/App_Data/komentari.txt");
+            FileStream stream = new FileStream(path, FileMode.Append);
+            StreamWriter sw = new StreamWriter(stream);
+
+            string objectToWrite = komentar.IdKomentara.ToString() + ";" + komentar.Kupac + ";" + komentar.Manifestacija + ";" + komentar.Tekst + ";" + komentar.Ocena.ToString() + ";" + komentar.IsOdobren.ToString().ToLower() +
+                ";" + komentar.IsIzbrisan.ToString().ToLower();
+            sw.WriteLine(objectToWrite);
+
+            sw.Close();
+            stream.Close();
+        }
+
+        public static void IzmeniKomentar(Komentar komentar)
+        {
+            string path = HostingEnvironment.MapPath("~/App_Data/komentari.txt");
+            int count = 0;
+            int index = -1;
+
+            string[] komentari = File.ReadAllLines(path);
+
+            foreach (var item in komentari)
+            {
+                count++;
+                string[] tokeni = item.Split(';');
+                if (komentar.IdKomentara == double.Parse(tokeni[0]))
+                {
+                    index = count;
+                    break;
+                }
+            }
+
+            string izmenjenKomentar = komentar.IdKomentara.ToString() + ";" + komentar.Kupac + ";" + komentar.Manifestacija + ";" + komentar.Tekst + ";" + 
+            komentar.Ocena.ToString() + ";" + komentar.IsOdobren.ToString().ToLower() + ";" + komentar.IsIzbrisan.ToString().ToLower();
+
+            komentari[index - 1] = izmenjenKomentar;
+            File.WriteAllLines(path, komentari);
         }
 
         public static void IzmeniKorisnika(Korisnik korisnik)
@@ -386,7 +445,7 @@ namespace PR141_2017_WebProjekat.Models
             string izmenaManifestacije = manifestacija.Naziv + ";" + manifestacija.TipManifestacije + ";" + manifestacija.BrojMesta.ToString() + ";" + mesec + "/" + dan + "/" + godina + " " + sati + ":" + minuta  + ";"
                  + manifestacija.CenaRegularneKarte + ";" + manifestacija.MestoOdrzavanja.Mesto + ";" + manifestacija.MestoOdrzavanja.PostanskiBroj.ToString() + ";"
                  + manifestacija.MestoOdrzavanja.Ulica + ";" + manifestacija.MestoOdrzavanja.Broj + ";" + manifestacija.IsAktivna.ToString().ToLower() + ";" + manifestacija.IsIzbrisana.ToString().ToLower() + ";"
-                 + manifestacija.Naziv + ".jpg";
+                 + manifestacija.Poster;
 
             manifestacije[index - 1] = izmenaManifestacije;
             File.WriteAllLines(path, manifestacije);

@@ -1,0 +1,7 @@
+11231;stefan98;look mom i can fly;super;5;false;false
+45454;sibo98;winter fest;lose;2;false;false
+67676;sibo98;kobasicijada;okej;3;false;false
+89898;darkoni;karmen;vrlo dobro;4;false;false
+62105;stefan98;guca;neki tekst;1;true;false
+96005;stefan98;guca;aaaaaaaaaa;2;true;false
+12312;stefan98;guca;neodobren komentar;5;false;false

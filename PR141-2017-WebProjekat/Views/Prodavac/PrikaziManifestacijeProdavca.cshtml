@@ -4,6 +4,7 @@
 }
 
 @TempData["UspesnaIzmenaManifestacije"]
+@TempData["NemaKomentara"]
 
 <h2>Sve manifestacije prodavca</h2>
 <table class="table table-bordered">
@@ -32,7 +33,7 @@
             </th>
         </tr>
     </thead>
-    
+
     <tbody>
         @foreach (var manifestacija in Model.Manifestacije)
         {
@@ -66,6 +67,9 @@
                 </td>
                 <td>
                     <img src="~/Files/@manifestacija.Poster" style="width:100px; height:100px" />
+                </td>
+                <td>
+                    <a href="~/Prodavac/PrikaziKomentare?Naziv=@manifestacija.Naziv">komentari</a>
                 </td>
             </tr>
         }

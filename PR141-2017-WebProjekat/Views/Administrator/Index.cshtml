@@ -9,6 +9,11 @@
 @TempData["PretragaPoDatumuGreska"]
 @TempData["UspesnoObrisanaManifestacija"]
 @TempData["UspesnaPrijava"]
+@TempData["UspesnoOdobrena"]
+@TempData["VecOdobrena"]
+@TempData["NemaKomentara"]
+@TempData["IzbrisanaManifestacija"]
+
 <form action="~/Administrator/PrikaziProfilAdministratora">
     <input type="submit" value="Pogledaj svoje podatke">
 </form>
@@ -179,6 +184,12 @@
                     </td>
                     <td>
                         <a href="~/Administrator/ObrisiManifestaciju?Naziv=@manifestacija.Naziv">obrisi manifestaciju</a>
+                    </td>
+                    <td>
+                        @if (manifestacija.IsAktivna == false)
+                        {
+                            <a href="~/Administrator/OdobriManifestaciju?Naziv=@manifestacija.Naziv">odobri manifestaciju</a>
+                        }
                     </td>
                 </tr>
             }
