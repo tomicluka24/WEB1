@@ -5,7 +5,7 @@ vuk sa vol strita;film;120;09/26/2020 21:00;400;novi sad;21000;svetozara miletic
 labudovo jezero;balet;80;09/25/2020 19:30;500;beograd;11000;knez mihajilova;11;true;false;labudovo jezero.jpg
 karmen;opera;50;09/27/2022 22:00;1000;nis;70000;marsala tita;11c;true;false;karmen.jpg
 kupusijada;kultno zbivanje;1000000;10/04/2020 13:55;12000;mrcajevci;9900;oslobodilacka;1;true;false;kupusijada.jpg
-look mom i can fly;koncert;6000;09/28/2022 20:40;2000;beograd;70000;narodnog fronta;bb;true;true;look mom i can fly.jpg
+look mom i can fly;koncert;6000;09/28/2022 20:40;2000;beograd;70000;narodnog fronta;bb;true;false;look mom i can fly.jpg
 laugh factory;stand-up komedija;20;09/29/2020 19:00;450;novi sad;21000;bulevar oslobodjenja;12;true;false;laugh factory.jpg
 nisvil;xxxxxxxxxxxxx;1;01/01/2021 14:53;2000;Vrbas;21460;Svetozara Miletica;121;true;false;nisvil.jpg
 winter fest;festival;10000;10/03/2020 13:30;2000;subotica;20000;pozorisni trg;112;true;false;winter fest.jpg

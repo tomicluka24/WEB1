@@ -4,5 +4,5 @@
 89898;darkoni;karmen;vrlo dobro;4;false;false
 62105;stefan98;guca;neki tekst;1;false;false
 96005;stefan98;guca;aaaaaaaaaa;2;true;false
-12312;stefan98;guca;neodobren komentar;5;true;true
-9342;stefan98;guca;asdasd;2;false;true
+12312;stefan98;guca;neodobren komentar;5;true;false
+9342;stefan98;guca;asdasd;2;false;false

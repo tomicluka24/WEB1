@@ -527,6 +527,21 @@ namespace PR141_2017_WebProjekat.Controllers
             Podaci.IzmeniManifestaciju(mZaBrisanje);
             HttpContext.Application["manifestacije"] = Podaci.IscitajManifestacije("~/App_Data/manifestacije.txt");
             TempData["UspesnoObrisanaManifestacija"] = "Uspesno ste obrisali manifestaciju";
+
+            List<Komentar> komentari = (List<Komentar>)HttpContext.Application["komentari"];
+
+            // kaskadno
+            foreach (var komentar in komentari)
+            {
+                if(komentar.Manifestacija == naziv)
+                {
+                    komentar.IsIzbrisan = true;
+                    Podaci.IzmeniKomentar(komentar);
+                }
+            }
+            HttpContext.Application["komentari"] = Podaci.IscitajManifestacije("~/App_Data/manifestacije.txt");
+            // na isti nacin i karte
+
             return RedirectToAction("Index", "Administrator");
         }
 
@@ -581,6 +596,59 @@ namespace PR141_2017_WebProjekat.Controllers
             Podaci.IzmeniKorisnika(kZaBrisanje);
             HttpContext.Application["korisnici"] = Podaci.IscitajKorisnike("~/App_Data/korisnici.txt");
             TempData["UspesnoObrisanKorisnik"] = "Uspesno ste obrisali korisnika";
+
+            // kaskadno
+            List<Manifestacija> manifestacije = (List<Manifestacija>)HttpContext.Application["manifestacije"];
+            //List<Karta> karte = (List<Karta>)HttpContext.Application["karte"];
+            List<Komentar> komentari = (List<Komentar>)HttpContext.Application["komentari"];
+
+            if (kZaBrisanje.Uloga == "prodavac")
+            {
+                foreach (var item in kZaBrisanje.Manifestacije)
+                {
+                    foreach (var m in manifestacije)
+                    {
+                        if (item.Naziv == m.Naziv && m.IsIzbrisana == false)
+                        {
+                            m.IsIzbrisana = true;
+                            Podaci.IzmeniManifestaciju(m);
+                        }
+                    }
+                }
+            }
+
+            // isto za karte
+            //if(kZaBrisanje.Uloga == "kupac")
+            //{
+
+            //    foreach (var item in karte)
+            //    {
+            //        if(item.Kupac == kZaBrisanje.KorisnickoIme)
+            //        {
+            //            item.IsIzbrisana = true;
+            //            //izmeni kartu
+            //        }
+            //    }
+            //}
+
+            if (kZaBrisanje.Uloga == "kupac")
+            {
+
+                foreach (var item in komentari)
+                {
+                    if (item.Kupac == kZaBrisanje.KorisnickoIme)
+                    {
+                        item.IsIzbrisan = true;
+                        Podaci.IzmeniKomentar(item);
+                    }
+                }
+            }
+
+            HttpContext.Application["korisnici"] = Podaci.IscitajKorisnike("~/App_Data/korisnici.txt");
+            HttpContext.Application["manifestacije"] = Podaci.IscitajManifestacije("~/App_Data/manifestacije.txt");
+            HttpContext.Application["komentari"] = Podaci.IscitajKomentare("~/App_Data/komentari.txt");
+            TempData["UspesnoObrisanKorisnik"] = "Uspesno ste obrisali korisnika";
+
             return RedirectToAction("IzlistajSveKorisnike", "Administrator");
         }
 
