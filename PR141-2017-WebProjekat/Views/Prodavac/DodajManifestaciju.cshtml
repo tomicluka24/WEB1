@@ -17,10 +17,7 @@
                 <td>Naziv:</td>
                 <td><input type="text" name="naziv" /></td>
             </tr>
-            <tr>
-                <td>Tip:</td>
-                <td><input type="text" name="tipManifestacije" /></td>
-            </tr>
+
             <tr>
                 <td>Broj mesta:</td>
                 <td><input type="number" min="1" name="brojMesta" /></td>
@@ -31,12 +28,12 @@
             </tr>
             <tr>
                 <td>Cena regularne karte:</td>
-                <td><input type="number" min ="1" name="cenaRegularneKarte" /></td>
+                <td><input type="number" min="1" name="cenaRegularneKarte" /></td>
             </tr>
             <tr>
-            <td>Poster:</td>
-            <td><input type="file" name="slika" formenctype="multipart/form-data" /></td>
-        </tr>
+                <td>Poster:</td>
+                <td><input type="file" name="slika" formenctype="multipart/form-data" /></td>
+            </tr>
             @using (Html.BeginForm("DodajManifestaciju", "Prodavac", FormMethod.Post))
             {
                 @Html.LabelFor(model => model.MestoOdrzavanja.Mesto)
@@ -46,14 +43,30 @@
                 @Html.LabelFor(model => model.MestoOdrzavanja.Ulica)
                 @Html.TextBoxFor(model => model.MestoOdrzavanja.Ulica)
                 @Html.LabelFor(model => model.MestoOdrzavanja.Broj)
-                @Html.TextBoxFor(model => model.MestoOdrzavanja.Broj, new { @type = "number", @class = "span4", @min = "1" }); 
+                @Html.TextBoxFor(model => model.MestoOdrzavanja.Broj, new { @type = "number", @class = "span4", @min = "1" });
             }
-           
+
             <tr>
                 <td colspan="2">
                     <input type="submit" value="Kreiraj manifestaciju" />
                 </td>
             </tr>
+
+            <tr>
+                <td>Tip:</td>
+
+            </tr>
         </table>
     </form>
 
+    <select name="tipManifestacije" typeo="text">
+        <option value="film">film</option>
+        <option value="festival">festival</option>
+        <option value="crtani">crtani</option>
+        <option value="balet">balet</option>
+        <option value="film">film</option>
+        <option value="opera">opera</option>
+        <option value="kultno zbivanje">kultno zbivanje</option>
+        <option value="stand-up komedija">stand-up komedija</option>
+        <option value="koncert">koncert</option>
+    </select>

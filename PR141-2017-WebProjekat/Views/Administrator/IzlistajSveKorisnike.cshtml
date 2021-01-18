@@ -209,9 +209,7 @@
                         <td>
                             @korisnik.TipKorisnika.Popust
                         </td>
-                        <td>
-                            <a href="~/Administrator/ObrisiKorisnika?KorisnickoIme=@korisnik.KorisnickoIme">obrisi korisnika</a>
-                        </td>
+                        
                     </tr>
                 }
             }
@@ -277,7 +275,7 @@
                             @korisnik.Pol
                         </td>
                         <td>
-                            @korisnik.DatumRodjenja?.Date.ToShortDateString()
+                            @korisnik.DatumRodjenja.Value.Date.ToShortDateString()
                         </td>
                         <td>
                             @korisnik.Uloga
@@ -299,6 +297,8 @@
         }
     </tbody>
 </table>
+
+@Html.ActionLink("Ulaznice.rs", "Index", "Administrator", new { area = "" }, new { @class = "navbar-brand" })
 
 
 

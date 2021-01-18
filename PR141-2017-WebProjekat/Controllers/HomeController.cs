@@ -14,9 +14,18 @@ namespace PR141_2017_WebProjekat.Controllers
         {
 
             List<Manifestacija> manifestacije = (List<Manifestacija>)HttpContext.Application["manifestacije"];
+            List<Manifestacija> mZaPrikaz = new List<Manifestacija>();
+
+            foreach (var item in manifestacije)
+            {
+                if (item.IsAktivna == true && item.IsIzbrisana == false)
+                    mZaPrikaz.Add(item);
+            }
+
+
             List<UploadedFile> files = (List<UploadedFile>)HttpContext.Application["files"];
-            manifestacije = manifestacije.OrderByDescending(x => x.DatumIVremeOdrzavanja).ToList();
-            return View(manifestacije);
+            //manifestacije = manifestacije.OrderByDescending(x => x.DatumIVremeOdrzavanja).ToList();
+            return View(mZaPrikaz);
         }
 
         public ActionResult PrikaziManifestaciju(string Naziv)
@@ -37,19 +46,7 @@ namespace PR141_2017_WebProjekat.Controllers
             List<Komentar> komentari = (List<Komentar>)HttpContext.Application["komentari"];
             List<Komentar> kZaPrikaz = new List<Komentar>();
 
-            if (korisnik.Uloga == "administrator")
-            {
-                foreach (var komentar in komentari)
-                {
-                    // i odobrene i neodobrene
-                    if (komentar.Manifestacija == Naziv)
-                    {
-                        kZaPrikaz.Add(komentar);
-                    }
-                }
-            }
-
-            if (korisnik.Uloga == "kupac")
+            if (korisnik == null)
             {
                 foreach (var komentar in komentari)
                 {
@@ -61,12 +58,41 @@ namespace PR141_2017_WebProjekat.Controllers
 
                 }
             }
+            else
+            {
+                if (korisnik.Uloga == "administrator")
+                {
+                    foreach (var komentar in komentari)
+                    {
+                        // i odobrene i neodobrene
+                        if (komentar.Manifestacija == Naziv)
+                        {
+                            kZaPrikaz.Add(komentar);
+                        }
+                    }
+                }
+
+                if (korisnik.Uloga == "kupac")
+                {
+                    foreach (var komentar in komentari)
+                    {
+                        // samo odobrene
+                        if (komentar.Manifestacija == Naziv && komentar.IsOdobren == true)
+                        {
+                            kZaPrikaz.Add(komentar);
+                        }
+
+                    }
+                }
+            }
+
 
             Tuple<Manifestacija, List<Komentar>> tuple = new Tuple<Manifestacija, List<Komentar>>(mZaPrikaz, kZaPrikaz);
 
             Session["manifestacija"] = mZaPrikaz;
             return View(tuple);
         }
+
         public ActionResult SortirajPoNazivu(string naziv)
         {
             List<Manifestacija> manifestacije = (List<Manifestacija>)HttpContext.Application["manifestacije"];
@@ -232,7 +258,19 @@ namespace PR141_2017_WebProjekat.Controllers
 
         public ActionResult PretragaPoCeni(double? donjaGranica, double? gornjaGranica)
         {
-            if(donjaGranica < 0 || gornjaGranica < 0)
+            if (donjaGranica == null)
+            {
+                TempData["PretragaPoCeniGreska"] = "Ostavili ste prazno polje Od prilikom pretrage po ceni.";
+                return RedirectToAction("Index");
+            }
+
+            if (gornjaGranica == null)
+            {
+                TempData["PretragaPoCeniGreska"] = "Ostavili ste prazno polje Do prilikom pretrage po ceni.";
+                return RedirectToAction("Index");
+            }
+
+            if (donjaGranica < 0 || gornjaGranica < 0)
             {
                 TempData["PretragaPoCeniGreska"] = "Ne mozete uneti negativan broj za cenu.";
                 return RedirectToAction("Index");
@@ -272,9 +310,21 @@ namespace PR141_2017_WebProjekat.Controllers
 
         public ActionResult PretragaPoDatumu(DateTime? donjaGranica, DateTime? gornjaGranica)
         {
+            if (donjaGranica == null)
+            {
+                TempData["PretragaPoDatumuGreska"] = "Ostavili ste prazno polje Od prilikom pretrage po datumu.";
+                return RedirectToAction("Index");
+            }
+
+            if (gornjaGranica == null)
+            {
+                TempData["PretragaPoDatumuGreska"] = "Ostavili ste prazno polje Do prilikom pretrage po datumu.";
+                return RedirectToAction("Index");
+            }
+
             if (donjaGranica == null || gornjaGranica == null)
             {
-                TempData["PretragaPoDatumuGreska"] = "Ostavili ste prazno polje za pretragu po datumu.";
+                TempData["PretragaPoDatumuGreska"] = "Ostavili ste prazno polje Do prilikom pretrage po datumu.";
                 return RedirectToAction("Index");
             }
            

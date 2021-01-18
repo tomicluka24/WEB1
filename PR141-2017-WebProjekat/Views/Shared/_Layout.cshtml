@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -16,12 +17,50 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Ulaznice.rs", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-                @*@Html.ActionLink("Ulaznice.rs", "Index", "Administrator", new { area = "" }, new { @class = "navbar-brand" })
-                @Html.ActionLink("Ulaznice.rs", "Index", "Kupac", new { area = "" }, new { @class = "navbar-brand" })
-                @Html.ActionLink("Ulaznice.rs", "Index", "Prodavac", new { area = "" }, new { @class = "navbar-brand" })*@
+
+                @*
+
+            @if (Model.Uloga == "administrator")
+        {
+            @Html.ActionLink("Ulaznice.rs", "Index", "Administrator", new { area = "" }, new { @class = "navbar-brand" })
+        }
+        else if (Model.Uloga == "kupac")
+        {
+            @Html.ActionLink("Ulaznice.rs", "Index", "Kupac", new { area = "" }, new { @class = "navbar-brand" })
+        }
+        else if (Model.Uloga == "prodavac")
+        {
+            @Html.ActionLink("Ulaznice.rs", "Index", "Prodavac", new { area = "" }, new { @class = "navbar-brand" })
+        }
+        else
+        {
+        }*@
+
+                @{
+                    PR141_2017_WebProjekat.Models.Korisnik korisnik = (PR141_2017_WebProjekat.Models.Korisnik)Session["Korisnik"];
+
+                    if (korisnik == null)
+                    {
+                        @Html.ActionLink("Ulaznice.rs", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                    }
+                    else
+                    {
+                        if (korisnik.Uloga == "administrator")
+                        {
+                            @Html.ActionLink("Ulaznice.rs", "Index", "Administrator", new { area = "" }, new { @class = "navbar-brand" })
+                        }
+                        if (korisnik.Uloga == "kupac")
+                        {
+                            @Html.ActionLink("Ulaznice.rs", "Index", "Kupac", new { area = "" }, new { @class = "navbar-brand" })
+                        }
+                        if (korisnik.Uloga == "prodavac")
+                        {
+                            @Html.ActionLink("Ulaznice.rs", "Index", "Prodavac", new { area = "" }, new { @class = "navbar-brand" })
+                        }
+                    }
+                }
             </div>
-            
+
         </div>
     </div>
     <div class="container body-content">

@@ -1,4 +1,4 @@
-luka98;tomic33;luka;tomic;muski;01/09/2021;administrator;false
+luka98;tomic33;Luka;Tomic;zenski;04/15/1998;administrator;false
 marko98;corovic8;marko;corovic;muski;01/07/1998;administrator;false
 vojo98;vukicevic24;vojislav;vukicevic;muski;10/07/1998;administrator;false
 acke;acobanmunja;aco;vukicevic;muski;11/01/1965;administrator;false

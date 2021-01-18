@@ -238,8 +238,11 @@ namespace PR141_2017_WebProjekat.Models
         public static void UpisiManifestaciju(Manifestacija manifestacija)
         {
             string path = HostingEnvironment.MapPath("~/App_Data/manifestacije.txt");
+
+
             FileStream stream = new FileStream(path, FileMode.Append);
             StreamWriter sw = new StreamWriter(stream);
+
 
             string mesec = manifestacija.DatumIVremeOdrzavanja?.Month.ToString();
             string dan = manifestacija.DatumIVremeOdrzavanja?.Day.ToString();
@@ -325,7 +328,17 @@ namespace PR141_2017_WebProjekat.Models
 
                     if (brojElemenata == 9)
                     {
-                        manifestacijeProdavca = tokeni[8];
+                        int brManifestacija = korisnik.Manifestacije.Count;
+                        int brUcitanihManifestacija = tokeni[8].Split(',').Length;
+                        if(brUcitanihManifestacija < brManifestacija)
+                        {
+                            string dodanaManifestacija = korisnik.Manifestacije[brManifestacija - 1].Naziv;
+                            manifestacijeProdavca = tokeni[8] + "," + dodanaManifestacija;
+                        }
+                        else
+                        {
+                            manifestacijeProdavca = tokeni[8];
+                        }
                         break;    
                     }
                     if (brojElemenata == 11)
@@ -337,6 +350,7 @@ namespace PR141_2017_WebProjekat.Models
                     }
                 }
             }
+
 
             #region datum i vreme
             string mesec = korisnik.DatumRodjenja?.Month.ToString();

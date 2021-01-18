@@ -15,8 +15,15 @@ namespace PR141_2017_WebProjekat.Controllers
         {
             List<Manifestacija> manifestacije = (List<Manifestacija>)HttpContext.Application["manifestacije"];
             //manifestacije = (List<Manifestacija>)Session["manifestacije"];
-            manifestacije = manifestacije.OrderByDescending(x => x.DatumIVremeOdrzavanja).ToList();
-            return View(manifestacije);
+            //  manifestacije = manifestacije.OrderByDescending(x => x.DatumIVremeOdrzavanja).ToList();
+            List<Manifestacija> mZaPrikaz = new List<Manifestacija>();
+            foreach (var item in manifestacije)
+            {
+                if (item.IsAktivna == true && item.IsIzbrisana == false)
+                    mZaPrikaz.Add(item);
+            }
+
+            return View(mZaPrikaz);
         }
 
         public ActionResult PrikaziProfilProdavca(Korisnik k)
@@ -329,6 +336,11 @@ namespace PR141_2017_WebProjekat.Controllers
             Podaci.UpisiManifestaciju(manifestacija);
             Session["manifestacije"] = manifestacije;
 
+            Korisnik korisnik = (Korisnik)Session["Korisnik"];
+            korisnik.Manifestacije.Add(manifestacija);
+            Podaci.IzmeniKorisnika(korisnik);
+
+            TempData["UspesnoDodanaManifestacija"] = "Uspesno ste dodali manifestaciju, ceka na odobravanje od strane administratora.";
             return RedirectToAction("Index", "Prodavac");
         }
 
@@ -547,6 +559,18 @@ namespace PR141_2017_WebProjekat.Controllers
 
         public ActionResult PretragaPoCeni(double? donjaGranica, double? gornjaGranica)
         {
+            if (donjaGranica == null)
+            {
+                TempData["PretragaPoCeniGreska"] = "Ostavili ste prazno polje Od prilikom pretrage po ceni.";
+                return RedirectToAction("Index");
+            }
+
+            if (gornjaGranica == null)
+            {
+                TempData["PretragaPoCeniGreska"] = "Ostavili ste prazno polje Do prilikom pretrage po ceni.";
+                return RedirectToAction("Index");
+            }
+
             if (donjaGranica < 0 || gornjaGranica < 0)
             {
                 TempData["PretragaPoCeniGreska"] = "Ne mozete uneti negativan broj za cenu.";
@@ -586,6 +610,18 @@ namespace PR141_2017_WebProjekat.Controllers
 
         public ActionResult PretragaPoDatumu(DateTime? donjaGranica, DateTime? gornjaGranica)
         {
+            if (donjaGranica == null)
+            {
+                TempData["PretragaPoDatumuGreska"] = "Ostavili ste prazno polje Od prilikom pretrage po datumu.";
+                return RedirectToAction("Index");
+            }
+
+            if (gornjaGranica == null)
+            {
+                TempData["PretragaPoDatumuGreska"] = "Ostavili ste prazno polje Do prilikom pretrage po datumu.";
+                return RedirectToAction("Index");
+            }
+
             if (donjaGranica == null || gornjaGranica == null)
             {
                 TempData["PretragaPoDatumuGreska"] = "Ostavili ste prazno polje za pretragu po datumu.";

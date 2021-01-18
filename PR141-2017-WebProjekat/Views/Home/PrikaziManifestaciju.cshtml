@@ -27,34 +27,42 @@
     </li>
 
 </ul>
+@{
+    PR141_2017_WebProjekat.Models.Korisnik korisnik = (PR141_2017_WebProjekat.Models.Korisnik)Session["Korisnik"];
 
+    <h2>Komentari </h2>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>
+                    Komentar
+                </th>
+                <th>
+                    Ocena
+                </th>
+        </thead>
 
-<h2>Komentari </h2>
-<table class="table table-bordered">
-    <thead>
-        <tr>
-            <th>
-                Komentar
-            </th>
-            <th>
-                Ocena
-            </th>
-    </thead>
-
-    <tbody>
-        @foreach (var Komentar in Model.Item2)
-        {
-            if (Komentar.IsIzbrisan != true)
+        <tbody>
+            @foreach (var Komentar in Model.Item2)
             {
-                <tr>
-                    <td>
-                        @Komentar.Tekst
-                    </td>
-                    <td>
-                        @Komentar.Ocena.ToString()
-                    </td>
-                </tr>
+                if (Komentar.IsIzbrisan != true)
+                {
+                    <tr>
+                        <td>
+                            @Komentar.Tekst
+                        </td>
+                        <td>
+                            @Komentar.Ocena.ToString()
+                        </td>
+                        <td>
+                            @if (korisnik != null && korisnik.Uloga == "administrator")
+                            {
+                                <a href="~/Administrator/ObrisiKomentar?idKomentara=@Komentar.IdKomentara">obrisi komentar</a>
+                            }
+                        </td>
+                    </tr>
+                }
             }
-        }
-    </tbody>
-</table>
+        </tbody>
+    </table>
+}

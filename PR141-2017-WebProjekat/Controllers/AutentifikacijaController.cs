@@ -23,7 +23,20 @@ namespace PR141_2017_WebProjekat.Controllers
             List<Korisnik> korisnici = (List<Korisnik>)HttpContext.Application["korisnici"];
             Korisnik korisnik = korisnici.Find(u => u.KorisnickoIme.Equals(korisnickoIme) && u.Lozinka.Equals(lozinka));
 
-            if(korisnik == null || korisnik.IsIzbrisan)
+            if(korisnickoIme == "")
+            {
+                TempData["PrijavljivanjeGreska"] = "Ne mozete ostaviti polje Korisnicko ime prazno";
+                return RedirectToAction("Prijavljivanje");
+            }
+
+            if (lozinka == "")
+            {
+                TempData["PrijavljivanjeGreska"] = "Ne mozete ostaviti polje Lozinka prazno";
+                return RedirectToAction("Prijavljivanje");
+            }
+
+
+            if (korisnik == null || korisnik.IsIzbrisan)
             {
                 TempData["PrijavljivanjeGreska"] = "Ne postoji korisnik sa unetim korisnickim imenom i lozinkom";
                 return RedirectToAction("Prijavljivanje");
@@ -202,7 +215,7 @@ namespace PR141_2017_WebProjekat.Controllers
 
         if (korisnik.Pol == null)
         {
-            TempData["RegistracijaGreska"] = "Polje Pol ne sme ostati prazno.";
+            TempData["IzmenaGreska"] = "Polje Pol ne sme ostati prazno.";
             if (korisnik.Uloga == "administrator")
             {
                 return RedirectToAction("IzmeniPodatke", "Administrator");
@@ -237,7 +250,7 @@ namespace PR141_2017_WebProjekat.Controllers
             #region ostalo
         if (!Regex.IsMatch(korisnik.Ime, @"^[a-zA-Z]+$"))
         {
-            TempData["RegistracijaGreska"] = "Za ime mozete uneti samo slova.";
+            TempData["IzmenaGreska"] = "Za ime mozete uneti samo slova.";
             if (korisnik.Uloga == "administrator")
             {
                 return RedirectToAction("IzmeniPodatke", "Administrator");
@@ -254,7 +267,7 @@ namespace PR141_2017_WebProjekat.Controllers
 
         if (!Regex.IsMatch(korisnik.Prezime, @"^[a-zA-Z]+$"))
         {
-            TempData["RegistracijaGreska"] = "Za prezime mozete uneti samo slova.";
+            TempData["IzmenaGreska"] = "Za prezime mozete uneti samo slova.";
             if (korisnik.Uloga == "administrator")
             {
                 return RedirectToAction("IzmeniPodatke", "Administrator");
@@ -271,7 +284,7 @@ namespace PR141_2017_WebProjekat.Controllers
 
         if (korisnik.Lozinka.Length < 5)
         {
-            TempData["RegistracijaGreska"] = "Lozinka prekratka, minimum je 5 karaktera.";
+            TempData["IzmenaGreska"] = "Lozinka prekratka, minimum je 5 karaktera.";
             if (korisnik.Uloga == "administrator")
             {
                 return RedirectToAction("IzmeniPodatke", "Administrator");
@@ -288,7 +301,7 @@ namespace PR141_2017_WebProjekat.Controllers
 
         if (korisnik.Pol != "muski" && korisnik.Pol != "zenski")
         {
-            TempData["RegistracijaGreska"] = "U polje pol unesite ili \"muski\" ili \"zenski\".";
+            TempData["IzmenaGreska"] = "U polje pol unesite ili \"muski\" ili \"zenski\".";
             if (korisnik.Uloga == "administrator")
             {
                 return RedirectToAction("IzmeniPodatke", "Administrator");

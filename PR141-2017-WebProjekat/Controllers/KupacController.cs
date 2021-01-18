@@ -13,8 +13,16 @@ namespace PR141_2017_WebProjekat.Controllers
         public ActionResult Index()
         {
             List<Manifestacija> manifestacije = (List<Manifestacija>)HttpContext.Application["manifestacije"];
-            manifestacije = manifestacije.OrderByDescending(x => x.DatumIVremeOdrzavanja).ToList();
-            return View(manifestacije);
+            // manifestacije = manifestacije.OrderByDescending(x => x.DatumIVremeOdrzavanja).ToList();
+
+            List<Manifestacija> mZaPrikaz = new List<Manifestacija>();
+            foreach (var item in manifestacije)
+            {
+                if (item.IsAktivna == true && item.IsIzbrisana == false)
+                    mZaPrikaz.Add(item);
+            }
+
+            return View(mZaPrikaz);
         }
 
         public ActionResult PrikaziProfilKupca(Korisnik k)
@@ -321,6 +329,18 @@ namespace PR141_2017_WebProjekat.Controllers
 
         public ActionResult PretragaPoCeni(double? donjaGranica, double? gornjaGranica)
         {
+            if (donjaGranica == null)
+            {
+                TempData["PretragaPoCeniGreska"] = "Ostavili ste prazno polje Od prilikom pretrage po ceni.";
+                return RedirectToAction("Index");
+            }
+
+            if (gornjaGranica == null)
+            {
+                TempData["PretragaPoCeniGreska"] = "Ostavili ste prazno polje Do prilikom pretrage po ceni.";
+                return RedirectToAction("Index");
+            }
+
             if (donjaGranica < 0 || gornjaGranica < 0)
             {
                 TempData["PretragaPoCeniGreska"] = "Ne mozete uneti negativan broj za cenu.";
@@ -360,6 +380,18 @@ namespace PR141_2017_WebProjekat.Controllers
 
         public ActionResult PretragaPoDatumu(DateTime? donjaGranica, DateTime? gornjaGranica)
         {
+            if (donjaGranica == null)
+            {
+                TempData["PretragaPoDatumuGreska"] = "Ostavili ste prazno polje Od prilikom pretrage po datumu.";
+                return RedirectToAction("Index");
+            }
+
+            if (gornjaGranica == null)
+            {
+                TempData["PretragaPoDatumuGreska"] = "Ostavili ste prazno polje Do prilikom pretrage po datumu.";
+                return RedirectToAction("Index");
+            }
+
             if (donjaGranica == null || gornjaGranica == null)
             {
                 TempData["PretragaPoDatumuGreska"] = "Ostavili ste prazno polje za pretragu po datumu.";
@@ -519,7 +551,7 @@ namespace PR141_2017_WebProjekat.Controllers
             //provera da ne postoji id fali
             Podaci.UpisiKomentar(komentar);
 
-            TempData["KomentarUspesnoOstavljen"] = "Uspesno ste ostavili komentar, bice objavljen nakon sto ga administrator odobri";
+            TempData["KomentarUspesnoOstavljen"] = "Uspesno ste ostavili komentar, bice objavljen nakon sto ga prodavac odobri";
             return RedirectToAction("PrikaziProfilKupca");
         }
     }

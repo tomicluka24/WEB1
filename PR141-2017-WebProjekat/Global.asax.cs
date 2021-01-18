@@ -25,8 +25,8 @@ namespace PR141_2017_WebProjekat
 
             //kolekcija manifestacija
             List<Manifestacija> manifestacije = Podaci.IscitajManifestacije("~/App_Data/manifestacije.txt");
-            HttpContext.Current.Application["manifestacije"] = manifestacije.OrderBy(o => o.DatumIVremeOdrzavanja).ToList();
-
+            //HttpContext.Current.Application["manifestacije"] = manifestacije.OrderBy(o => o.DatumIVremeOdrzavanja).ToList();
+            HttpContext.Current.Application["manifestacije"] = manifestacije.OrderByDescending(x => x.DatumIVremeOdrzavanja).ToList();
             //kolekcija karata
             Dictionary<string,Karta> karte = Podaci.IscitajKarte("~/App_Data/karte.txt");
             HttpContext.Current.Application["karte"] = karte;
