@@ -315,18 +315,24 @@ namespace PR141_2017_WebProjekat.Controllers
                 return RedirectToAction("IzmeniPodatke", "Prodavac");
             }
         }
-        #endregion
-           
-            Session["korisnik"] = korisnik;
+            #endregion
 
-            Podaci.IzmeniKorisnika(korisnik);
+            // Session["korisnik"] = korisnik;
+
+            Korisnik kZaIzmenu = (Korisnik)Session["Korisnik"];
+            kZaIzmenu.DatumRodjenja = korisnik.DatumRodjenja;
+            kZaIzmenu.Ime = korisnik.Ime;
+            kZaIzmenu.Prezime = korisnik.Prezime;
+            kZaIzmenu.Pol = korisnik.Pol;
+            kZaIzmenu.Lozinka = korisnik.Lozinka;
+            Podaci.IzmeniKorisnika(kZaIzmenu);
 
             TempData["IzmenaPodataka"] = "Podaci uspesno izmenjeni";
-            if (korisnik.Uloga == "administrator")
+            if (kZaIzmenu.Uloga == "administrator")
             {
                 return RedirectToAction("PrikaziProfilAdministratora", "Administrator");
             }
-            else if (korisnik.Uloga == "kupac")
+            else if (kZaIzmenu.Uloga == "kupac")
             {
                 return RedirectToAction("PrikaziProfilKupca", "Kupac");
             }
